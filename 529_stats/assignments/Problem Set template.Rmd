@@ -1,0 +1,52 @@
+---
+title: "Problem Set 1"
+output:
+  pdf_document: default
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+load("ps1/anes2020subset.RData")
+```
+
+**Problem Set 1  
+Francisco Brady
+`r Sys.Date()`**
+
+# Question 1
+
+The `anes2020` dataset has 8280 records. 
+
+```{r, eval=TRUE}
+nrow(anes2020)
+
+```
+
+## Question 2
+
+Below is the output of `summary(anes2020$SciImptCovid)`. 
+
+```{r, eval=TRUE, echo=TRUE}
+summary(anes2020$SciImptCovid)
+```
+  
+Below is the output of `table(anes2020$SciImptCovid)`
+
+```{r}
+table(anes2020$SciImptCovid)
+```
+
+
+## Question 1b
+
+
+# Question 2
+
+## Part a
+
+
+## Part b
+
