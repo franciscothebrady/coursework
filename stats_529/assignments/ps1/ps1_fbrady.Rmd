@@ -44,7 +44,7 @@ The difference between the two outputs is that the `summary()` command identifie
   
 #### (b)  
   
-It's important to take account of the missing values. We should be concerned about missing values because if there are a lot of missing values, we may introduce __nonresponse bias__ into our understanding of the variable. It might not be possible to say anything meaningful about the data if there are a sufficient number of missing values.  
+It's important to take account of the missing values. We should be concerned about missing values because if there are a lot of missing values, we may introduce __nonresponse bias__ into our understanding of the variable. It might not be possible to say anything meaningful about the data if there are a sufficient number of missing values.  In the prompt it was mentioned that the `ScienceExperts` question was only asked in the post-election survey. The addition of that question, along with the `SciImpCovid` question may have impacted responses. 
   
   
 #### (c) 
@@ -77,14 +77,14 @@ e)    Empathy -- Categorical, Ordinal, Discrete
 a)    EconWorse -- Mode, Median  
 b)    DiscussPol -- Mean, Median, Mode  
 c)    HomeOwnership -- Mode  
-d)    VotedBiden -- Mean, Median, Mode  
+d)    VotedBiden -- Mode  
 e)    Empathy -- Median, Mode  
 
 ### Question 5  
 ```{r}
 summary(anes2020$SCOTUStherm)
 table(anes2020$SCOTUStherm)
-
+#max(table(anes2020$SCOTUStherm))
 
 ```
   
@@ -105,7 +105,7 @@ hist(anes2020$SCOTUStherm)
 
 ### Question 6  
   
-a)    A frequency table for `SpendHighways`   
+a)    A frequency table for `SpendHighways`. The measurement level is categorical, ordinal, discrete.    
 
 ````{r} 
 table(anes2020$SpendHighways)
@@ -119,7 +119,7 @@ barplot(table(anes2020$SpendHighways),
         main = 'The Level of Government\nSpending on Highways has:')
 ```
   
-c)    Treating the categorical variable as numeric, removes the labels from the variable. The counts correspond to the categories (Decreased a lot = 1, Decreased a little = 2, Kept the same = 3, Increased a little = 4, Increased a lot = 5). The ordering of the number does have meaning in that the response choices imply an increase in government spending. It's not possible to say whether each step on the scale is the same amount of change. 
+c)    Treating the categorical variable as numeric, removes the labels from the variable. The counts correspond to the categories (Decreased a lot = 1, Decreased a little = 2, Kept the same = 3, Increased a little = 4, Increased a lot = 5). The ordering of the number does have meaning in that the response choices imply an increase in government spending. It's not possible to say whether each step on the scale is the same amount of change, so it would be difficult to interpret as an interval level variable.  
 
 ```{r}
 table(as.numeric(anes2020$SpendHighways))
@@ -131,18 +131,18 @@ d)    Reporting the `SpendHighways` as a numeric variable:
 summary(as.numeric(anes2020$SpendHighways))
 ```
 
-The calculation here is using the response position as a value. Calculating the mean or standard deviation for the value in this way would not be meaningful.  
+The calculation here is using the response as it is stored by R to calculate the summary statistics. Calculating the mean or standard deviation for these numbers would not be meaningful.  
 
 ### Question 7  
 
 a)    For the first method, the democracy variable would be categorical, nominal, and discrete. For the second method, the democracy variable would be categorical, ordinal, and discrete.  
 b)    It depends heavily on the context which measurement strategy is more reliable. Reliability is about how consistent the measure is. Since the first method relies on events that happen (elections), it could be more reliable. The second method may be less reliable because the values are contingent on a set of experts (humans) whose value assignment might be affected by many other circumstances or contexts.  
-c)    Again this depends on the context and the aims of the measurement. Validity of a measurement is dependent on how well it represents the concept it is measuring. A rating from experts on civil liberties and political rights could be a good indicator of how democratic a country is.  
+c)    Again this depends on the context and the aims of the measurement. Validity of a measurement is dependent on how well it represents the concept it is measuring. A rating from experts on civil liberties and political rights could be a good indicator of how democratic a country is. A binary measurement of whether a country is a democracy or not based solely on elections may not be as valid of a representation. 
   
   
 ### Question 8  
 
-a)    For the first method, the measurement levels would be categorical ("favorable", "neutral", "unfavorable"), ordinal, and discrete. For the second method the measurement levels would be quantitative (count of "negative" key words) and discrete.  
+a)    For the first method, the measurement levels would be categorical ("favorable", "neutral", "unfavorable"), ordinal, and discrete. For the second method the measurement levels would be quantitative (count of "negative" key words), interval, and discrete.   
 b)    Reliability might be a concern when using the first method, but could be addressed by having the graduate students overlap the news articles they read and assign codes to, since re-testing and getting the same grade would increase confidence in the reliability of the students' assessments. In the second method, since the measure is simply a count of key words, it seems like it would be more reliable.  
 c)    In terms of validity, depending on the key words picked, I think the second method would be more valid, since it is relying on opinions a bit less. The fact that the measurement is being done by computer software also increases the ease of validation by other researchers.  
 
