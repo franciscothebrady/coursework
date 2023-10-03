@@ -45,11 +45,11 @@ z24 <- (24 - 20) / 8
 
 To find these percentages, calculate the z-score and look up the results in a z score table:  
 
-The z-score for 33 is `r z33`. Looking up that value in the table, and taking the values between 1.62 and 1.63: 0.94738 and 0.94845. Since we need percentages greater than 33 hours, and we are using a positive z table, we take 1 - the values to get our percentages: between 5.155% - 5.262% watch more than 33 hours.  
+The z-score for 33 is `r z33`. Looking up that value in the table, it is between 1.62 and 1.63, so the area given by the table is 0.0516 and 0.526, meaning that between 5.16% and 5.26% watch more than 33 hours. 
 
-The z-score for 14 is `r z14`. Looking up that value in the table, we get: 0.77337. Since we are using a positive z table, we can use this value for the area left of the score by subtracting 1 - 0.77337: 0.22663 &rarr; About 22.663% watch less than 14 hours.  
+The z-score for 14 is `r z14`. Looking up that value (0.75) in the table, we get: 0.2266, meaning about 22.66% watch less than 14 hours. Note that we used the positive value instead of the negative value, but they are the same because of the symmetry of the distribution. 
 
-The z-score for 24 is `r z24`. Looking up that value in the table, we get: 0.69146. Since we are using a positive z table, we can use this value for the area left of the score: Around 69.146% watch less than 24 hours. 
+The z-score for 24 is `r z24`. Looking up that value in the table, we get: 0.3085. Subtracting 1 from that value gives 0.6915, meaning around 69.15% watch less than 24 hours. 
 
 (c) What percentage of people watch between 14 and 33 hours?  
 First find the z-scores for 14 and 33 hours. 
@@ -59,11 +59,11 @@ z14 <- (14 - 20) / 8
 z33 <- (33 - 20) / 8
 ```
 
-Look up the values in the z table to find the areas under the curve -- 0.22633 for 14, and 0.94738 (taking the lower bound of the range). To find the percentage between those two values, we subtract them.  
+Look up the values in the z table to find the areas under the curve 0.2266 for 14, and 0.0526 for 33. Since the two areas represent the tails on each side, you can add them and subtract from 1 to get their range. 
 $$
-P(-0.75 < Z < 1.625) = 0.94738 - 0.22633 = 0.72105
+1 - (0.2266 + 0.0526) = 0.7208
 $$
-So around 72.105% of people watch between 14 and 33 hours.  
+So around 72.8% of people watch between 14 and 33 hours.  
 
 (d) A person’s z score for TV watching is -0.25. How many hours of television is that?  
 To find a value from a z-score, we can rearrange the z-score formula:  
@@ -81,13 +81,14 @@ $$
 2. We learned the definition of percentiles in the Descriptive Statistics lecture. Find the z scores corresponding to the percentiles below. If necessary, provide a range rather than a specific z score.  
 
 (a) The 15th percentile of the normal distribution.  
-Z-score between -1.03 and -1.04  
+Z-score between 1.03 and 1.04  
 (b) The 70th percentile of the normal distribution.  
 Z-score between 0.52 and 0.53  
 (c) The 95th percentile of the normal distribution.  
 Z-score between 1.64 and 1.65  
 
 3. As the previous questions illustrate, a z score is a threshold above which, and below which, is a specific proportion of the area of a normal distribution. These proportions represent the probabilities with which the value of a variable falls above/below the value associated with that z score.  
+
 (a) Suppose that the parameter $\alpha$ (alpha) represents the area in the upper tail of the normal distribution above some threshold z. What is the z score associated with $\alpha$ = .01?  
 To find the value above the given parameter, subtract 1 - $\alpha$ = 0.99. In the z table, a z-score between 2.32 and 2.33 yields a value of 0.98983  and 0.99010.  
 
@@ -106,7 +107,7 @@ In the z table, the z-score of -1.96 gives an area of 0.02500 for the lower tail
 The value at the middle of the sampling distribution should be: \$97,941.  
 
 (b) Would this sampling distribution have a positive skew? Why or why not?  
-No. [ADD EXPLANATION HERE]. This is because the sample statistics taken from the population are random...
+The central limit theorem states that the sampling distribution of the mean income is approximately normal, even if the underlying distribution is skewed because the sample size is larger than 30.  
 
 (c) According to the Central Limit Theorem, what is the size of random sampling error for the sample mean? Provide an interpretation of this number.  
 This is the standard error:  
@@ -120,21 +121,16 @@ For this sample, it would be: $\frac{76,021}{\sqrt{400}} = 3801.05$
 
 (d) Using what you found above, what range includes 95 percent of all sample means?  
 
-95% of all observations would be between \$68,570.94 and \$83,417.06
+95% of all observations would be between \$75,648.50 and \$76,393.50
 
 ```{r}
-lower <- 1.96 * (76021/ sqrt(400))
-upper <- -1.96 * (76021/ sqrt(400))
+lower <- 1.96 * (3801.05/ sqrt(400))
+upper <- -1.96 * (3801.05/ sqrt(400))
 76021 - lower
 76021 - upper
 ```
 (e) What is the probability that your sample mean would be greater than \$101,742?  
-
-Using for formula for the z-score:  
-$$
-Z = \frac{101742 - 97941}{76021} = 0.04999934
-$$
-Using the z table, the probability that the mean is greater than \$101,742 is $1 - .51994 \approx .480$ 
+[FINISH]
 
 5. Suppose that, with probability .32, a randomly selected person will agree that astrology has scientific truth. Also, suppose that there is a probability of .89 that a person will agree that science brings opportunities for the next generation. Finally, suppose that there is a probability of .29 that a person will agree with both. 
 
