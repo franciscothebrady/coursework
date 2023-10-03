@@ -49,4 +49,35 @@ Notes:
 ing to Lieutenant James Gordon of the Virginia Beach (VA) Police Department. 
 
 
+### The Concept of Strategic Management
+
+Questions: 
+1.  What are the key features of this conventional wisdom (about the role of police executives), and why do Moore and Stephens think it is unsatisfactory? To what extent is this conventional wisdom about the role of police executives similar to or different from the conventional wisdom about the role of other public sector managers?  
+
+Moore and Stephens define the conventional view of the role of police management as finding efficient means to achieve externally mandated goals, through planning, organizing, coordinating, and controlling the organization. They find this definition of the role lacking because police managers are increasingly called on to face challenges further outside their original remit, as well as increasing crime from expanding cities and challenging funding environments (of the 1990s). This orthodox view of public managers rings true for some sectors and less for others. For example, after the election of Brandon Johnson as mayor of Chicago, there was a lot of speculation about who he would appoint as president of the school board because of his own history as a teacher and CTU organizer, and whether that appointment would be a new direction for the school board and management of CPS more generally. In contrast, the discussions around the police chief role were about crime rates and not much else.  
+
+2.  How do society’s expectations of private sector managers seem to differ from its expectations of police chiefs and other public sector managers?  
+
+Private managers are expected to assess the (market) environment, and identify opportunities to create value (for shareholders). They are given leeway to experiment with different approaches and initiatives to achieve the end goal of profit-making.  
+Public managers are expected to be stewards of public assets, and to be efficient in their use of those assets. Public managers are not expected to critically examine the organizational mission or experiment with new ideas on organizational strategy. Moore characterizes the standard view of public managers as "technicians rather than "strategists."  
+This view carries over to expectations of police chiefs, who are expected to put their efforts towards the primary goal of the organization -- crime reduction. This can be seen in media coverage of whenever a new police chief is hired in a major American city. Chiefs are judged by the crime rates, and what their record says about their fitness for the job. Not many police chiefs are hired for their views on reframing the police relationship with the community.  
+
+3.  Why is it more difficult to evaluate a public sector organization’s strategy than it is to evaluate a corporate strategy? How is a police chief or any other public sector manager supposed to know whether the strategy she has defined is a good one?  
+It is more difficult to judge a public sector organization's strategy because it is not judged in terms of balance sheets and profits. This is why media coverage of the Postal Service is so maddening. The USPS is not a business, and budget deficits are not the same thing as losses. It is a public service written into the gosh darn Constitution. In the same way, police departments cannot be judged solely on their stewardship of budgets, and the metrics for success such as crime rates can be difficult to convey to the public with the right amount of caution and nuance. Stephens and Moore contend that political enthusiasm for new initiatives, as well as any results from those initiatives, should be the barometer of success for public managers. 
+
+4.  Do police chiefs and other public managers have the discretion they need to play a role in rethinking their organization’s strategy? Should they? Don’t the legislative and judicial branches tell a police department what to do? What role, if any, is left for police managers?  
+5.  What are the strengths and weaknesses of this traditional strategy from the perspective of the strategic triangle?  
+
+Reading notes: 
+-  public managers are people who have been entrusted with stewardship of a bundle of public assets.  
+"We are inclined to view imagination and initiative among (unelected) public sector executives as dangerous and contrary to the public interest, while we perceive exactly the same qualities among private sector executives as a not only tolerable but ultimately conduze to socierty's economic welfare." (p.19).  
+By discouraging [entrepreneurial thoughts and initiatives], society denies managers the opportunity to combine their knowledge of "public demands with access to resources and controlo of operational capatity to produce value" (p. 19).  
+"Instead of simply devising the means for achieving mandated purposes, they become important agents in helping to discover and define what would be valuable to do." (p. 20).  
+
+TLDR: Managers as strategists rather than technicians.  
+
+Strategic triangle:  
+-  whether the purpose is publicly valuable  
+-  whether it will be politically and legally supported  
+-  whether it is admistratively and operationally feasible  
 

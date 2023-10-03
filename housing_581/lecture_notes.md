@@ -451,7 +451,144 @@ $$
 -  ratio of 25% of median monthly income to the monthly payment of a conventional mortgage on a median valued house sold.  
 -  value of 100 means that by devoting 25% of income to housing, a household of median income has exactly enough income to addord the median house sold.  
 
-### 
+## 2023-09-28  
 
+### measuring affordability for homeowners  
+
+-  for homeowners, affordability refers to the ability to afford home mortages. so mortgage terms and amortization schedules are important.  
+-  national association of realtors (NAR) housing affordability index
+-  national association of home builders (NAHB) housing opportunity index
+    -  computes fraction of dwellings sold that could be purchased by the median household with 28% of household income being spent on housing.  
+
+### data to measure housing affordability: census 
+
+-  mandated by the constitution!
+-  modern census of population and housing 
+
+### how are the data collected?  
+-  collected through a mail survey  
+-  in the decennial census, two different census questionnaires are used:  
+    -  short form: 100% of households  
+    -  long form: 1 in 6 households  
+        -  restructured as the american community survey (ACS) in 2005.  
+        -  now a continuous survey. 
+
+### four major universes (and units of definition) used in the census  
+-  population (person)
+-  workers (employed persons over 16)
+-  housing (housing unit) 
+-  households (occupied housing unit)  
+
+### american community survey  
+- acs collects and produces population and housing information every year instead of every 10 years.  
+-  about 3 million housing units are sampled each year.  
+
+### ACS: Period estimates  
+-  acs estimates are period estimates, decribing the average characteristics ofer a specified period.  
+- contrast with a point-in-time estimates of the decennial census data.  
+
+### ACS data schedule  
+-  one-year estimates are available for geographies with a population of 65,000 or more, beginning 2005.  
+-  3-year estimates are available for geographies with a population of 20,000 or more
+-  5-year estimates are available for areas with a population of less than 20,000 
+
+### how to label multi-year estimates  
+-  acs estimates based on data collected from 2005-2007 should not be labelled "2006" or "2007" estimates  
+-  instead, they should be labelled "2005-2007" estimates.
+
+### margin of error in acs data  
+-  a margin of error is the difference between an estimate and it's upper or lower confidence bounds. confidence bounds can be created by adding the margin of error to the estimate (for the upper bound) or subtracting the margin of error from the estimate (for the lower bound).  all published acs margins of error are based on a 90-percent confidence level. (us census bureau, 2008)  
+
+### use multipyear estimates when...  
+-  no 1-year estimates are available  
+-  margins of error for the 1-year estimates are larger than required  
+-  analyzing data for small population groups  
+
+### geographies used in housing research  
+-  metropolitan statistical areas (MSAs)  
+-  an are containing a large population nucleaus and the nearby communitis that are integrated in an economic sense, with the nuclues. the nucleus is eithr a central city with at least 50, 000 people.  
+
+### MSAs
+-  detroit-warren-dearborn, mi
+    -  principlar cities: detroit, warren, dearborn
+
+### place  
+-  an incorporated municipal unit of government, including villages, cities, boroughs, and in some places "towns" (not to be mistaken for unincorporated towns)  
+-  a census designated place, a relatively dense settlement with at least 1000 residents. urbanized but unincorporated.  
+
+### census tract
+
+-  unit close in size to what we think of as a neighborhood.  
+-  small, relatively permanent statistical subdivisions of a county. border consisten with county boundary!  
+-  usually between 1500 and 8000 persons 
+-  census tracts are designed to be relatively homogeneous with respect to population characteristics, economic status, and living conditions.
+
+### block group  
+-  a block group is a cluster of census blocks, a maximum of 97 blocks.  
+-  block groups generally contain between 600 and 3000 people, with an optimum size of 1500 people.  
+
+### block  
+-  basic geographic level. average 85 persons.  
+-  bounded on all sides by visible features such as streets, roads, streams, and railroad tracks, and by nonvisible boundaries such as city, town, township, and county limits, and short line-of-sight extensions of streets and roads.  
+-  confidentiality must be maintained, and data about individual persons and households are not revealed.  
+
+## 2023-09-28  
+### introduction to housing finance  
+
+-  why do we need a mortgage?  
+-  recourse loan: if defaulted, liability applies to all the assets a borrower has.  
+-  no-recourse loan: if defaulted, lender can take back property, butr has no recourse for other assets  
+
+before the last housing crisis, most mortgage loans were non-recourse loans.  
+
+### some important features of mortgage products  
+-  loan-to-value ratio  
+-  down payment  
+    -  in the us, typically 20% down payment, 80% financed.  
+-  loan amount  
+-  interest rate  
+-  debt service coverage ratio
+    -  used for income-generating commercial properties: ratio of net operating income divided by the debt service (loan payments + interest)
+    -  commonly DSR used is 1.25%
+-  points  
+    -  additional finance charges that are used to increase the yield of a mortgage.  
+    -  1 point = 1% of the loan amount.  
+    -  points are paid at closing of a mortgage loan. 
+-  Annual Percentage Rate (APR)  
+    -  the cost of credit expressed as a yearly rate
+
+-  FHA: federal housing administration
+    -  created to encourage home purchases for people who could not afford 30% down payment.  FHA provides mortgage insurance to these types of borrowers -- typically first-time buyers.  
+
+### what risk factors affect mortgage contract design?  
+-  interest rate risk: mortgage loans in the us are typically for 30 years
+-  default risk: some borrowers may not be able to repay the loan.  
+-  prepayment risk: borrowers may pay off the loan ahead of schedule.  
+    -  for borrowers, prepayment can be a good thing, for lenders it can be negative because they lose out on stable interest payments over the longer term.  
+    -  in the us, prepayment is free. in other countries there are often prepayment penalties  
+-  inflation rates  
+-  liquidity for securitization: most lenders will sell their loans on the secondary market.  
+-  affordability to borrowers  
+-  tax and regulatory factors  
+
+### fixed rate mortgages  
+-  FRM is a fully ammortizing, constant payment mortgage.  
+-  the monthly payment includes interest and some repayment of the principal  
+-  at the end of the term, the original term amount, or principal, is completely repaid, or fully ammortized. the lender has earned a fixed rate of interest on a monthly loan balance. 
+-  FRM is used extensively in financing single-family homes (in the us) and in long-term lending on income-producing properties.  
+
+### history  
+-  before the FRM, there were only interest-only loans.  
+-  frms were developed in the 1930s  
+-  IO loans were popular in the 1920s, with all of the payments going towards interest, with a balloon payment at the end of the loan term.  
+-  IO loans were popular because they were easy to understand, and the balloon payment was often refinanced.
+
+During the great depression, the housing market collapsed, and when balloon payments came due, many people had to default on their mortgages. 
+-  this led to the creation of the FHA, specifically to insure and popularize fixed-rate mortgages.  
+
+### risk characteristics of frm  
+-  some affordability risks  
+-  high interest rate risk  
+-  low default risk  
 
 

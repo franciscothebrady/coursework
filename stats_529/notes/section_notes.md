@@ -92,3 +92,53 @@ Method 2: calculate a weighted average
 -  if you're asked for a proportion, express as a decimal, e.g. 0.05  
 -  if you're asked to provide a percentage, express it as a percent, e.g. 5%  
 
+## 2023-09-29  
+
+### sample and population distribution  
+-  we have worked with sample and population distributions 
+    -  the height of the bars correspond to the frequency of the values  
+
+### sampling distribution  
+-  the distribution of a sample statistic for a sample of size n taken repeatedly  
+    -  the mean of a sampling distribution is the mean of means.  
+-  **standard error**: the standard deviation of our sampling distribution. over repeated random samples of the same size, this is our agerage distance from the true value of the population parameter.  
+    -  this would show a distribution of the mean number of credit hours of repeated samples of ford students  
+
+For samples, you use standard deviations, for populations, you use standard errors.  
+
+### Sample vs sampling distributions 
+-  it is **very** important to understand the distinction between a sample and sampling distribution  
+
+### sample/population vs. sampling distributions  
+-  the sampling distribution will be approximately normal, **even if** the underlying population is highly skewed, u-shaped, or some other shape.  
+
+### Central Limit Theorem
+
+-  the necessary sample size for the sampling distribution to be approximately normal depends on the shape of the population distribution.  
+    -  the more skewed the population distribution, the larger the sample size needed for the sampling distribution to be approximately normal. 
+        -  e.g. if the population distribution is highly skewed, the sampling distribution will be approximately normal for a sample size of 30 or more.
+
+### probability distribution  
+-  probability distributions are also defined by parameters that describe their center and variability.  
+-  the the right, the mean is 100 and a standad deviation from the mean is 10.  
+-  the area under the curve is the probability of a getting each value.  
+
+### normal distribution  
+-  a z-score is a standardized calue for each observation  
+
+### calculating z-score  
+-  z = (x - $\mu$) / $\sigma$  
+    -  x = value  
+    -  $\mu$ = mean  
+    -  $\sigma$ = standard deviation
+
+-  remember: a z-score tells you how many standard deviations you are from the mean.  
+    -  just converts the distance from the mean from the original units of measure to standard deviations.  
+
+### quiz  
+
+prob a person has covid = 0.75  
+prob a person has covid and tests positive = 0.3
+what is the probability that a person has covid?  
+
+P(positive | covid) = 0.75  

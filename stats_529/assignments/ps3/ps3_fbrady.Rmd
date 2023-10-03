@@ -26,7 +26,8 @@ $$
 Suppose that Event A = {1, 3}. Event B = {3, 4}.  
 
 (a) What is $E[X]$ (in other words, the expected value of X)?  
-The expected value of X is the sum of all of the possible values multiplied by the probability of those values. 
+The expected value of X is the sum of all of the possible values multiplied by the probability of those values.  
+
 $$
 E[X] = \mu_x = \Sigma xP(x)
 $$
@@ -36,17 +37,22 @@ $$
   $E[X]$ = 2.7  
 
 (b) What is $E[(X - \mu x)^2]$ (in other words, the variance of X)?  
-To find the variance of X, we take each x subtracted by the mean and square it, then multiply that value by it's probability. Then we sum all of those values. 
+To find the variance of X, we take each x subtracted by the mean and square the result, then multiply that value by it's probability. Then we sum all of those values. 
 
-#TODO: write out the math later 
-```
-E[(x- mu_x)^2] = (1 - 2.7)^2(0.1) + (2 - 2.7^2)(0.4) + (3 - 2.7^2) (0.2) + (4 - 2.7)^2 (0.3)
+$$
+E[(x- mu_x)^2] = [(1 - 2.7)^2*(0.1) + (2 - 2.7^2)*(0.4) + (3 - 2.7^2) *(0.2) + (4 - 2.7)^2 *(0.3)]
+$$
+```{r}
+ ((1 - 2.7)^2 * (0.1)) +
+ ((2 - 2.7^2) * (0.4)) +
+ ((3 - 2.7^2) * (0.2)) +
+ ((4 - 2.7)^2 * (0.3))
 ```
 
 (c) What is P (A and B)? Show your work.  
 A = {1,3} and B = {3,4},  so A $\cap$ B = {3}  
 So:  
-P(A $\cap$ B ) = .2  
+P(A $\cap$ B ) = P(1) = .2    
 
 (d) What is P (A or B)? Show your work.  
 A = {1,3} and B = {3,4}, so A $\cup$ B = {1,3,4}  
@@ -72,53 +78,63 @@ P(A and B and C and D) = P(A) * P(B) * P(C) * P(D)
 # or 
 (0.7)^4
 ```
+
 So the probability is 0.2401  
 
 (b) What is the probability that just one of the four applicants is accepted?  
-P(~X) for any A through D = 1 - 0.7 = 0.3 
+Using the binomial formula:  
+x = 1 success
+n = 4
+p = 0.7
 
-P(A and ~B and ~C and ~D) = P(A) * P(~B) * P(~C) * P(~D)
-P(~A and B and ~C and ~D) = P(~A) * P(B) * P(~C) * P(~D)
-P(~A and ~B and C and ~D) = P(~A) * P(~B) * P(C) * P(~D)
-P(~A and ~B and ~C and D) = P(~A) * P(~B) * P(~C) * P(D)
 
-using binomial: 
 $$
-P(X = x) =   \frac{n!}{x!(n-x)!}(\pi)^x (1- \pi)^{n - x}
+P(X = x) = \frac{n!}{x!(n - x)!}p^x (1 - p)^{(n - x)}
 $$
-
-In this case:  
+Subbing in our values:  
 $$
-P(1 accept) = \frac{4!}{1! \dot 3!}(0.7)(0.3)^3
+P(X = 1 \text{ acceptance }) = \frac{4!}{1!(4 - 1)!}(0.7)^4 (1 - 0.7)^{(4 - 1)}
 $$
-```{r}
-# 1/4 accepted, in 4 ways
-(0.7 * 0.3 * 0.3 * 0.3) + 
-  (0.3 * 0.7 * 0.3 * 0.3) + 
-  (0.3 * 0.3 * 0.7 * 0.3) + 
-  (0.3 * 0.3 * 0.3 * 0.7) 
-```
+Simplifying: 
+$$
+P(1 \text{ accept}) = \frac{4!}{1! 3!}(0.7)^4(0.3)^3 
+$$
+$$
+=  \frac{4 \cdot 3 \cdot 2 \cdot 1}{1 \cdot (3 \cdot 2 \cdot1)} \cdot (0.2401) \cdot (0.027)  \\ 
+$$
+$$
+= 4 \cdot (0.2401) \cdot (0.027)  \\
+$$
+$$
+= 0.0259
+$$
 
 
 (c) What is the probability that at least three applicants are accepted?  
 In the same way, you can calculate all scenarios in which at least 3 applicants are accepted. 
-P(A and B and C and ~D) = P(A) * P(B) * P(C) * P(~D)
-P(A and B and C and D) = P(A) * P(B) * P(C) * P(D)
-
-```{r}
-# at least 3 accepted, two ways: 3 accepts and 4 accepts 
-(0.7 * 0.7 * 0.7 * 0.3) + (0.7 * 0.7 * 0.7 * 0.7)
-```
-c) P(at least 3) = P(3) + P(4) 
-= P(4) (from part a) = .2401 
-P(3) = 
+P(at least 3) = P(3) + P(4)  
+P(4) = .2401   
+Using the binomial formula:  
 $$
-\frac{4!}{3!!!}(0.7^3 (0.1)^.1 \\
-= 4(0.3)(.343)  \\
-= .416 \\
-P(\text{ at least 3 }) = P(3) + P(4) \\
-= .2401 + .4116  \\
-= .6517
+P(X = x) = \frac{n!}{x!(n - x)!}p^x (1 - p)^{(n - x)}
+$$
+Where:
+x = 3 acceptances 
+n = 4
+p = 0.7
+
+$$  
+P(X = 3) = \frac{4 !}{3! (4 - 3)!} (0.7)^3(1 - 0.7)^{(4 - 3)} 
+$$   
+Simplifying:  
+$$
+P(X = 3) = \frac{4 \cdot 3 \cdot 2 \cdot 1}{3 \cdot 2 \cdot 1 (1)}(0.343)(0.3) \\ 
+$$
+$$ 
+= 4 \cdot (0.343)(0.3) \\ 
+$$
+$$
+= 0.4116 \\
 $$
 
 3. Suppose you have a jar with 12 quarters in it. Seven were minted in Denver (marked D), five were minted in Philadelphia (P). You draw a quarter at random and note the outcome: D or P. You then draw a second quarter without replacing the first one. It will likely be helpful to make a probability tree diagram representing this scenario to
@@ -127,7 +143,8 @@ help you answer the questions below.
 ![](prob_tree.png)
 
 (a) What is the probability of at least one quarter marked D?  
-P(DD or PD or DP) = P(7/12 * 6/11) or P(5/12 * 7/11) or P(7/12 * 5/11)  
+
+P(DD or PD or DP) = P(.583 * .545) or P(.416 * .636) or P(.583 * .454)  
 ```{r}
 DD <- (7/12) * (6/11)
 PD <- (5/12) * (7/11)  
@@ -137,19 +154,28 @@ DD + PD + DP
 ```
 
 (b) If the first quarter is P, what is the probability the second one is D?  
-P(D|P) = P(5/12 * 7/11)  
+
+To get the probability that the second quarter is D, take the conditional probability given P. 
+
 $$
-P(D | P) = \frac{P(PD)}{P(P)} \\
-=  \frac{(0.417)(0.636)}{0.417} \\
+P(D | P) = \frac{P(D\cap P)}{P(P)} \\
+$$
+$$
+=  \frac{(0.416)(0.636)}{0.416} \\
+$$
+$$
 = 0.636
 $$
 
-```{r}
-# Todo fill in the math tonight for this 
-```
-  
 (c) Suppose you have not drawn a quarter yet. With what probability will the second quarter be P?  
-## for this one just add the probs for both P(PP) + P(DP) 
+
+There are two possibilities here: PP, and DP. So we can add the two probabilities together to get the probability that the second quarter will be P. 
+
+```{r}
+DP <- (7/12) * (5/11)
+PP <- (5/12) * (4/11)
+DP + PP 
+```
 
 
 
@@ -184,7 +210,7 @@ Suppose that you are drawing a person at random from this sample.
 (d) Are these two variables, belief in life after death and handgun ownership, independent? Explain.  
 When two variables are independent, the conditional probability is the same as the unconditional probability.  
 $$
-P(A|B) = \frac{P(A\text{ and }B)}{P(B)} = P(A) \\
+P(A|B) = \frac{P(A\text{ and }B)}{P(B)} = P(A) 
 $$
 A = Yes, B = Owner  
 P( A and B ) = P(Yes | Owner) = 0.835  

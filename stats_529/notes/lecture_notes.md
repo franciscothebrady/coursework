@@ -1,3 +1,73 @@
+### 2023-09-27: Sampling Distributions 
+1. sampling distributions 
+
+### imagine: mean of 200p dice rolls 
+
+-  if you were to roll a die 200 times, what would be the mean of the outcomes.  
+-  roughly 3.5, right? that's the expected value, but the actual value probably would be 3.5 plus or minus a bit.  
+-  the specific mean you get is one possible realization of a random process. many other means are possibl;e.  
+-  crucially, there is a probability distribution over these possible means.  this distribution has a mean and standard deviation.  
+-  we call this the sampling distribution for a sample mean.  
+
+> we can graph that distribution:  
+[visual of a plot]
+
+-  it is centered around the actual mean: 3.5  
+-  what is the dispersion of the distribution?  
+
+### some important points:  
+-  the sampling distribution is anormal distribution centered around the expected value of 3.5  
+-  according to stata, the standard deviation of this distribution is .1216. this is the typical sampling error.  
+-  in a normal distribution, 68.26% of the cases would fall within plus/minus .1216 of 3.5. In this simulation, the percentage is 68.8%  
+-  95% of the cases would fall within plus/minus 1.96 *(.1216) of 3.5. In this simulation, the percentage is 95.1%
+
+### Sample statistics and their distributions  
+-  a sample statistics is any function computed from a sample  
+    -  e.g. mean, standard deviation, the iqr, etc  
+-  sample statistics are random variables, becuase their value depends on the composition of the random sample.  
+-  sample statistics thus have probability distributions, which we call sampling distributions.  
+
+> sampling distribution we do not see, it is theoretical -- reflects all the possible samples we could draw.  
+
+### sampling distributions
+
+-  a sampling distribution is a probability distribution over all the possible values of a sample statistic.  
+-  for example, the sampling distribution for $\bar{y}$ gives the probabilities for all possible values of $\bar{y}$  
+
+### what do sampling distributions give us?  
+-  knowledge about sampling distributions allow us to make inferences about population parameters from sample statistics  
+-  we don't know how well a specific sample reflects the population, but probability theory tells us how sample statistics tend to come out.  
+-  we can thus estimate our level of precision.  
+
+### central limit theoren  
+repeated, random samples of size n drawn from any population with mean $\mu$ and variance $\sigma^2$ have the following characteristics:  
+-  the sampling distribution of the sample mean $\bar{y}$ is approximately normal and centered upon the true population mean $\mu$.
+-  the standard deviation of those sample means (i.e. random sampling error) is equal to:  
+
+$$
+\sigma_{\bar{y}} = \frac{\sigma}{\sqrt{n}}
+$$
+
+### the central limist theorem  
+
+[visual of different sampling distributions]
+
+the sampling distribution will be approximately normal even if the underlying population distribution is highly skewed.  
+
+-  no matter what the population distribution looks like, as long as your sample size is at least 30. 
+
+### the central limit theorem  
+-  the necessary sample size for the sampling distribution to be approximately normal depends on the shape of the population distribution.  
+    -  e.g. if the population distribution is highly skewed, the sample size must be larger  
+-  usually n $\geq$ 30 is adequate for the sampling distribution to approximate normality whether or not the population is normal.  
+-  if the population does have a normal distribution, however, the sampling distribution is normal regardless of size.  
+
+
+$$
+\sigma^2_{\bar{y}} = \frac{\sigma^2}{n} 
+$$
+
+
 ### 2023-09-25: Probability Distributions 
 
 ### Overview 

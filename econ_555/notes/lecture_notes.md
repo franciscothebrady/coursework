@@ -1,3 +1,237 @@
+## 2023-09-27 -- Lecture 9: Equilibrium  
+
+### announcements  
+-  ch 3 and ch 4 problem sets due thursday  
+-  budget constraint problem set returned today  
+-  review session after section on friday  
+-  exam sheet of notes  
+-  others?  
+
+### agenda
+
+-  recap: market supply curves  
+-  equilibrium!  
+
+### last time:  
+-  if the price changes: 
+    -  movement along the supply curve  
+    -  causes an increase or decrease in the quantity supplied  
+-  if other factors change  
+    -  the supply curve shifts  
+        -  shift right is an increase in supply  
+        -  shift left is a decrease in supply  
+
+### key takeaways  
+-  the market supply curve is the sum of individual supply  
+-  five factors shift market supply curves:  
+    -  cost of inputs  
+    -  productivity and technology  
+    -  other opportunities: price of other outputs  
+    -  expectations  
+    -  number and type of sellers  
+
+-  movements along a supply curve versus shifts in supply  
+    -  if the other price changes: movement along the supply curve
+    -  if other factors change: shift in supply  
+
+e.g. change in price leads to change in the quantity supplied.  
+e.g. change in cost of inputs leads to a change in supply (shift of the curve)  
+
+### parralels between demand and supply  
+
+|    | Demand | Supply |  
+| --- | --- | --- |
+| your objective | maximize economic surplus: to purchase items you enjoy the most  | maximize profits: to sell goods so as to maximize your profits | 
+| to decide on your quantity, follow the: | rational rule for buyers: buy one more item if the marginal benefit exceeds the price | rational rule for sellers: sell one more item if the price exceeds the marginal cost |  
+| implying that: | your demand curve is your marginal benefit curve | your supply curve is your marginal cost curve | 
+| curve slopes: | demand curve slopes down: because of diminishing marginal benefits | supply curve slopes up: because of increasing marginal costs | 
+| the market | market demand curve is the sum of the quantity each individual demands, at each particular price | market supply curve is the sum of the quantity each business supplies, at each particular price | 
+| a rise in price causes | a movement along the demand curve, reducing the quantity demanded | a movement along the supply curve, increasing the quantity supplied | 
+| a fall in prices causes | a movement along the demand curve, increasing the quantity demanded | a movement along the supply curve, reducing the quantity supplied |  
+
+### roadmap for equilibrium  
+
+-  understnading markets
+-  equilibrium  
+-  getting to equilibrium
+-  predicting market changes  
+-  interpreting market data  
+
+### what is a market?  
+-  market: any setting that brings together potential buyers ("demanders") and potential sellers ("suppliers")  
+
+you are active in many markets: 
+-  shopping: demanding consumer goods  
+-  working: suppling labor  
+-  getting repairs done: buying skilled labor  
+-  saving: supplying credit  
+-  borriwing: demanding credit  
+-  traveling/tourism: suppling american dollars & demanding foreign currency  
+-  legislation: supplying/demanding votes  
+
+### how are markets organized?  
+-  markets bring buyers and sellers together  
+    -  posted prices  
+    -  open outcry  
+    -  online  
+    -  auction  
+
+### what do markets do?  
+-  organize economic activity  
+    -  determine what gets produced
+    -  how much gets produced
+    -  who produces it 
+    -  who receives it
+    -  at what price is it exchanged  
+-  bring potential buyers into contact with potential sellers
+    -  transform your desire into a price  
+    -  which motivates firms to produce desired products  
+-  market outcomes  
+    -  are determined by the forces of supply and demand  
+
+## a caveat: 
+-  out supply and demand analysis applies to perfect competition  
+    -  an identical good is sold
+    -  many buyers and sellers, each of whom is a small share of the market  
+    -  implies: price takers  
+
+is this a small caveat or a big deal?  
+    -  many intuitions extend beyond perfect competition, many don't
+    - our task for the rest of the semester: figuring these out.  
+
+### market equilibrium  
+
+-  equilibrium: the point at which there is no tendency to change.  
+    -  occurs when quantity demanded = quantity supplied
+    -  occurs when price = marginal cost = marginal benefit
+        -  where the demand curve intersects the supply curve.
+        -  forces of demand and supply are in balance.  
+    -  forces pushing prices to rise balanced by forces pushing prices to fall.
+    -  neither suppliers nor demanders have an incentive to change their behavior.
+        -  no shortage, no surplus.
+        - every seller who wants to sell at that price can sell.
+        - every buyer who wants to buy at that price can buy.  
+
+equilibrium price: the price at which the quantity demanded equals the quantity supplied.
+equilibrium quantity: the quantity bought and sold at the equilibrium price.
+
+### equilibrium: where the curves cross 
+
+| price | A quantity demanded | B quantity supplied | quantity supplied - quantity demanded | 
+| --- | --- | --- | --- |
+| $4 | 1.6 | 2.5 | +0.9 (surplus) |
+| $3 | 2.0 | 2.0 | 0 (equilibrium: no shortage or surplus) |
+| $2 | 2.4 | 1.5 | -0.9 (shortage) |  
+
+-  if the price is too high, a surplus results  
+    -  quantity supplied exceeds quantity demanded
+    -  a surplus  
+
+-  if the price is too low, a shortage results
+    -  quantity demanded exceeds quantity supplied
+    -  a shortage  
+
+### finding equilibrium: set Q_s = Q_d  
+
+$$
+Q_d = 3.2 - 0.4P  \\
+Q_s = 0.5 + 0.5P  \\
+
+0.5 + 0.5P = 3.2 - 0.4P \\
+.9P = 2.7  \\
+P = 3  
+$$ 
+
+Now we know the price.  
+To find the quantity, plug the price into the demand or supply equation.  
+
+$$ 
+Q_s = 0.5 + 0.5P \\
+= 0.5 + 0.5(3) \\
+= 0.5 + 1.5 \\
+Q_s = 2
+$$
+
+So $Q^*$ = 2, $P^*$ = 3  
+
+### diamond-water paradox
+
+-  water is essential to life, but cheap
+-  diamonds are not essential to life, but expensive  
+-  why?  
+
+how can we make sense of this paradox?  
+1.  market prices reflect supply and demand  
+2.  prices are determined at the margin (what is the marginal benefit and marginal cost of the last gallon of water?)  
+3.  market prices reflect market forces, rather than fairness 
+
+### how markets get to equilibrium  
+when price is above the equilibrium price:  
+quantity supplied exceeds quantity demanded, and a surplus results.  
+-  sellers are desperate to sell, so they will start discounting, pushing prices down.  
+-  buyers ask for discounts.  
+
+when price is below the equilibrium price:
+quantity demanded exceeds quantity supplied, and a shortage results.  
+-  sellers realize they can sell at a higher price, so they raise prices.
+-  buyers don't want to go without, so offer higher prices  
+
+### 3-step recipe for predicting market outcomes  
+1.  is the supply or demand curve shifting (of both?)  
+2.  is that shift an increase (shift right) or decrease (shift left)?  
+3.  how will prices and quantities change in the new equilibrium?  
+
+### shifts in demand  
+1.  shift the demand curve, an increase in demand is a shift to the right; a decrease in demand is a shift to the left.  
+2.  establish the new equilibrium price and quantity-- where the new demand curve intersects the supply curve.  
+3a.  read off the new equilibrium quantity (and compare it with the old equilibrium quantity)
+3b.  read off the new equilibrium price (and compare it with the old equilibrium price)  
+
+### shifts in supply  
+1.  shift the supply curve, an increase in supply is a shift to the right; a decrease in supply is a shift to the left.  
+2.  establish the new equilibrium price and quantity-- where the new supply curve intersects the demand curve.  
+3a. read off the new equilibrium quantity (and compare it with the old equilibrium quantity)  
+3b.  read off the new equilibrium price (and compare it with the old equilibrium price)  
+
+### consequences of shifts in supply and demand 
+in table form  
+
+| | effect on equilibrium quantity | effect on equilibrium price |
+| --- | --- | --- |
+| increase in demand | increase | increase |
+| decrease in demand | decrease | decrease |
+| increase in supply | increase | decrease |
+| decrease in supply | decrease | increase |
+
+> shifts in demand cause price and quantity to move in the same direction  
+
+>  shifts in supply cause price and quanty to move in opposite directions  
+
+### finding the new equilibrium
+Old: $Q_d$ = 3.2 - 0.4P 
+New: $Q_d$ = 2.3 - 0.4P  
+
+$Q_s$ = 0.5 + 0.5P  
+
+Set $Q_s$ = $Q_d$  
+
+$$
+0.5 + 0.5P = 2.3 - 0.4P \\
+0.9P = 1.8 \\
+P = 2 \\
+$$  
+
+P = 2, now set P = 2 in $Q_d$  
+
+$$ 
+Q_d = 2.3 - 0.4P \\
+= 2.3 - 0.4(2) \\
+= 2.3 - 0.8 \\
+Q_d = 1.5
+$$  
+
+
+
 ## 2023-09-25 -- Lecture 8: Market Supply  
 
 -  Chapter 3, Chapter 4 problem sets due Thursday  

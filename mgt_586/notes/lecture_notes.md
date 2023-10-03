@@ -1,3 +1,178 @@
+## 2023-09-28
+
+Hiring practices -- wrap up 
+
+-  rationale for civil rights leaders to push for Black police officers 
+    -  hope was that black officers would be less abusive towards black community members. 
+    -  cultivate community trust and cooperation 
+    -  take public safety concerns in black neighborhoods more seriously.
+    -  gain access to stable and well-paying jobs for black job-seekers.
+
+-  unanticipated challenges of the success in hiring of black officers  
+    -  exposed issues of class dynamics and issues of class disparity within the black community  
+    -  black officers were not allowed to police in white areas  
+    -  officers are being integrated into a system that has its own systems and practices
+    -  black officers do not get the same assignments that white officers do.
+
+### discipline  
+
+#### christopher commission (1991)  
+
+-  investigated the use-of-force by the lapd after the rodney king beating  
+-  found that a handful of officers had a disproportionate number of complaints against them
+    -  bad apples officers hypothesis  
+-  if police depts focused on these officers, they could reduce the number of complaints and use-of-force complaints agains the department  
+-  found that most officers (even in high crime districts) were able to get through the year with few or no use of force complaints, so those high complaint officers were outliers.  
+-  < 0.5% of officers accounted for 1 in 7 excessive force complaints against the lapd  
+
+#### chalfin paper  
+-  critique of early intervention frameworks  
+-  the problem is that the 0.5% statistic is a statistical artifact, there will always be a small number of officers who have a disproportionate number of complaints against them.  
+-  simulation removing the problem officers from the dataset does not substantially reduce the number of complaints.  
+-  it is difficult to predict who will become a problem officer in the future.  
+-  critique: paper ignores the cultural impact of sanctioning bad officers.  
+
+### some functions of discipline & employee review  
+-  incapacitation: removing bad officers from the force so they can't abuse their authority.  
+-  reform: help bad cops do better  
+-  deterrence: remove/sanction bad cops to show other cops what is not allowed  
+-  prevent social contagion: remove/sanction/reform bad cops so they don't spoil the bunch.  
+-  punishment: remove/sanction bad cops to deliver justice  
+
+### Discipline systems  
+why is it so hard to fire/punish bad officers? 
+-  simple answer: disciplinary systems for deparments are complex, with lots of opportunities for appeal  
+-  a lot of the protections for police officers stem from employment protections and protecting standards against arbitrariness from management, put in place by unions.  
+-  chicago: requirement that any disciplinary action be based on "past precedent"  
+    -  established to protect black officers singled out by racist managers for harsher discipline.  
+-  employee protections for public employees are a big chunk of how difficult to fire police officers.  
+
+### due process in discipline systems  
+-  supposed to protect against arbitrary and unjust punishment  
+-  employees have a right to various due process protections  
+-  fair notice
+-  voice in the process
+-  fair/neutral investigation of allegations  
+-  right to appeal  
+
+>  these are generic principles that everyone agrees to for public employees
+
+### common problems in police discipline systems
+-  poor quality of investigations
+-  long timelines  
+-  specific protections that don't advance due process  
+
+### how to improve the process 
+-  improving the quality of investigations  
+-  
+
+
+### 2023-09-26
+
+From last time: 
+Politicians and police leaders can look at technology as a solution to policing issues.  
+-  replace guns with tasers, killings will decrease  
+-  if we use shotspotter, then we can reduce gun violence  
+
+Historical note: when 911 call system was first introduced, it was thought that it would dramatically reduce crimes.  
+
+These are examples of different extremes of solutionism -- the idea that technology can solve problems.  
+
+Problem is attributing causal power to technology without taking into account the context and environment into which these tools and technology is deployed.  
+e.g. the inventor of the taser thought it would reduce police homicide when they needed to immobilize people. In practice, police had different uses for them.  
+-  in sum, you have to think carefully about the ways in which police will use the new technology in ways that you don't anticipate. 
+
+-  shouldn't think about whether the body camera works, but rather if a package of policies: body cameras, training, and other reforms, will work.  
+
+Bruno Latour (philosopher): Have to think about assemblages of technologies and people, instead of just tools. 
+
+#### There are some tools where it might be possible that a specific tool is intrinsically unacceptable: such as police dogs
+-  dogs are trained to bite  
+-  in this case, are dogs more similar to chemical weapons, in that they both violate the agreed upon standards the use of force in policing.  
+-  example of the technology itself, independent of any governance or assemblages (social or organizational arrangements) around it, could be unacceptable.  
+
+
+Concerns about legal liability: 
+-  rollout of new technologies should be done in such a way that also examines the potential for legal liability of new situations that can be addressed by new tools.  
+
+### Today: Hiring and recruitment  
+
+-  how police managers shape the police force themselves  
+
+Hiring strategies:  
+-  central part of organizational change in many management fields  
+-  in policing, requires the use of discretion  
+-  you can't write rules or specify processes for all the work police do to the same extent that you can for other types of work.  
+
+At the end of the day, police officers have to exercise a lot of judgement:  
+-  how do you get more people with those characteristics into the field of policing  
+
+Smarter approach to police hiring might be used to advance the goals of police reform  
+
+### what the process generally looks like   
+
+-  in general, police hiring tends to be more elaborate than hiring in other fields, even other public sector fields.  
+    -  lots of the hiring processes are defined by the state that local departments have to follow.  
+
+Typical police hiring includes these things: 
+
+1.  written exam 
+2.  Extensive background check: interviewing friends and neighbors, reviewing social media, criminal background. 
+3.  psychological exam  
+4.  physical fitness test  
+
+#### testing 
+
+criteria that we're currently using to filter hiring should be excamined
+-  what implicit values are baked into these tests? 
+-  scoring on psych exam predicts your performance on the job as a police officer  
+-  mostly saying that your performance predicts the scores that your trainers give you in police academy, and the ratings your supervisors give you on the job.  
+    -  if they're grading to a specific mindset (authoritarian, cruel), then these indicators 
+
+> changing these standards would and has faced pushback from police departments  
+If we meaningfully want to change police departments going forward, we are going to have to rethink the entire process.  
+
+Note: growth of civilians in police departments.  non-sworn officers like call takers, analysts, etc still have to go through a byzantine process, but they don't have to go through some of the same physical tests, etc. But many people are hired as front-line patrol officers, and you go up or somewhere else from there. 
+
+### diversity in policing  
+
+-  to what extent do police officers look like the communities they serve in
+-  emphasis on diverse police forces began with the passage of civil rights groups  
+-  policing -- like everywhere else -- there were precursors to diversifying the employee workforce. 
+-  significant changes in demographics in policing nationally came in the 1960s  
+
+-  employment discrimination: washington vs. davis (1975) -- employment discrimination in the dc police department
+    -  lots of other lawsuits like this in the 1970s.  
+-  reformers wanted to make the hiring process less reliant on patronage networks (early 20th century) 
+-  the exams did have a disparate impact -- african americans passed at lower rates than white applicants.  
+
+End result: lots of these lawsuits were successful, and had a major impact on the hiring process.  
+    -  lots of police departments were ordered to change their testing process
+    -  some police departments had quotas imposed on them  
+
+### changes in police departments over time  
+-  historically the overall trend nationally is great diversity in policing  
+-  1997 - 2916: female police officers went from 10% to ~12%  
+-  30x30 initiative: effort to increase female percentage of police workforce to 30% by 2030  
+-  there has been some movement to include and diversify among gender identities in police departments.  
+
+### why did people argue for diversifying 
+
+1.  competency effects: to change the character of the police department 
+    -  minority officers may less abusive towards minority communities
+    -  minotity officers may be more effective at policing minority communities
+    -  minority officers have different skills 
+2.  community effects: 
+    -  increasing trust in community  
+    -  increasing legitimacy of police  
+3.  organizational effects
+    -  more diverse officers might take crime in minority communities more seriously
+    -  dynamics of the organization might change when it is exposed to a more diverse workforce.  
+    -  police unions -- in big cities, there might be a black officers association bringing a different voice to issues  
+
+
+
+
 ## 2023-09-19
 ### Training and Wellness 
 Managers have a role in providing training and access to skills to their employees. In the context of the police, training in controlling the use of force.  
