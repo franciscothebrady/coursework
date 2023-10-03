@@ -5,3 +5,6 @@
 *.dta
 *.Dta
 *.docx
+*.png
+*.aux
+*.out
