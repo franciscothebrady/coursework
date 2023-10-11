@@ -1,0 +1,186 @@
+---
+title: |
+    |  Public Policy 529 
+    |  Fall 2023 Problem Set #5
+author: "Francisco Brady"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  word_document: default
+  html_document:
+    df_print: paged
+---
+**Due on Wednesday, October 11, end of day**  
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+For this problem set, I will start promoting the use of Markdown in both Stata and R, but especially for R users. It is not necessary for you to use Markdown, so do not feel the need to do so. In fact, it is a bit clunky to set it up in Stata, especially on a university lab machine, so feel free to just paste your output into your answers like you have been doing. While it requires a bit of learning, I think the results are worth it in the long run. I have posted Markdown template files, a help guide, and demonstration videos in Canvas.  
+
+After you have completed the setup, the easiest way to proceed is to start with the problem set template and insert what you need in that document.  
+
+1. Explain how each of these things affect the size (i.e. width) of the confidence interval?  
+
+(a) The desired level of confidence.  
+Using a higher of confidence level results in a wider confidence interval. This is because the degree of confidence used is translated into a Z score which is used to construct the interval. For example, for a 95% level of confidence, the z score used is 1.96, which is then multiplied by the standard error of the point estimate to construct the interval. For a 99% level of confidence, the z score used is 2.576, which creates a wider interval when multiplied by the standard error.  
+
+(b) The sample standard deviation (s).  
+As the standard deviation increases, confidence interval increases. This is because the standard error is calculated using the standard deviation in the numerator $\frac{\sigma_{\bar{x}}}{\sqrt{n}}$. This is then multiplied by the z statistic in order to create a confidence interval.  
+
+(c) The sample size (n).  
+Increasing the sample size of the estimate will decrease the width of the confidence interval. This is because larger sample sizes decrease the size of the standard error ($\frac{\sigma}{\sqrt{n}}$), which is used to construct the confidence interval.  
+
+
+2. Find the following using the t-table handout.  
+
+(a) If n = 31, what critical value of t would you would use to make a 95% confidence interval for a sample mean?  
+Degrees of Freedom: n - 1 = 30.  
+critical value of t: 2.042  
+
+(b) How much area is there in the upper tail of the t-distribution for a t-statistic of 2.799 when degrees of freedom are 26?  
+The area in the upper tail would be between .005 and .001.  
+
+(c) If there are 60 degrees of freedom and your t-statistic is -2.42, how much area is there in the lower tail of the t-distribution? A range is okay.  
+Between .005 and .010  
+
+
+3. The Millennium Development Goals aimed to improve human welfare by setting goals for improvement in a range of human development indicators. One goal was to increase the level of education for the people in a country. To test progress, officials take a survey with a sample of 650 and find that the mean years of education is 8.2 with a standard deviation (s) of 5.5.
+(a) Construct a 95% confidence interval around the sample mean and interpret the result.  
+Since the sample is larger than 30 observations, and we are dealing with means, we can use a t statistic (1.96), and then use that to construct the interval:  
+$$
+CI = \bar{y} \pm t \cdot \frac{s}{\sqrt{n}} = 8.2 \pm 1.96 \cdot \frac{5.5}{\sqrt{650}}
+$$
+```{r}
+moe <- 1.96 * (5.5 / sqrt(650))
+CI <- round(c(8.2 - moe, 8.2 + moe),3)
+cat(c("lower:",CI[1], "\nupper:", CI[2]))
+```
+
+The interpretation is: Following these procedures, if we took repeated samples of $n$ = 650 and calculate the upper and lower bound of the estimates each time, 95% of the time it would capture the  true population mean. The confidence interval in this case is between 7.777 and 8.623.  
+
+(b) Now, construct a 90% confidence interval and interpret the result.  
+We can use a t statistic of 1.645 (.0197). Following the same calculations as above:  
+$$
+CI = \bar{y} \pm t \cdot \frac{s}{\sqrt{n}} = 8.2 \pm 1.645 \cdot \frac{5.5}{\sqrt{650}}
+$$
+```{r}
+moe <- 1.645 * (5.5 / sqrt(650))
+CI <- round(c(8.2 - moe, 8.2 + moe),3)
+cat(c("lower:",CI[1], "\nupper:", CI[2]))
+```
+Interpretation: Following these procedures, if we took repeated samples of $n$ = 650 and calculate the upper and lower bound of the estimates each time, 90% of the time it would capture the  true population mean. The confidence interval in this case is between 7.845 and 8.555.  
+
+(c) Suppose that, one decade earlier, the country performed a full national census and found that the mean years of education was 7.9 years. Drawing upon your answers above for insight, how plausible is it that 7.9 years is still the mean of the population?  
+Using the national census mean, we can perform a significance test to see if it is plausible to believe that the new mean is different from 7.9 based on the sample mean that was taken from the 650 person survey.  
+
+1. State assumptions: The population is normally distributed, and the sample statistic is normal because the sample size is larger than 30. Since we are comparing means, we can use a t statistic.
+2. State hypotheses:  
+$H_0 = \mu = 7.9$  (that the mean is the same as it was 10 years ago)
+$H_a = \mu \ne 7.9$  (that the mean has changed in 10 years)
+3. Calculate a test statistic:  
+$$
+t = \frac{\bar{x} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{8.2 - 7.9}{\frac{5.5}{\sqrt{650}}}
+$$
+```{r}
+(8.2 - 7.9) / (5.5 / sqrt(650))
+```
+
+4. Calculate a p-value:  
+[I AM NOT SURE ABOUT THIS PART]
+Our t-statistic was 1.391, we are performing a two-sided test, so the p-value is the probability of obtaining a sample mean at least 1.391 standard errors away from $H_0$ in either direction, if $H_0$ is true. Finding the p-value inside the t-table to find 1.39, we can see that it would be between $t_.100$ and $t_.050$. Using R to get an exact p-value: `1 - pnorm(1.391) = 0.0821127`
+[I AM NOT SURE ABOUT THIS PART]
+5. Conclude:  We observed that the mean years of education was 8.2, with a standard error of .21. We tested this against the null hypothesis of 7.9, and found a p-value of 2.782. At $\alpha = .05$, $t_\alpha$ = 1.960. Since p > t (2.782 > 1.960), we cannot reject $H_0$. 
+
+
+4. Suppose that the Environmental Protection Agency tests a random sample of 110 cars from a particular manufacturer and found that a proportion of .15 failed to meet emission standards.  
+
+(a) Based upon this study, construct a 90% confidence interval associated with the estimated proportion of .15.  
+To construct a confidence interval for proportions, we need to calculate the standard error using this formula: 
+$$ 
+se = \hat{\sigma_{\hat{\pi}}} = \sqrt{\frac{\hat{\pi}(1 - \hat{\pi})}{n}}
+$$
+Provided that there are at least 15 cases in each category (failing standards and not failing standards).  110*.15 = 16.5, so that is true. Using the z table to find a score, we can use 1.29 (.985). Plugging into the standard error formula:  
+```{r}
+pi_hat <- .15
+n <- 110
+z <- 1.29
+standard_error <- sqrt((pi_hat * (1 - pi_hat)) / n)
+CI <- round(c(pi_hat - (z * standard_error), pi_hat + (z * standard_error)),3)
+cat(c("lower:",CI[1], "\nupper:", CI[2]))
+```
+So the confidence interval is 0.106 and 0.194.  
+
+(b) Interpret this confidence interval properly.  
+Following these procedures, if we took repeated samples of $n$ = 110 and calculate the upper and lower bound of the estimates each time, 90% of the time it would capture the  true population mean. The confidence interval in this case is between 0.106 and 0.194  
+
+(c) At $\alpha$ = .05, perform a significance test versus the null hypotheses that the true proportion of the cars that fail emission standards is .06. Be sure to follow all the steps: consider assumptions (i.e. is your sample size adequate, what is the appropriate test statistic, etc.), state hypotheses, identify the critical value of the test statistic, calculate the value of the test statistic, make a decision on whether to accept or reject the null hypothesis, and calculate the p-value.  
+[NOT SURE ABOUT THIS PART]
+1. The sample size is adequate -- there are at least 15 observations in each category (110 * .15 = 16.5)
+
+
+5. Use the `anes2020subset` dataset for the following questions. The variable `BAplus` asked respondents whether they have a college degree: yes or no.  
+```{r}
+load('anes2020subset.RData')
+```
+(a) What proportion of respondents responded "yes"? Note: get the frequency distribution and use the information to calculate the proportion.  
+```{r}
+table(anes2020$BAplus, useNA = 'a')
+# unclear if we should also use NA values to calculate proportion
+denom <- (4502 + 3647)
+num <- (3647)
+prop <- num / denom
+prop
+```
+
+(b) Using the formulas to perform the calculations yourself, construct a 95% confidence interval for this estimated proportion. Note: you will need to work this problem using at least three decimal places.  
+
+```{r}
+pi_hat <- prop
+n <- denom
+z <- 1.96
+standard_error <- sqrt((pi_hat * (1 - pi_hat)) / n)
+CI <- round(c(pi_hat - (z * standard_error), pi_hat + (z * standard_error)),3)
+cat(c("lower:",CI[1], "\nupper:", CI[2]))
+```
+
+(c) Interpret this confidence interval.  
+If we took repeated samples of $n$ = 8149 and calculate the upper and lower bound of the estimates each time, 95% of the time it would capture the true population proportion of people with a BA or higher. The confidence interval in this case is between 0.437 and 0.458.  
+
+(d) Describe two reasons why this interval might not contain the true proportion of people in the population that have a college degree.  
+[ADD TO THIS]
+1.  There were 131 people whose response was NA in this sample.  
+2.  The national figure is much lower than this. This could be weighted data.   
+
+(e) Now use your software to make a 90% confidence interval. In Stata, the command is `ci prop BAplus, level(90)`. In R, the command takes the following form:
+`prop.test(#cat, n, conf.level = .90, correct = FALSE)`. In place of "#cat," which stands for number in the category, you should put the number of people who say they have a college degree. In place of "n," you should put the total number of cases.  
+```{r}  
+prop.test(3647, 8149, conf.level = .90, correct = FALSE)
+```
+Interpret this confidence interval properly.  
+If we took repeated samples of $n$ = 8149 and calculate the upper and lower bound of the estimates each time, 95% of the time it would capture the true population proportion of people with a BA or higher. The confidence interval in this case is between 0.438 and 0.457.  
+
+6. In the 2020 National Election Study (`anes2020subset`), "thermometer scores" are used to measure how much the respondent likes or dislikes a person, group, or organization. The scale goes from 0 to 100. The respondent is told that 50 degrees on the scale means neutral feelings, while higher scores mean warmer feelings and lower scores mean colder feelings. Treat this scale as an interval-level variable.  
+
+(a) Find the mean thermometer score for labor unions (`UnionsTherm`), the sample size, and the standard deviation of this variable.  
+```{r}
+cat('\nmean:', mean(anes2020$UnionsTherm, na.rm = T))
+n <- length(na.omit(anes2020$UnionsTherm))
+cat('\nn:', n)
+cat('\nsd:', sd(anes2020$UnionsTherm, na.rm = T))
+```
+
+(b) With the information you received from your command, use the formulas to construct a 95% confidence interval for this score. Do this yourself using the formulas and show your work.  
+```{r}
+moe <- 1.96 * (24.0318 / sqrt(7326))
+CI <- round(c(58.33511 - moe, 58.33511 + moe),3)
+cat(c("lower:",CI[1], "\nupper:", CI[2]))
+```
+
+(c) Now use your software to make a 99% confidence interval for `UnionsTherm`. In Stata, the command is: `ci mean UnionsTherm, level(99)`. In R, the command is: `t.test(anes2020$UnionsTherm, conf.level = .99)`  
+Interpret the resulting confidence interval properly.
+```{r}
+t.test(anes2020$UnionsTherm, conf.level = .99)
+```

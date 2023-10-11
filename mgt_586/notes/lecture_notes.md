@@ -1,3 +1,165 @@
+## 2023-10-05 
+Debates!  
+Topic: Procedural Justice  
+Procedural Justice: Humanistic approach to policing -- treating people with dignity and respect.  
+Four principles:  
+-  treating people with dignity and respect
+-  giving people a voice during encounters  
+-  being neutral and transparent in decision-making  
+-  conveying trustworthy motives  
+
+Pro: 
+-  encourages police to build relationships with community members  
+-  encourages community compliance with police to solve problems  
+-  more focused on police treating community fairly and having positive interactions  
+-  focused more on persuasion than coercion and use-of-force  
+-  success metric is degree of trust in police by community 
+
+Method:  
+-  internal and external method
+-  officers that perceive respect and dignity from their supervisors are more likely to accept departmental policy  
+-  officers are encouraged to have more than just criminal enforcement interactions with community members  
+
+Con:  
+-  how to measure trust  
+    -  lack of will 
+    -  hard to measure 
+-  persuasion instead of reform  
+    -  focused on public perception over police actions  
+        -  in australia example, police persuaded random drunk driving stops were legitimate  
+-  public perception can be inaccurate or influenced  
+    -  public perception can be influenced by media
+
+### Precision Policing  
+
+Pro:
+-  evidence-based crime prevention  
+-  neighborhood policing  
+-  transparency and tracking  
+-  professional education  
+
+Con:
+-  data is not neutral  
+-  not financially feasible for smaller departments  
+-  possible over-policing of certain neighborhoods (and minority groups)  
+
+
+
+## 2023-10-03  
+From last time:
+- The role that systems of discipline could play in regulating police misconduct.  
+
+Lots of police misconduct systems don't often do that. The reasons they do not are complicated. 
+-  there are lots of employee protections for public employees
+-  the hard part is protecting employees due process protections while also strengthening accountability for bad actors.  
+
+The big picture: the positive goal of any discipline system is to punish misconduct and sending a message about conduct that won't be tolerated.  
+
+### how do early intervention systems fit into this picture  
+-  flagging employees who have the potential to engage in misconduct   
+-  works with indicators (varies by department): 
+    -  gives people a specific score based on a number of indicators, rather than a single behavior.
+    -  gives a broader picture of performance  
+
+Distinction between monitoring individual instances of misconduct and monitoring the overall performance of the department.
+How is this different from performance management?  
+-  alternative way of doing the same thing in a rigorous format  
+-  grounded in metrics about work employee has actually done vs. managers annual review of employee performance.  
+
+How are the early intervention systems different?  
+-  not as much about sanctioning poor work, instead are more about reforming behavior  
+-  emphasis on intervention to address issues before they become more problematic  
+
+### walker and archbold  
+-  good early intervention system is complex  
+what should be considered in the design of an EIS?  
+-  what factors to use?  
+-  what kinds of triggers are these?  
+    -  complaints  
+    -  legal/civil suits  
+    -  the number of traumatic incidents that the officer has been involved in  
+    -  number of sick days (could be an indicator of stress or substance abuse)  
+Example: Portland.  
+-  shift force ration  
+-  force ration  
+-  force count  
+-  criminal complaint  
+-  complaint in same category
+-  complaint count  
+-  traumatic incidents  
+
+Issues:  
+-  Some EIS policies do not allow for a certain amoutn of discretion.
+-  Some policies do not explicitly use comparisons to peer employees as part of triggers for review  
+
+### Challenges of EIS  
+-  actual buy-in  
+-  data reliability (on complaints and other indicators)  
+-  getting people access to training and reform programs  
+-  good EIS systems take time and require resources  
+
+### Organizational Strategy   
+
+Last unit in the class!  
+This topic is maybe not the first thing you think of when you think of a public manager.  
+-  public managers are supposed to be concerned with administration  
+-  another more intangible role that a manager can play that has to do with setting organizational direction.  
+
+topic of organizational strategy can be a bit amorphous  
+
+Org. Strategy can be done well and can be done poorly  
+-  everyone has experience thinking of strengths and weaknesses in break-out sessions that don't go anywhere.  
+
+It's still important because if you plug people into a broken system, you will end up with bad results.  
+
+important reason for strategic thinking:  
+-  organizatoins get in ruts; strong tendency to keep doing what they've been doing.  
+-  article by robert k. merton: tendency for organizations to lose sight of their original goals, and instead focus on maintaining existing rules and mode sof work.  
+
+Strategic thinking is supposed to be an antidote to this kind of calcifying thinking.  
+-  thinking more about the results themselves vs usual organizational routines.  
+
+Strategic thinking has been important in private management concepts.  Mark Moore based his thinking on the private sector model.  
+-  based in part on writings of people like david drucker.  
+-  drucker: you should think about your management in terms of creating value for your customers.  
+    -  focus should also be put on whether the business is doing the right thing in the first place. understand what the customer wants.  
+
+this is not the way that we generally think of non-profit and public sector managers.  
+-  moore: inclined to view imagination and initiative among (unelected) publc sector executives as dangerous and contrary to the public welfare.  
+
+### Moore's model of strategic thinking  
+-  strategic thinking for public managers is about thinking about the public value that the organization is trying to create.  
+
+In creating public value, police chiefs should be acting more in this entrepreneurial way.  
+-  this could be unreasonable at this time, when police departments are seen to be out of control.  
+-  does this frame of mind make sense in 2023 in the environment of policing in america.  
+
+For all the concerns we have about "entrepreneurship" in police management strategies --  the question could be posed what is the alternative?  
+-  maintaining the status quo of the historical management strategy of policing makes sense in the current moment.  
+-  for example: does the focus on call response and crime reduction make sense in the context of a carceral state and punitive judicial environment.  
+
+#### it's possible the fundamentally rethiking police strategy should not be the remit of police chiefs or managers  
+-  moore and stephens agree: the role of outside stakeholders argue that shaping legitimate police strategies is an important facet of the aim of creating public value.  
+
+
+- much more complex to judge entrepreneurial success in the public sector than in the private sector.  
+
+Moore suggests using the the strategic triangle:  
+-  the three corners of the triangle are:  
+    -  substantive value: task environment  
+    -  operational feasability: distinctive competence  
+    -  political feasability: authorizing environment  
+
+A responsible manager is asking these hard questions:  
+-  what is my argument for rethinking this police department along the lines of community policing model?  
+-  is this policitally feasible? Will city hall support this?  
+-  is this operationally feasible? Is reoriantation a realistic endeavor?  
+
+This is what Moore wants people to think about when trying to imagine a new strategy for police reform.  
+
+
+
+
 ## 2023-09-28
 
 Hiring practices -- wrap up 

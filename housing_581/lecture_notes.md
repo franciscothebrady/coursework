@@ -592,3 +592,36 @@ During the great depression, the housing market collapsed, and when balloon paym
 -  low default risk  
 
 
+## 2023-10-05  
+### adjustable rate mortgages (ARMs)  
+-  ARMs are a type of mortgage loan characterized by interest rates that adjust or fluctuate periodically based on a preselected index.  
+-  the interest rate on an ARM is tied to a specific index, such as the treasury bill rate, the 11th district cost of funds index, or the london interbank offered rate (LIBOR).  
+
+### Other types of mortgages  
+-  balloon mortgages  
+    -  a balloon mortgage is a loan that is amortized over a longer period than the term of the loan.  
+    -  at the end of the term, the entire remaining balance is due.  
+    -  balloon mortgages are typically used for commercial properties.
+-  interest-only mortgages
+-  reverse mortgages  
+    -  a reverse mortgage is a loan that allows homeowners to convert part of the equity in their homes into cash without having to sell the home, give up title, or take on a new monthly mortgage payment.  
+    -  reverse mortgages are available to homeowners 62 years of age or older.  
+    -  the homeowner's obligation to repay the loan is deferred until the owner dies, the home is sold, or the owner leaves the home.  
+    -  the amount of equity that can be converted to cash is based on the age of the youngest borrower, the interest rate, and the lesser of the appraised value of the home, the sales price, or the FHA mortgage limit for the area.  
+    -  reverse mortgages are typically used by older homeowners to supplement retirement income.  
+
+### subprime v.s. predatory lending  
+-  subprime: lending to borrowers with high credit risk who are not eligible for prime loans.  
+-  predatory: lending to borrowers and steering them into loans with high interest rates, regardless of their credit quality.  
+
+### Major entities in the us housing finance system  
+-  FHA: federal housing administration
+-  Fannie Mae: federal national mortgage association
+-  Freddie Mac: federal home loan mortgage corporation
+-  Ginnie Mae: government national mortgage association
+    -  only purchases FHA and VA loans.
+    -  only agency that is backed by the full faith and credit of the us government.
+    -  Fannie mae and freddie mac are not "supposed" to be backed by the full faith and credit of the us government, but they are.
+-  FHFA: federal housing finance agency
+
+

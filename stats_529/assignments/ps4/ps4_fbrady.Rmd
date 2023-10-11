@@ -14,7 +14,7 @@ urlcolor: blue
 ## Fall 2023: Problem Set #4
 Due Wednesday, October 4th  
 
-Note for my grader: I made this using Rmarkdown, which can render \LaTeX\. It is useful for equations and including calculations all in one file. Let me know if you have any questions!
+Note for grader: I made this using Rmarkdown, which can render \LaTeX\. It is useful including text, equations, and including code output/calculations all in one file. Let me know if you have any questions!
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -104,13 +104,16 @@ In the z table, the z-score of -1.96 gives an area of 0.02500 for the lower tail
 4. The distribution of household income in the United States has a strong positive skew. Suppose the mean ($\mu$) is \$97,941, and the standard deviation ($\sigma$) is \$76,021. You collect a random sample of size n = 400 and measure household income.  
 
 (a) As we have learned, the mean of your sample comes from a probability distribution over all possible sample means (i.e. a sampling distribution). According to the Central Limit Theorem, what value is at the middle of this distribution? Provide a specific number.  
-The value at the middle of the sampling distribution should be: \$97,941.  
+
+The value in the middle of the sampling distribution should approach \$97,941.  
 
 (b) Would this sampling distribution have a positive skew? Why or why not?  
-The central limit theorem states that the sampling distribution of the mean income is approximately normal, even if the underlying distribution is skewed because the sample size is larger than 30.  
 
-(c) According to the Central Limit Theorem, what is the size of random sampling error for the sample mean? Provide an interpretation of this number.  
-This is the standard error:  
+No, the central limit theorem states that the sampling distribution will be an approximately normal distribution, even if the underlying distribution is skewed, because the sample size is larger than 30.  
+
+(c) According to the Central Limit Theorem, what is the size of random sampling error for the sample mean? Provide an interpretation of this number. 
+
+The size of the random sampling error for the sample mean is the typical deviation from the population parameter, called the standard error. 
 $$
 \sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
 $$
@@ -130,7 +133,16 @@ upper <- -1.96 * (3801.05/ sqrt(400))
 76021 - upper
 ```
 (e) What is the probability that your sample mean would be greater than \$101,742?  
-[FINISH]
+
+Using for formula for the sample z-score:  
+$$
+Z = \frac{x - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{101,742 - 97,941}{\frac{76,021}{\sqrt{400}}}
+$$
+```{r}
+(101742 - 97941) / (76021 / sqrt(400))
+```
+
+Looking up 0.99 in the z table, it returns 0.1611, meaning there is around a 16.11% chance that you could find a sample mean greater than $101,742
 
 5. Suppose that, with probability .32, a randomly selected person will agree that astrology has scientific truth. Also, suppose that there is a probability of .89 that a person will agree that science brings opportunities for the next generation. Finally, suppose that there is a probability of .29 that a person will agree with both. 
 

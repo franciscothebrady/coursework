@@ -81,3 +81,30 @@ Strategic triangle:
 -  whether it will be politically and legally supported  
 -  whether it is admistratively and operationally feasible  
 
+
+### Policing Strategies Pt. I 
+
+"Rightful Policing" - Tracey Meares 
+-  herny louis gates arrest  
+    -  important to recognize that the police were called by a neighbor  
+    -  police were responding to a call about a break-in  
+-  this is not how it felt to gates  
+-  even though the police officer was acting legally, was he acting rightfully?  
+    -  the answer is no  
+-  two distinctions:  
+    -  rightful policing does not rely on the lawfulness of police conduct, instead considering procedural justice  
+    -  does not depend the assessment on an assessment of police as "ever more effective crime fighters"  
+-  people care more about how law enforcement treats them than about the outcome of contact  
+-  procedural justice:  
+    -  quality of treatment
+    -  decision-making fairness
+    -  voice and expectations of benevolent treatment  
+-  perception on these metrics lead to legitimacy  
+
+-  people are more motivated to comply when they believe they are being treated fairly than when they are afraid of punishment  
+-  too often policing is executed in a way that is lawful but deeply illegitimate -- not respectful, not fair, not procedurally just  
+
+Strategies:  
+-  Chicago: targeted investigation of gun violations, with resources provided to those at risk, as well as roundtable discussions on alternatives to violence
+-  Australia: drunk driving random tests, treatment included explanations of rationale and fairness, resources, and thanks for participation.  
+

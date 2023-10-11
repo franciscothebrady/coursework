@@ -1,3 +1,236 @@
+### 2023-10-04: Confindence Intervals 
+
+Example: Mean years of education  
+We measure years of education in our sample of n = 1000. Suppose $\bar{y}$ = 10 and s=4. Let's make a 95% confidence interval.  
+
+s: estimate of standard error 
+
+$$
+\bar{y} \pm 1.96 \cdot \frac{s_y}{\sqrt{n}}
+$$
+
+Thus:  
+
+$$ 
+10 \pm 1.96 \cdot \frac{4}{\sqrt{1000}} \rarr 10 \pm .248  
+$$
+
+The margin of error is $\pm$ .248, and the resulting 95% confidence interval is 9.752 to 10.248.  
+
+> It's common to include the range. The problem is that it lets people focus on the range rather than the margin of error.  
+
+### Interpreting the Confidence Interval  
+
+-  really not good: "The true population mean falls between 9.752 and 10.248"  
+    -  problems: talks about the population mean as if it's a random variable. What's random is the sample statistics with respect to the population mean.  
+-  not good: "there's a 95% chance that the true population mean lies between 9.752 and 10.248"  
+    -  it is not a matter of probability whether the true population mean lies in the interval.
+
+Why are these not good? The true population mean is fixed. IT does not "fall" anywhere. Wheteher it lies between two specific numbers is not a matter of probability.  
+
+### Interpreting : the Confidence Interval
+
+-  Good: The 95% confidence interval is 9.752 to 10.248. Across repeated samples, 95% of confidence intervals constructed using these procedures will contain the true population mean."  
+-  good: "There is a 95% chance that a confidence interval constructed with these procedures will include the true population mean."  
+-  good: "Assuming the population mean is 10, 95% of samples of size 1000 we draw from that population will have a sample mean that lies between 9.752 and 10.248."  
+
+### confidence interval for proportions  
+
+First we used means, which is interval level data. Now we can move on to categories, for which we will estimate proportions.  
+
+### proportions ($\pi$)
+$\pi$: the true population proportion of cases in that category  
+
+When we have categorical data, we may be interested in the proportion of cases that have a particular value.  
+
+### proportions ($\pi$)
+-  we estimate the population proportion with the sample proportion, $\hat{\pi}$  
+-  this sample statistic is referred to as $\hat{\pi}$,  
+-  $\hat{\pi}$ is thus our point estimate for $\pi$. The proporties of the CLT hold for $\pi$  
+
+### Standard error of a proportion  
+from the CLT, we learned that a general formula for the standard error is:  
+$$
+\frac{\sigma}{\sqrt{n}}  
+$$
+
+For the standard error of a proportion, we modify the formula in this way:  
+$$
+\sigma_{\hat{\pi}} = \frac{\sigma}{\sqrt{n}} = \sqrt{\frac{\pi(1-\pi)}{n}}
+$$
+
+Why? Because is it easier mathematically to calculate the standard deviation of a proportion with a different but equivalent formula.  
+
+-  only use this for dichotomous, nominal variables, not for multi-category variables.  
+-  we can turn multi-category variables 
+
+### Standard Error in practice:  
+
+generally, we don't know $\pi$, but we can use $\hat{\pi}$ as an estimate.  
+So we substitute $\hat{\pi}$ for $\pi$ in the formula for the standard error of a proportion.  
+
+$$
+se = \hat{\sigma}_{\hat{\pi}} = \sqrt{\frac{\hat{\pi}(1-\hat{\pi})}{n}}
+$$
+
+This estimated standard error is still approximately normal if there are at least 15 cases in the category and 15 cases not in the category.  
+
+Recall: This is similar to the binomial distribution, in that you need enough samples to approximate the normal distribution.  
+
+### Proportions: Same Logic Applies  
+
+We use procedures that, with some specified probability, will make an interval around our point estimate that contains the true population parameter.  
+
+$$
+\hat{\pi} \pm z \cdot \sqrt{\frac{\hat{\pi}(1-\hat{\pi})}{n}}
+$$
+
+$\pi$ will be within z $\pm$ z standard errors of $\hat{\pi}$ with the probability associated with the area under the standard normal curve between -z and +x.  
+
+Note: unlike means, the sampling distribution for proportions cannot be approximated by the t-distriubtion when the samples are small.  
+
+### Example: C.I. for proportion  
+
+According to the 2012 ANES, the proportion of Americans that own a dog is .44. In this sample, n=2053. Let's make a 99% confidence interval.  
+$$
+\hat{\pi} \pm z \cdot \sqrt{\frac{\hat{\pi}(1-\hat{\pi})}{n}}
+$$
+Thus: 
+$$
+.44 \pm 2.58 \cdot \sqrt{\frac{.44(1-.44)}{2,053}} \rarr .44 \pm .03
+$$
+
+The margin of erro is $\pm$ .03, and the resulting 99% confidence interval is .41 to .47.  
+
+### ImportantL Confidence Interval for Proportions  
+-  slides show the stnadard treatment in most statistics textbooks. The reality is more complicated.  
+-  there are several different formulas for calculating confidence intervals for proportions.  
+-  the normal approximation, which is symmetric, becomes less accurate the closer $\hat{\pi}$ is to 0 or 1.  
+-  stata or R uses different formulas by default, neither of which calculates a symmetric margin or error aroudn $\hat{\pi}$.  
+-  stata uses the binomial to create an exact confidence interval, the `prop.test()` function in R uses a formula from wilson.  
+
+### Significance tests: Part 1  
+
+#### outline 
+1.  preliminaries 
+2.  elements of significance tests 
+3.  finishing the example  
+
+### Significance testing  
+we use our sample, and what we know about sampling distribution to test the plausibility of hypothesies about population paramete4rs.  
+-  fewer than 45% of american approve of bidens' performance 
+-  the average american watches 1.5 hours of tv per day  
+
+hypothesies are predictions that population parameters have particular values.  
+
+### significance/hypothesis testing  
+
+-  hypot
+
+</br>
+</br>
+</br>
+</br>
+</br>heses also provide expectations about the relationship between variables. for ex:  
+
+-  approval of biden is lower among men than women  
+-  people with more eduication watch less tv  
+-  parents who receive educational information about vaccines when their child is bornd are more likely to vaccinate that child later on.  
+-  we start with the premise that these expectations are WRONG.  
+-  if our sample statistics suggest this premise is very unlikely, we reject it (the premise that we are wrong)  
+
+### elements of significance tests  
+- a baseline assumption: null hypothesis ($H_0$)  
+-  a threshold at whilch we reject this baseline assumptiopn: the level of significance ($\alpha$)  
+-  an appropriate test statistic, suhc as a z-statistic or t-statistic  
+-  an estimate of the probability that our observed data are consistent with $H_0$: the p-value  
+
+### null hypothesis  
+
+- the scenario we assume is true by default  
+-  usually, it states that no relationship exists between the variables of interest  
+-  seemingly contrary statistical findings from our sample could be due to random sampling error.  researchch has foudn that some approaches to promoting immunization actually makes parents less likely to immunize their children.  
+
+$H_0$: The immunization education program has no effect on immunization rates.  
+$H_a$: The immunization education program has an impact on immunization rates.
+
+### level of significance  
+-  the threshold at which we reject the null hypothesis  
+-  the level of type I error (an incorrect decision to reject the null hypothesis) we are willing to tolerate  
+-  $\alpha$ is a common level of significance: a 5% chance that we reject $H_0$ whenn we should not.  
+-  $alpha$ - .01 is also common  
+-  $alpha$ defines the critical value of the test statistic at which $H_0$ is rejected.  
+
+
+
+### alternative hypothesis ($H_a$)  
+
+-  the hypothesis we are proposing as an alternative to the null hypothesis  
+-  this is the hypothesis that represents our prediction  
+-  evidence consistent with the alternative hypothesis might permit us to reject the null hypothesis.  
+
+### example: immunization education program  
+
+a researcher wants to assess the impact of a program to provide information about childhood immunizations  
+
+### immunizatoin example  
+
+-  we can randomly select families for immunization education and measure the rate of immuizatoins in the sample  
+
+### an appropriate test statistic  
+-  a test statistic summarizes the extent to whic hour sample estimates differ from $H_0$  
+    -  does our test statistic exceed the critical value that represents a particular level of confidence?  
+-  different significance tests use different test statistics  
+-  we generally use t-statistics for small samples and z-statistics for large samples.  
+
+### back to immunization example  
+-  the research will compare the immunization rates of families who received the immunization education program to $H_0$, which is the immunization rate in the overall population.  
+-  a test statistic (z) will measure the difference between these two rates, but not just as a difference.  
+-  instead is it measured in standard errors.  
+-  for a proportion, this standard error would be calculatied using the proportion associated with $H_0$:  
+
+$$
+\sigma_{\pi_0} = \sqrt{\frac{\pi_0(1-\pi_0)}{n}}
+$$
+
+
+Note: using the proportion associated with $H_0$, not the proportion in the sample.  
+
+### the p-value  
+the p-value is the probability that our sample statistic is consistent with the null hypothesis.  
+
+it is the probability we would observe our sample statistics, or something even farther from $H_0$, under the scenario that $H_0$ is true.  
+
+It corresponds to the total area in the tails of the sampling distribution that is at least as extreme as our sample statistic.  
+
+With probability p, we would be making an eror of type 1 if we rejected $H_0$.  
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
 ### 2023-09-27: Sampling Distributions 
 1. sampling distributions 
 
