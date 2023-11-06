@@ -144,5 +144,36 @@ When do we use this:
 
 - numbers inside the table are t-statistics.  
 
+## October 11, 2023: Significance Tests, Part 2  
+
+Using t table sometimes you can only find an approximate value.  
+find p for t = 1.49.  
+The area in teh right-hand tail is between .01 and .025  
+the range for the two-tailed p-value is thus: 0.1 < p < .025  
+If you double that, you get 0.2 < p < 0.05  
+
+## Step 5: conclude  
+at $\alpha 
+in $\chi^2$ tests you do not need to double the p-value.  
+
+### one tailed tests? 
+
+-  we have a hypothesis about the specific direction of a relationship.  
+-  e.g. biden's approval ratings will be **lower** among men than women.  
+
+### one tailed rejection region  
+
+All of $\alpha$ moves to teh side where we would reject $H_0$.  
+If $H_a$ specifies that $\mu < H_0$, the rejection region is on the left-hand/lower tail. 
+
+For these tests, it actually becomes easier to reject the null hypothesis.  
+
+### air quality example  
+follow all the same procedures as before, producing the same t-statistic of -2.49.  
+
+$$
+t = \frac{\bar{y} = \mu_0}{\frac{s}{\sqrt{n}}} = \frac{155 - 175}{\frac{30}{\sqrt{14}}} = -2.49
+$$
+
 
 

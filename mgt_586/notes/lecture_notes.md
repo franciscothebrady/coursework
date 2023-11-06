@@ -1,3 +1,88 @@
+## 2023-10-12  
+
+Management is more holistic than just the tools that managers use.
+In real life, a good manager needs to integrate all the different tools we talked about into a package.  
+
+Review a successful case study of police reform: Lowell, Massachusetts.
+-  had a lot of problems with public safety and police abuse.  
+-  open air drug markets rampant during the 90s  
+-  community trust in police was low, particularly in new immigrant communities.  
+-  police depts existing strategy was not very effective  
+    -  strategy was reactive, traditional approach to policing, and was not having a big effect on crime or public safety  
+    -  leading to extensive use of force, including military-style drug raids, and lead to conflicts between the police and the community.  
+
+### what did they police department do?  
+-  tldr: changed the pd organizational strategy from the reform model of policing to the community problem solving approach -- police try to work in collaboration with community institutions to address crime and prevent it.  
+
+### open air drug markets  
+-  single biggest concern for members of the community  
+-  traditional approach of police: individual arrests, building individual cases, but this didn't address the overall problem.  
+-  turned out dealers were working out of dilapidated buildings, so the police got the building department involved.  
+-  sometimes condemned and tore properties down.  
+-  in other cases people were driving into the area to conduct drug deals, so traffic enforcement was involved to disrupt traffic patterns.  
+
+### police personnel changes  
+-  had to choose people who could work with other city employees -- outreach workers, other city agencies, govt employees  
+-  had to train new people 
+-  in the past police officers were sent to training at a central academy that focused on traditional style of police training (shooting, physical fitness, etc)  
+### coordination changes  
+-  started their own training academy in their police department.  
+-  had to outfit police with new technologies to connect them to other municipal agencies
+
+### performance evaluation changes  
+-  rethought how it would monitor officer performance, and how it would measure the work expected of them.  
+-  goal wasn't just to arrest people, but to solve community problems and address issues.  
+-  compstat was still around, but there was a bigger role for christine cole, the community liaison, who's job was to qualify the discussion of the stats with the priorities of community organizations around the city.  
+
+### other changes 
+-  opened up the department's complaint system 
+
+### reorientation   
+-  police officers were reoriented to think of themselves as problem solvers, not just crime fighters.  
+
+### results  
+-  after 4 years, crime went down by 50%  
+-  some of the most vocal critics of the police department acknowledged that the police were addressing their concerns.  
+
+### what can we learn from this?  
+-  management is holistic: police reform is never in a single managerial tool, but in a coordinated series of interventions that hopefully add up to a larger reorientation.  
+    -  often worried about single tools because of their limitations: e.g. you can change hiring criteria, but the new officers will be changed by the culture etc.
+    -  each of the individual tools may look hopeless as a lever for changing the organization.  
+    -  but the tools can be used as a coordinated package of reforms.
+    -  this allows each tool to make up for the others weaknesses.  
+
+This is why consent decrees are so long, they are complicated and holistic recommendations (mandates) for reform. Lots of differnet tools being utilized in order to change a dept in a meaningful way.  
+
+### vision of good policing  
+
+-  one of the reasons that organizational reform is so important is that it always involves a lot of interactions and it is complicated!  
+-  it is hard to keep track of that and make sure that minor reforms are not being undermined by other changes.  
+**this is why organizational strategy/strategic planning is important** to keep track of the big picture, and to make sure that the direction of the organization is still moving towards a broader goal.  
+
+### Bratton and Precision Policing  
+-  precision policing is an organizing principle for the complexities of structuring, managing, motivating, and leading a modern police agency.  
+-  lots of changes in lots of different areas all working with a guiding philosophy  
+
+### organizational strategy  
+-  doesn't need to be rigid, and some of the plan may end up being unnecessary.  
+-  in the lowell example: the strategic concept of community policing had a role to play, because it required them to think about which of the pressing crisis were related to their overall goals, and which ones could be addressed later 
+
+### broader management goals  
+the vision of the public agencies has to be taken into account when thinking about organizational reform.  
+-  what is the role of the library? 
+    -  is it a place for books, or will it be a community hub 
+-  the same is true for the police
+    -  they had to answer the questions about what the role of the police was in their community.  
+    -  were they going to address crime and safety, or aim for a broader mission for communtiy safety, like crime reduction, problem solving, community policing, etc  
+
+### challenges  
+-  these changes take time 
+    -  external stakeholders can also push for longer term changes  
+    -  role that outside stakeholders can play in attention to longer term problems  
+    -  how do you institutionalize the reform to ensure longevity beyond specific leaders  
+
+
+
 ## 2023-10-05 
 Debates!  
 Topic: Procedural Justice  

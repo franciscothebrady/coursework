@@ -1,0 +1,37 @@
+---
+title: "Outputs"
+author: "Francisco Brady"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Demographics
+
+### Total Population (table)
+
+### Population by Race
+
+### Tenure by Race  
+
+### Years of living in current unit 
+
+### Poverty Status by Tenure  
+
+## Housing Stock  
+
+### Total Housing Stock (table)
+
+### Age of Housing Stock
+
+### Housing by Type  
+
+### Vacancies (table)
+
+### Units lacking heating (if available) from AHS
+
+
+
