@@ -54,4 +54,208 @@ Results:
 - Chicago entered into a consent decree in 2019
 
 
+## reading notes for 2021-11-07  
+
+Readings: 
+- Legislative Oversight of Police: Lessons Learned from an Investigation of Police Handling of Demonstrations in Washington, D. C. - Mary M. Cheh
+- Wilson - Varieties of Police Behavior 
+- Various news articles  
+
+### Reading notes:  
+
+News articles: 
+- Montgomery County, MD law being considers to limit police traffic stops for minor violations. Would also limit authority to conduct a search of a stopped vehicle. 
+- Breonna Taylor law banning no-knock warrants in Kentucky. Mayor sez: "... risk to residents and officers with this kind of search outweigh any benefit."
+- Des Moines establishing a Community Policing and Code Enforcement Policy Board, and deprioritizing marijuana enforcement.
+
+Cheh Article: 
+- police oversight through local legislative investigations
+- investigation prompted by the response of police to anti-globalization protests in DC in 2002, and a subsequent internal review that was widely felt to have sidestepped the issues and led only to a letter of reprimand to the assistant chief of police.  
+- "Legislative investigations, if legitimately and seriously pursued, also have some potential to counter the "dual messages" phenomenon that allows police to acknowledge the rules that limit their behavior but to flout them at the same time."
+- Compared to Blue Ribbon Commissions, legislative investigations have more power to actuate reforms (by recommending legislation to local government).  
+- investigation format can be closed, and in DC protecting whistleblowers allowed them to collect more information.  
+- public part of the hearings can highlight the issue and draw media attention.  
+- committee found: "Overall, the Committee found that in policing the anti-globalization demonstrations, the MPD had failed "to acknowledge and protect the rights of individuals to privacy, and to free speech and assembly,"
+
+Wilson Excerpts: 
+- Community choices rarely have an impact on police behavior 
+- The maintenance of order is hard to bring under administrative control. 
+- The community can determine police policy, within broad limits, when the public can observe some problem for which the police are responsible. Two big ones:
+    -  crime in the streets
+    -  police handling of complaints 
+- political divides on enforcement -- active policing to some is harassment to others.  
+- the prevailing policing style is not determined by community decisions
+- police view most issues as a struggle for control of the department by outside forces 
+- the most important way in which political culture affects police behavior is through the selection of an administrator 
+- 
+
+
+Questions:
+- How exactly does Cheh think the legislative investigation influenced police practices?  
+Cheh contends that legislative investigations can be a way to shed light on, and influence police actions. Through the information gathering that takes place these committees are able place police actions into a broader context to address systemic practices at a broader level.  
+- Is it appropriate for elected officials to exercise this kind of control over policing?  
+In the section describing the benefits of the investigative committee, Cheh admits that these committees are more responsive to current exigencies than civil suits or suits for injunctive relief, which tend to place blame on lower level officers. She also mentioned that they are held to a lower burden of proof, which is a little bit alarming. That said, I do think it's appropriate for municipalities to conduct fact-gathering on police practices in their jurisdiction. They were able to collect and review documents and conduct hearings with experts who were able to contextualize the information on police practices. 
+- Is there anything about protest policing that makes it particularly amenable to this kind of oversight?  
+Focusing on police actions specifically in regards to protests allowed the committee to shed light on both police actions during the protest, but also the steps taken by the police to interrrupt protest action beforehand. Police responses to protests is amenable to this type of inquiry because of the importance we place on freedom of assembly and free speech in the USA. Because of the latitude given to a committee in terms of fact-finding, they are able to build a more complete picture of police tactics (and misconduct) surrounding protest preparation. The fact that this was the MPD, which should be more experienced than any police department in the country at dealing with protests, made the revelations of the committee more powerful, and probably motivated the quick response in the First Amendment Rights and Police Standards Act of 2004. 
+- What aspects of policing would not be amenable to this form of oversight?
+Cheh admits states upfront that the aim of these investigations is not to micro-manage police, but rather to build a base of information on police practices surrounding a particular issue (protests). As a result of the review, the inquiry revealed a number of practices and "dual messages" being given to the rank and file officers, which allowed the police to acknowledge the rules, but perhaps lax oversight allowed them to engage in misconduct in the field. 
+
+## reading notes for 2021-11-09
+
+### readings:
+- Police Unions: Catherine Fisk & L. Song Richardson
+- Baltimore FOP - Blueprint for Improved Policing
+
+### reading notes: 
+
+Fisk & Richardson:
+- Union Limits on Discipline and Transparency
+    - Timing and conduct of investigations
+    - Handling of personnel files 
+    - civilian complaints and oversight 
+    - misconduct investigations 
+
+Baltimore FOP: Blueprint for Improved Policing
+- hiring
+- education
+- training
+- leadership
+- resources
+- deployment 
+- competitiveness
+
+## reading notes for 2021-11-13
+
+### readings:
+- "Police Accountability and the Media", Jerome H. Skolnick and Candace McCoy
+- "Police and the News Media", Ted Gest
+
+### reading notes:
+Skolnick and McCoy:
+- Skolnick and McCoy make an important point in that in order to fully hold the police accountable, the public must be informed on the complex workings of the large and bureaucratic police organization. Skolnick and McCoy argue that the media should play a central role in educating and explaining to the public. This rings as true today as it did in 1985, but the media environment of 1985 was very different. CNN started broadcasting 24-hour news in 1980, so this article was published in the very early stages of the ascendance of 24-hour news channels, which completely changed the economics of the news and journalism industry. 
+- "If the public is to have the capacity to review police behavior and elicit the aid of powerful institutions, including media as well as courts, citizens must appreciate the potentialities and limit of police departments--and how police officers can reasonably be expected to carry out their duties. The media can supply the information from which such knowledge grows" (527). 
+- Skolnick and McCoy offer two rationales for the media being an important pillar of police accountability:
+    - the media can act as a monitor on police accountability by reporting to ensure the "government" serves the people.
+    - the media can act as providers of a range of information on police and their actions, to help citizens form opinions and make informed decvisions about government. 
+- Skolnick and McCoy's research lead them to the conclusion that too much press is directed towards reporting on events involving the police and crime (scandals, violence, protests), and too little time is spent reporting --and explaining-- policing as an institution, and as a special type of government agency. 
+- One interesting finding from their interviews with police chiefs was the lack of criticism of media outlets for being politically or ideologically partisan. 
+- The consensus among the police chiefs interviewed was that the media didn't invest enough time and energy into understanding and reporting on the root causes of crime, as well as reporting on the institutional aspects of policing. Once police chief said they increasingly had to educate the media and the public on the limits of policing. 
+
+Reviewing the Falls Church News Press and Washington Post
+- FCNP mostly posts small snippets consisting of calls for help identifying suspects of various crimes from the local police department. They use the police crime reports as filler for the paper. 
+- The Washington Post has more substantive reporting on police activity, including crime, but also some analysis on other police activity. Some notable headlines: 
+    - "Maui police footage reveals how emergency response breakdowns put cops at risk" -- not on local police department, but a detailed analysis of the breakdown in communications during the response to the Lahaina fire. 
+So while my smaller hometown newspaper did not engage in much substantive reporting on the police, my major metro hometown newspaper did have some more substantive reporting on police infrastructure, the basic protocols (and how they broke down in a recent emergency), and some analysis of police conduct. The Washington Post also maintains the database on police killings, which is as much a reporting project as it is an accountability project. 
+
+
+### reading for 2021-11-16
+
+readings: 
+- getting it right: building effective civilian review boards to oversee police (udi ofer)
+- NYPD-OIG: observations on accountability and transparency in ten nypd chokehold cases
+
+## ofer
+- CRBs don't have teeth.
+- perfect CRB should: 
+    - membership majority nominated by outside civic groups
+    - broad scope to review complaints 
+    - independent investigative authority
+    - disciplinary recommendations would be binding on the chief 
+    - ability to audit policies and practices, not just individual complaints 
+    - a secure source of funding (fixed percent of the police budget)
+    - due process for police officers 
+        - officers can access evidence and have the opportunity to appeal
+    - public access/reporting 
+
+## nypd-oig
+
+- "Of the ten substantiated chokehold cases reviewed for this study, the Police Commissioner made a final determination about discipline in six.22 In every one of those instances, the Police Commissioner departed from the disciplinary recommendation of CCRB, imposing a less severe penalty or, in two cases, no penalty at all." (18)
+
+## reading for 2021-11-21
+
+readings:
+- The New World of Police Accountability, Ch. 7: External Review of the Police - Samuel Walker and Carol Archbold
+- A Proposal for NYPD Inspector General - Brennan Center for Justice  
+
+### Walker and Archbold
+#### forms of external review:
+
+- police auditors and inspectors general
+    - permanent municipal agency -- independent from the police dept
+    - three basic types:
+        - tasked with auditing public complaints process
+        - agencies with broad mandate to audit, monitor, and investigate the department as a whole
+        - hybrid agencies: primary aim is to investigate complaints, but also maintains active monitoring function
+    - mission: 
+        - audit complaint process
+        - policy review and recommendations (not binding)
+    - also perform community outreach in the form of public meetings and commitment to transparency
+Examples:
+- LAPD Office of the Inspector General
+    - (ostensibly) has the power to hire and fire the police chief!
+
+- blue-ribbon commissions
+    - one-time panels of experts appointed to investigate a particular issue.
+    - no mechanism for compelling adoption of recommendations or following up on implementation
+
+- private consulting groups
+    - hired by police departments to invesiigate a particular issue or conduct a review of the entire department. 
+
+### strengths and weaknesses of external review
+- some external review agencies may not use the power they have 
+- no power to enforce recommendations 
+- part of the political process, can be abolished or reduced in power through political processes
+
+### brennan center
+- recommends an inspector general system for the NYPD, especially their counterterrorism and intelligence operations 
+    - why: IAB is not a substitute for external review 
+        - IAB is focused on police corruption, not police misconduct
+        - IAB is not autonomous from the police department
+    - Mayor's Commission to Combat Police Corruption:
+        - too small 
+        - cannot compel witnesses or documents from NYPD
+    - CCRB
+        - authorized to hear complaints of the public 
+        - individual case review does not allow systemic oversight 
+        - Police Dept is unresponsive to CCRB requests for witnesses and documents
+    - NYC Department of Investigation: 
+        - broad charter to investigate misconduct
+        - DOI views itself as more limited in it's role 
+    - City Council
+        - has only exercised limited oversight into NYPDs counterterrorism and intelligence operations
+        - does not have the expertise to conduct oversight
+    - US Attorneys and District Attorneys
+        - do not exercise broad or regular oversight over NYPD
+        - Job of DOJ
+        - District Attorneys focus on criminal matters
+
+## reading questions: 
+
+
+1. The Brennan Center focuses primarily on oversight of the NYPD’s counterintelligence activity. What are the authors’ main concerns about the NYPD’s counterintelligence work?
+- size: NYPD counterterrorism operations budget is over $100 million and employs 1000 officers.
+- scope: operates in NYC, neighboring states, 11 overseas locations, and the budget for overseas program is not public.
+- interaction with federal government: NYPD officers are on the Joint Terrorism Task Force, part of the NY State Intelligence Center, and cooperation with the CIA. 
+
+
+2. Why are existing forms of police oversight in New York City ill-equipped to address the authors’ concerns about NYPD’s counterintelligence work?
+3. Why, according to the Brennan Center authors, would an inspector general be able to address those concerns more effectively than existing oversight entities (particularly the CCRB)?
+4. What key characteristics would an IG need to have to oversee counterintelligence work effectively? Which of those characteristics are likely to be most challenging to achieve?
+- Independence from the agencies they monitor
+- Required regular reporting to Mayor and City Council
+- Freedom to determine which reviews to conduct
+- Access to all relevant documentation and personnel
+- limited to offering recommendations 
+    - final determination of actions should be made by the mayor, police commissioner, and city council
+- identity of officers who make complaints should be confidential
+- budget should be adequate 
+
+
+5. What other aspects of policing, beyond counterintelligence work, might an IG be effective at regulating?
+
+
+### Response
+
+I found the Brennan Center report to be really eye opening. The size and scope of the NYPD counterterrorism operation is pretty staggering. The fact that the budget is so large, and there are so many independent aspects of the division, with interrelations among federal and local anti-terrorism offices, is wild. As the largest city in America, it makes some amount of sense that there is such a large intelligence apparatus dedicated to protecting the city and it's citizens, but I think this does sell the point the Brennan Center is trying to make, which is that this large arm of the NYPD needs oversight. I found the key characteristics outlined of an ideal Inspector General by the report to be reasonable. It makes sense that any IG should be independent, and have some authority to access documents and personnel for investigations, particularly for policy reviews. Separate funding is also reasonable, given the "Lost departments" from the Walker and Archbold readings. I understand the guidance that any IG recommendations should not be binding, but I think I would go further than that, again in light of some of the lack of cooperation detailed in both Walker and Archbold and the earlier parts of the Brennan report to CCRBs and the Mayor's Commission. I wonder if some kind of required review and response period system could make sense, with some teeth attached to funding or fines if the department or office of counterterrorism fails to respond in a timely manner could work. 
+
 

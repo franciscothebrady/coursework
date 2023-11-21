@@ -625,3 +625,29 @@ During the great depression, the housing market collapsed, and when balloon paym
 -  FHFA: federal housing finance agency
 
 
+## readings for 2023-10-09
+
+### group project part II
+- policy memo on housing strategies 
+- due dec 4th 
+- 2-3 pages 
+
+### final paper 
+- due dec 7th 
+- 10-15 pages 
+- mostly review paper to look at the literature
+- focused study of a particular housing topic: 
+    - why is it important 
+    - review literature and analyze what we know and don't know about the topic 
+        - what needs to be studied more 
+- more info on the syllabus 
+
+### 
+
+
+Gregg Colburn (2021) The use of markets in housing policy: a comparative analysis of housing subsidy programs, Housing Studies, 36:1, 46-79.
+
+
+
+
+Michael J. Rich. 2014. Community Development Block Grants at 40: Time for a Makeover, Housing Policy Debate, 24:1, 46-90.

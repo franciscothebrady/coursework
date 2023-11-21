@@ -337,10 +337,10 @@ def main():
     ]
     # TODO 3.3
     # use clean_book on each list of bestsellers
-    for dict in young_adult_bestsellers:
-        week_list = dict["books"]
+    for book_list in young_adult_bestsellers:
+        week_list = book_list["books"]
         for i in range(len(week_list)):
-            week_list[i] = clean_book(week_list[i], keep_keys)
+            week_list[i] = clean_book(week_list[i], desired_keys=keep_keys)
 
     print(f"\nCleaned Young Adult Bestsellers Week 1: {young_adult_bestsellers_week_1}")
 
@@ -356,9 +356,7 @@ def main():
     assert rank_1_avg == rank_1_avg_test
 
     # TODO 4.4
-    rank_10_avg = get_average_price_by_rank(
-        rank=10, bestseller_lists=young_adult_bestsellers
-    )
+    rank_10_avg = get_average_price_by_rank(rank=10, bestseller_lists=young_adult_bestsellers)
 
     print(f"\nAverage Price of No. 10 Young Adult Books: ${rank_10_avg}")
     assert rank_10_avg == rank_10_avg_test
@@ -397,7 +395,7 @@ def main():
     # TODO 7.3
 
     # fmt: off
-    grand_central_score = score_publisher(fiction_bestsellers, "Grand Central")
+    grand_central_score = score_publisher(publisher="Grand Central", bestseller_lists=fiction_bestsellers)
     # fmt: on
 
     print(f"\nGrand Central Publisher Score: {grand_central_score }")
@@ -416,6 +414,11 @@ def main():
     fiction_publishers_scoreboard = create_scoreboard(fiction_bestsellers)
     print(f"\nScoreboard of Fiction Publishers: {fiction_publishers_scoreboard}")
     assert fiction_publishers_scoreboard == fiction_publishers_scoreboard_test
+    # TODO 9.4
+    filepath = "stu-fiction_publishers_scoreboard.json"
+    # TODO 9.5
+    write_json(filepath, fiction_publishers_scoreboard)
+
 
 
 # Do not modify or remove this if statement
