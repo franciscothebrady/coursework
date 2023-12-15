@@ -10,3 +10,8 @@
 *.out
 *.json
 *.xlsx
+*.csv
+*.geojson
+__pycache__/
+*.py[cod]
+
