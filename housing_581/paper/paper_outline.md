@@ -1,0 +1,16 @@
+ 
+
+References:
+- Ingrid Gould Ellen, Keren Mertens Horn & Yiwen Kuai (2018). Gateway to Opportunity? Disparities in Neighborhood Conditions Among Low-Income Housing Tax Credit Residents, Housing Policy Debate, 28:4, 572-591, DOI: 10.1080/10511482.2017.1413584
+-  Lan Deng (2011). Low-Income Housing Tax Credit Developments and Neighborhood Change: A Case Study of Miami-Dade County, Housing Studies, 26:6, 867-895, DOI: 10.1080/02673037.2011.593130
+- Examining Health Care Access And Health Of Children Living In Homes Subsidized By The Low-Income Housing Tax Credit. Sarah G. Gensheimer, Matthew D. Eisenberg, Daniel Hindman, Albert W. Wu, and Craig Evan Pollack. Health Affairs 2022 41:6, 883-892
+- US Department of Housing and Urban Development (2020). Affirmatively Furthering Fair Housing Data and Mapping Tool (AFFH-T) Data Documentation. https://www.hud.gov/sites/dfiles/FHEO/documents/AFFH-T-Data-Documentation-AFFHT0006-July-2020.pdf
+- Bullard, R. D., Mohai, P., Saha, R., & Wright, B. (2007). Toxic wastes and race at twenty: a report prepared for the United Church of Christ Justice & Witness Ministries. United Church of Christ.
+-  Sherry Ahrentzen, Lynne Dearborn, Ali Momen-Heravi & Arezou Sadoughi (2023) Shaping a Healthier LIHTC Housing Stock: Examining the Role of States’ Qualified Allocation Plans, Housing Policy Debate, 33:5, 1206-1227, DOI: 10.1080/10511482.2022.2086896
+- Goplerud, Dana K., et al. “The Spatial Relationship Between the Low-Income Housing Tax Credit Program and Industrial Air Pollution.” Cityscape, vol. 24, no. 3, 2022, pp. 183–212. JSTOR, https://www.jstor.org/stable/48707851. Accessed 10 Dec. 2023.
+-  Ingrid Gould Ellen & Keren Mertens Horn (2018) Points for Place: Can State Governments Shape Siting Patterns of Low-Income Housing Tax Credit Developments?, Housing Policy Debate, 28:5, 727-745, DOI: 10.1080/10511482.2018.1443487 
+- Rosenbaum, E. (2008). Racial/Ethnic Differences in Asthma Prevalence: The Role of Housing and Neighborhood Environments. Journal of Health and Social Behavior, 49(2), 131-145. https://doi.org/10.1177/002214650804900202
+- Marc Shi, Barbara A. Samuels, Craig Evan Pollack, “Low-Income Housing Tax Credit: Optimizing Its Impact on Health”, American Journal of Public Health 107, no. 10 (October 1, 2017): pp. 1586-1588. 
+- Ard, K. By all measures: an examination of the relationship between segregation and health risk from air pollution. Popul Environ 38, 1–20 (2016). https://doi.org/10.1007/s11111-015-0251-6
+- Kandilov, Amy, et al. "The Impact of the Vermont Support and Services at Home Program on Healthcare Expenditures." Cityscape, vol. 20, no. 2, 2018, pp. 7-18. ProQuest, https://proxy.lib.umich.edu/login?url=https://www.proquest.com/scholarly-journals/impact-vermont-support-services-at-home-program/docview/2117114652/se-2. 
+- Chakraborty, J., Collins, T.W., Grineski, S.E. et al. Air pollution exposure disparities in US public housing developments. Sci Rep 12, 9887 (2022). https://doi.org/10.1038/s41598-022-13942-3

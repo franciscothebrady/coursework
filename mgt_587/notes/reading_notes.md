@@ -23,7 +23,7 @@ I won't pretend that I didn't thoroughly enjoy reading the Kindy article. The id
 
 The Rapaport paper continues this thought by noting that the insurance companies themselves could be regulated by states. Rapaport's description of moral hazard relating to police misconduct is appropriate, in that it allows police department's and their jurisdictions to externalize the costs of their actions: "Liability insurance dilutes, or even neutralizes, deterrence by transferring the risk of liability from the municipality to the insurer" (1543). The description of intragovernmental risk pools, and their behavior was interesting to me, because it signals the capability of these groups to self-police: "high-performing members can encourage troubled municipalities to take loss prevention more seriously and advise them about its implementation." In this instance, loss prevention refers to police departments engaging six broad types of actions that reduce the risk of liability: 1) pocliy development, 2) education and training, 3) audits, 4) accreditation, 5) personnel, 6) omnibus and structural reforms. Rapaport's investigation reveals differing levels of success in each of these types of "regulation" by insurers, but the access and sometimes level of oversight allowed in some cases by insurers is farther reaching than a lot of municipalities have over their police departments, and could be incorporated into a public version of insurance and oversight. 
 
-## prep for 2021-11-02 class 
+## prep for 2023-11-02 class 
 
 Pattern of Practice Investigation: Chicago Police Department
 
@@ -54,7 +54,7 @@ Results:
 - Chicago entered into a consent decree in 2019
 
 
-## reading notes for 2021-11-07  
+## reading notes for 2023-11-07  
 
 Readings: 
 - Legislative Oversight of Police: Lessons Learned from an Investigation of Police Handling of Demonstrations in Washington, D. C. - Mary M. Cheh
@@ -100,7 +100,7 @@ Focusing on police actions specifically in regards to protests allowed the commi
 - What aspects of policing would not be amenable to this form of oversight?
 Cheh admits states upfront that the aim of these investigations is not to micro-manage police, but rather to build a base of information on police practices surrounding a particular issue (protests). As a result of the review, the inquiry revealed a number of practices and "dual messages" being given to the rank and file officers, which allowed the police to acknowledge the rules, but perhaps lax oversight allowed them to engage in misconduct in the field. 
 
-## reading notes for 2021-11-09
+## reading notes for 2023-11-09
 
 ### readings:
 - Police Unions: Catherine Fisk & L. Song Richardson
@@ -124,7 +124,7 @@ Baltimore FOP: Blueprint for Improved Policing
 - deployment 
 - competitiveness
 
-## reading notes for 2021-11-13
+## reading notes for 2023-11-13
 
 ### readings:
 - "Police Accountability and the Media", Jerome H. Skolnick and Candace McCoy
@@ -148,7 +148,7 @@ Reviewing the Falls Church News Press and Washington Post
 So while my smaller hometown newspaper did not engage in much substantive reporting on the police, my major metro hometown newspaper did have some more substantive reporting on police infrastructure, the basic protocols (and how they broke down in a recent emergency), and some analysis of police conduct. The Washington Post also maintains the database on police killings, which is as much a reporting project as it is an accountability project. 
 
 
-### reading for 2021-11-16
+### reading for 2023-11-16
 
 readings: 
 - getting it right: building effective civilian review boards to oversee police (udi ofer)
@@ -171,7 +171,7 @@ readings:
 
 - "Of the ten substantiated chokehold cases reviewed for this study, the Police Commissioner made a final determination about discipline in six.22 In every one of those instances, the Police Commissioner departed from the disciplinary recommendation of CCRB, imposing a less severe penalty or, in two cases, no penalty at all." (18)
 
-## reading for 2021-11-21
+## reading for 2023-11-21
 
 readings:
 - The New World of Police Accountability, Ch. 7: External Review of the Police - Samuel Walker and Carol Archbold
@@ -229,7 +229,7 @@ Examples:
         - Job of DOJ
         - District Attorneys focus on criminal matters
 
-## reading questions: 
+### reading questions: 
 
 
 1. The Brennan Center focuses primarily on oversight of the NYPD’s counterintelligence activity. What are the authors’ main concerns about the NYPD’s counterintelligence work?
@@ -259,3 +259,77 @@ Examples:
 I found the Brennan Center report to be really eye opening. The size and scope of the NYPD counterterrorism operation is pretty staggering. The fact that the budget is so large, and there are so many independent aspects of the division, with interrelations among federal and local anti-terrorism offices, is wild. As the largest city in America, it makes some amount of sense that there is such a large intelligence apparatus dedicated to protecting the city and it's citizens, but I think this does sell the point the Brennan Center is trying to make, which is that this large arm of the NYPD needs oversight. I found the key characteristics outlined of an ideal Inspector General by the report to be reasonable. It makes sense that any IG should be independent, and have some authority to access documents and personnel for investigations, particularly for policy reviews. Separate funding is also reasonable, given the "Lost departments" from the Walker and Archbold readings. I understand the guidance that any IG recommendations should not be binding, but I think I would go further than that, again in light of some of the lack of cooperation detailed in both Walker and Archbold and the earlier parts of the Brennan report to CCRBs and the Mayor's Commission. I wonder if some kind of required review and response period system could make sense, with some teeth attached to funding or fines if the department or office of counterterrorism fails to respond in a timely manner could work. 
 
 
+## reading for 2023-11-28
+
+readings:
+- Ponomarenko and Friedman - Democratic Accountability and Policing
+- The Policing Project - Report to the Los Angeles Police Commission Summarizing Public Feedback on LAPD Video Release Policies
+- LAPD - Critical Incident Video Release Policy 
+
+### Ponomarenko and Friedman - Democratic Accountability and Policing
+
+#### intro 
+- most people think of accountability after the fact, we actually need accountability before misconduct happens
+- what counts as miconduct is defined by the police themselves and not by the people (democracy)
+- in other arenas, *mechanisms of democratic accountability* is characterized by:
+    - rules in place before officials act
+    - rules are transparent and accessible
+    - rules formulated with public input 
+    - to the extent possible, rules are rational (designed to do more good than harm)
+- the reason this is a concern:
+    - without public input, there is a risk that rules and policies do not reflect *community values*
+    - democratic accountability is essential to agency legitimacy
+- they recommend: 
+    - development of clear and comprehensive rules on all aspects of policing that affect the rights and interests of the public 
+    - development, implementation, and evaluation of different models of police-community engagement over policy
+    - amendment of existing procedures to make clear that police are public agencies 
+    - funding and technical assistance from the DOJ to support adoption of front-end accountability mechanisms
+
+#### democracy and policing 
+- front end accountability ensures:
+    - agency actions are the product of considered actions and not ad-hoc judgements 
+    - public rules signal how govt official intend to respond, and allow public to adjust 
+    - public participation improves quality of rulemaking 
+- what is needed is guidance from the public about how police go about policing 
+(I find it interesting that Ponomarenko and Friedmand suggest that different communities might have different kinds of input -- some would be fine with specific kinds of surveillance and others might object. It's an interesting form of democratic policing that allows for local input and prioritizing.)
+- there are a few examples of public outreach in the form of CRBs and in the implementation of consent decrees, some PDs have been required to enlist public support in re-evaluating police policies, but consistent examples are the exception and not the norm. 
+- they don't ask the public *how* the want to be policed
+- "Too often, courts step in wielding constitutional law because no one else has stepped up to draft sensible rules to govern a particular policing practice."
+
+
+### The Policing Project - Report to the Los Angeles Police Commission Summarizing Public Feedback on LAPD Video Release Policies
+
+
+### LAPD - Critical Incident Video Release Policy
+- people have an interest in viewing police video, especially if lethal force is involved
+- lapd has to balance informing the public and respecting the privacy of individuals invovled
+- policy: release within 45 days of the incident, with additional context provided by lapd
+- special exceptions for juveniles
+- reasons to delay release:
+    - safety of individuals
+    - active investigation
+    - confidential sources 
+    - constitutional rights of the accused 
+- notification of officers involved
+- subject on whom use of force was used
+- District and City Attorney's offices
+- LA police protective league
+- any other appropriate parties
+
+
+
+
+
+### seed text
+Tuesday's class will explore Maria Ponomarenko and Barry Friedman’s idea of “democratic policing,” first expressed in a 2015 article Links to an external site. and summarized in the brief piece on Canvas. Those two articles take the form of broad manifestos that outline the ideals that should guide reform efforts rather than a detailed blueprint for practice. Friedman has tried to put these ideas into practice through the Policing Project
+
+Links to an external site., a nonprofit organization affiliated with NYU law school that has worked on various policymaking projects with police agencies across the U.S. One of your readings is a Policing Project report for the LAPD that aimed to gather public feedback about the agency’s policy on the release of video footage to the public.
+
+As you read Ponamarenko and Friedman’s overview of democratic policing, consider the following questions:
+
+    What is the idea of “democratic policing” supposed to mean? What is it about the status quo ante in policing that isn’t “democratic”? What characteristics does a police department need to have to qualify as “democratic” in their sense?
+    Why do Ponomarkeno and Friedman think democratic policing is important? What goals does it advance?
+    What are the key challenges that any effort to implement the idea of democratic policing is likely to face?
+    As Ponomarenko and Friedman observe, in some respects the idea of democratic policing simply applies models of public input that are already used in other public sector contexts to policing. What unique challenges arise in the policing context that do not arise in other public sector contexts?
+
+After discussing the meaning, rationale, and challenges of democratic policing in the abstract, we’ll turn to the process used to develop the LAPD’s new video release policy to illustrate what this idea might look like in practice. Come prepared to discuss the process the city used to solicit public input, the limits of that process, the key insights that public feedback provided, and the questions it left unresolved.
