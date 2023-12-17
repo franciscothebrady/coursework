@@ -1004,8 +1004,9 @@ def main():
     assert board_passengers(1, passenger_manifest) == [padme]
     assert board_passengers(4, passenger_manifest) == [padme, c_3po, r2_d2, mace_windu]
     # pass passengers to twilight
+
     twilight["passengers_on_board"] = board_passengers(
-        twilight.get("max_passengers"), [padme, c_3po, r2_d2]
+        twilight["max_passengers"], [padme, c_3po, r2_d2]
     )
 
     # 3.18 CHALLENGE 18
@@ -1017,14 +1018,19 @@ def main():
     # assign crew to twilight
     crew_positions = ("pilot", "copilot")
     personnel = (anakin, obi_wan)
-    twilight["crew_members"] = assign_crew_members(twilight.get("crew_size"), crew_positions, personnel)
+    twilight["crew_members"] = assign_crew_members(
+        twilight.get("crew_size"), crew_positions, personnel
+    )
     # assign r2 instructions
     r2_d2["instructions"] = ["Power up the engines"]
 
     # 3.19 CHALLENGE 19
-    planets = [transform_planet(wookiee_planets[i], keys, NONE_VALUES) for i in range(len(wookiee_planets))]
+    # 3.19.1
+    planets = [transform_planet(planet, keys, NONE_VALUES) for planet in wookiee_planets]
     # sort by name
-    planets = sorted(planets, key=lambda x: x["name"], reverse=True)
+    # 3.19.2
+    planets.sort(key=lambda x: x["name"], reverse=True)
+    # lst.sort(key=lambda d: d['age'])
 
     # write to json
     utl.write_json("stu-planets_sorted_name.json", planets)
@@ -1041,7 +1047,10 @@ def main():
     # update r2
     r2_d2["instructions"].extend(new_instructions)
     # sort planets by diameter_km and name
-    planets_diameter_km = sorted(planets, key = lambda x: (-x["diameter_km"] if x["diameter_km"] else 0, x["name"]))
+
+    planets_diameter_km = sorted(
+        planets, key=lambda x: (-x["diameter_km"] if x["diameter_km"] else 0, x["name"])
+    )
     # write to json
     utl.write_json("stu-planets_sorted_diameter.json", planets_diameter_km)
     # compare to fxt
