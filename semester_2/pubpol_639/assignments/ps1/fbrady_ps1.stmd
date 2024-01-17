@@ -1,0 +1,10 @@
+% francisco brady 
+% problem set 1 
+% january 16, 2024
+
+## Part 1 - Labor Market Discrimination
+
+	use assignment1race.dta, clear
+	describe
+
+Here is some text. 

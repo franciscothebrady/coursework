@@ -33,13 +33,18 @@ Most important arguments:
     - Alabama legislature put in place the segregation laws, and had gone to a number of methods to precent African Americans from voting.
 
 Relation to Glover:
-In each case, is he using a type of argument that Jonathan Glover would find familiar?
+- MLK suggests that the clergy who opposed his methods were offended by his breaking the law. He uses a form of Glover's first method of reasoning, positing that the clergy's belief (of the goodness of obeying laws) is not sufficiently nuanced because it does not take into account just vs. unjust laws. Then he defines what makes a law just or unjust. By MLK's definitions, laws upholding segregation are unjust, and therefore should be opposed or disobeyed.
+- This could also be a version of the 4th method of argument: The clergy's belief that laws should be obeyed has unintended consequences, namely that unjust laws are allowed to continue unopposed.
 
 Moral Commitments:
 What moral commitments does each argument rely on?
-Are the clergymen who criticized him likely to share those commitments?
-How about the northern liberals with influence over federal policy who King hopes to reach?
+The moral commitment is a belief that laws should be obeyed.
 
+Are the clergymen who criticized him likely to share those commitments?
+Yes, they are likely to share the commitment that laws should be obeyed.
+
+How about the northern liberals with influence over federal policy who King hopes to reach?
+Yes, they are likely to share the commitment that laws should be obeyed.
 
 Argument: The clergymen (and others) also objected to the harm the protests brought to Birmingham—thousands jailed, at least as many injured, sometimes violent counter-protests, and general “tension” throughout the community—and they implied, correctly, that King led the protests knowing full well that these consequences were likely.
 
@@ -51,8 +56,9 @@ Re: Protests bringing about violence:
     - Blaming protestors for violence is placing blame on the wrong party. The protestors are bringing attention to the violence that already exists, both on the part of the police and the community.
 
 Relation to Glover:
+This uses a similar logic to Glover's 3rd argument. MLK points out that blaming protestors for violence makes an error in the direction of causality. I think this is a post hoc ergo propter hoc fallacy. The clergymen are assuming that the protests caused the violence, when in fact the protests are a response to the violence that the Black population of Birmingham has been experiencing, and in fact the aims are to bring attention to the issue to force a reckoning with the problem.
 
-Do you find his arguments convincing, and do they appeal to moral convictions that his intended audience is likely to share?
+
 
 
 
