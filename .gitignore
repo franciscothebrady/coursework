@@ -14,7 +14,8 @@
 *.geojson
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints
-.OTTER_LOG
-.zip
+*.ipynb_checkpoints
+*.OTTER_LOG
+*.zip
+*.docx
 
