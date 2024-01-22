@@ -18,4 +18,4 @@ __pycache__/
 *.OTTER_LOG
 *.zip
 *.docx
-
+*.html
