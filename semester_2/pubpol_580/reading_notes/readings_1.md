@@ -27,7 +27,7 @@ Argument: The clergymen who criticized King and the demonstrations he led object
 
 Most important arguments:
 - They had tried the alternatives. When groups in Birmingham tried to negotiate with business owners to take down "white only" signs, they were promised changes that didn't materialize.
-- " Any law that uplifts human personality is just. Any law that degrades human personality is unjust. All segregation statutes are unjust because segregation distorts the soul and damages the personality."
+- "Any law that uplifts human personality is just. Any law that degrades human personality is unjust. All segregation statutes are unjust because segregation distorts the soul and damages the personality."
 - "So I can urge men to obey the 1954 decision of the Supreme Court because it is morally right, and I can urge them to disobey segregation ordinances because they are morally wrong."
 - "An unjust law is a code inflicted upon a minority which that minority had no part in enacting or creating because it did not have the unhampered right to vote"
     - Alabama legislature put in place the segregation laws, and had gone to a number of methods to precent African Americans from voting.

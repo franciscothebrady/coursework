@@ -1,10 +1,37 @@
-% francisco brady 
-% problem set 1 
-% january 16, 2024
+---
+title: |
+    |  PUBPOL 639
+    |  Winter 2024 Problem Set #1
+author: "Francisco Brady"
+date: "`s c(current_date)`"
+---
 
-## Part 1 - Labor Market Discrimination
+### Part 1 - Labor Market Discrimination
 
-	use assignment1race.dta, clear
-	describe
+The data set `assignment1race.dta` contains data from Bertrand and Mullainathan, 2004. "Are Emily and Greg More Employable than Lakisha and Jamal? Evidence on Racial Discrimination in the Labor Market from a Large Randomized Experiment," September 2004, American Economic Review. Variable definitions and a more detailed description can be found in their paper. Open up the dataset and dig around - take some means, do some tabulations, get to know the data. Then get started with the questions below.
 
-Here is some text. 
+1. Test for observable differences between treatment and control baseline characteristics. First you will determine whether the treatment group and the control groups differ in their characteristics. For the variables listed below, determine whether the difference in means between resumes assigned a Black vs. White name is statistically significant at the 95% level of significance. You can perform a difference-in-means t-test to do these tests (you will have to determine whether the treatment group and the control groups have equal variances).  
+-  `college` - has a college degree (hint: Create this variable as an indicator variable taking on the value of 1 if the individual has a college degree and zero otherwise; use the education variable to create this new variable)
+-  `yearsexp` - years of work experience
+-  `linc` - log per capita income in applicants zip (note: this variable has missing values for some observations, so will have fewer observations than the other tests).
+
+To present your results, create a table that contains the following items for each variable above:  
+-  mean for White names
+-  standard error of mean for White names
+-  mean for Black names
+-  standard error of mean for Black names
+-  difference in means between White and Black names
+-  standard error of the difference in means
+-  t-statistic
+-  "Reject" or "Don't reject" for null hypothesis that difference in means is zero
+
+Notes: All of the information above can be found using the `ttest` command. You should put standard errors in parenthesis below the respective mean or mean difference (as done in Table 3) in their paper.
+
+```{s}
+use assignment1race, clear
+gen college = 1 if education == 4
+//  replace college = 0 if college == .
+for each var in college yearsexp linc {
+    ttest `var', by(race)
+}
+```
