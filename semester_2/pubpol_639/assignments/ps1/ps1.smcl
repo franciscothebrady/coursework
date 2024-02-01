@@ -1,0 +1,1005 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps1/ps1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Jan 2024, 22:52:26
+{txt}
+{com}. //_1
+. display c(current_date)
+{res}26 Jan 2024
+{txt}
+{com}. //_2
+. // this is the stata code 
+. use assignment1race, clear
+{txt}
+{com}. gen college = 1 if education == 4
+{txt}(1,366 missing values generated)
+
+{com}. replace college = 0 if college == .
+{txt}(1,366 real changes made)
+
+{com}. label variable college "indicator for college attendance (education >= 4)"
+{txt}
+{com}. //_3
+. // this is the stata code used to produce these statistics
+. foreach var in college yearsexp linc {c -(}
+{txt}  2{com}. display "`var'"
+{txt}  3{com}. ttest `var', by(race) unequal
+{txt}  4{com}. {c )-}
+college
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}  2,435{col 22} .7227926{col 34}  .009073{col 46} .4477117{col 58} .7050011{col 70} .7405841
+       {txt}w {c |}{res}{col 12}  2,435{col 22} .7162218{col 34}  .009138{col 46} .4509231{col 58} .6983026{col 70} .7341409
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  4,870{col 22} .7195072{col 34} .0064381{col 46} .4492861{col 58} .7068856{col 70} .7321288
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0065708{col 34} .0128772{col 58}-.0186743{col 70}  .031816
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res}  0.5103
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 4867.75
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.6951         {txt}Pr(|T| > |t|) = {res}0.6099          {txt}Pr(T > t) = {res}0.3049
+yearsexp
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}  2,435{col 22} 7.829569{col 34}  .101544{col 46} 5.010764{col 58} 7.630447{col 70}  8.02869
+       {txt}w {c |}{res}{col 12}  2,435{col 22} 7.856263{col 34} .1029315{col 46} 5.079228{col 58}  7.65442{col 70} 8.058105
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  4,870{col 22} 7.842916{col 34} .0722875{col 46} 5.044612{col 58}   7.7012{col 70} 7.984632
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} -.026694{col 34} .1445894{col 58}-.3101545{col 70} .2567664
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res} -0.1846
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res}  4867.1
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.4268         {txt}Pr(|T| > |t|) = {res}0.8535          {txt}Pr(T > t) = {res}0.5732
+linc
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}  2,394{col 22} 9.547022{col 34} .0113012{col 46}  .552953{col 58} 9.524861{col 70} 9.569183
+       {txt}w {c |}{res}{col 12}  2,390{col 22} 9.554592{col 34} .0114816{col 46} .5613069{col 58} 9.532077{col 70} 9.577107
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  4,784{col 22} 9.550804{col 34} .0080544{col 46} .5570967{col 58} 9.535014{col 70} 9.566594
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.0075703{col 34} .0161104{col 58}-.0391541{col 70} .0240135
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res} -0.4699
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 4780.67
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.3192         {txt}Pr(|T| > |t|) = {res}0.6384          {txt}Pr(T > t) = {res}0.6808
+{txt}
+{com}. //_4
+. // this is the code used to produce these statistics
+. foreach var in college yearsexp linc {c -(}
+{txt}  2{com}. display "`var'"
+{txt}  3{com}. ttest `var' if military == 1, by(race)
+{txt}  4{com}. {c )-}
+college
+
+{txt}Two-sample t test with equal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}    248{col 22} .7137097{col 34} .0287618{col 46} .4529408{col 58} .6570601{col 70} .7703593
+       {txt}w {c |}{res}{col 12}    225{col 22} .7866667{col 34} .0273716{col 46} .4105745{col 58} .7327278{col 70} .8406055
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}    473{col 22} .7484144{col 34}  .019973{col 46} .4343837{col 58} .7091674{col 70} .7876613
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} -.072957{col 34} .0398943{col 58}-.1513499{col 70} .0054359
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res} -1.8288
+{txt}H0: diff = 0                                     Degrees of freedom = {res}     471
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0340         {txt}Pr(|T| > |t|) = {res}0.0681          {txt}Pr(T > t) = {res}0.9660
+yearsexp
+
+{txt}Two-sample t test with equal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}    248{col 22} 4.225806{col 34} .2114705{col 46} 3.330241{col 58} 3.809291{col 70} 4.642322
+       {txt}w {c |}{res}{col 12}    225{col 22} 4.066667{col 34} .2162083{col 46} 3.243125{col 58} 3.640604{col 70} 4.492729
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}    473{col 22} 4.150106{col 34} .1511169{col 46} 3.286575{col 58} 3.853161{col 70} 4.447051
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .1591398{col 34}  .302824{col 58}-.4359134{col 70} .7541929
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res}  0.5255
+{txt}H0: diff = 0                                     Degrees of freedom = {res}     471
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.7003         {txt}Pr(|T| > |t|) = {res}0.5995          {txt}Pr(T > t) = {res}0.2997
+linc
+
+{txt}Two-sample t test with equal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}    246{col 22} 9.511905{col 34} .0332293{col 46} .5211811{col 58} 9.446454{col 70} 9.577357
+       {txt}w {c |}{res}{col 12}    223{col 22} 9.616433{col 34} .0359372{col 46} .5366568{col 58} 9.545611{col 70} 9.687255
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}    469{col 22} 9.561606{col 34} .0245012{col 46} .5306088{col 58}  9.51346{col 70} 9.609752
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.1045279{col 34} .0488752{col 58}-.2005705{col 70}-.0084852
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res} -2.1387
+{txt}H0: diff = 0                                     Degrees of freedom = {res}     467
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0165         {txt}Pr(|T| > |t|) = {res}0.0330          {txt}Pr(T > t) = {res}0.9835
+{txt}
+{com}. //_5
+. // this is the stata code used to produce these statistics 
+. ttest call, by(race)
+
+{txt}Two-sample t test with equal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}  2,435{col 22} .0644764{col 34} .0049781{col 46} .2456501{col 58} .0547145{col 70} .0742382
+       {txt}w {c |}{res}{col 12}  2,435{col 22} .0965092{col 34} .0059853{col 46}  .295349{col 58} .0847724{col 70} .1082461
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  4,870{col 22} .0804928{col 34} .0038988{col 46} .2720826{col 58} .0728493{col 70} .0881363
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.0320329{col 34}  .007785{col 58}-.0472949{col 70}-.0167708
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res} -4.1147
+{txt}H0: diff = 0                                     Degrees of freedom = {res}    4868
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0000         {txt}Pr(|T| > |t|) = {res}0.0000          {txt}Pr(T > t) = {res}1.0000
+{txt}
+{com}. ttest call if military == 1, by(race)
+
+{txt}Two-sample t test with equal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       b {c |}{res}{col 12}    248{col 22} .0403226{col 34} .0125167{col 46} .1971125{col 58} .0156696{col 70} .0649756
+       {txt}w {c |}{res}{col 12}    225{col 22} .0888889{col 34} .0190145{col 46} .2852178{col 58} .0514187{col 70} .1263591
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}    473{col 22} .0634249{col 34} .0112184{col 46} .2439838{col 58} .0413808{col 70} .0854691
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.0485663{col 34} .0223756{col 58}-.0925346{col 70} -.004598
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}b{txt}) - mean({res}w{txt})                                      t = {res} -2.1705
+{txt}H0: diff = 0                                     Degrees of freedom = {res}     471
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0152         {txt}Pr(|T| > |t|) = {res}0.0305          {txt}Pr(T > t) = {res}0.9848
+{txt}
+{com}. //_6
+. // this is the stata code used to create this table
+. use mich_charters_2014, clear
+{txt}
+{com}. tab urbanicity charter, missing
+
+   {txt}Derived {c |}
+4-Category {c |}
+Urbanicity {c |}
+     (from {c |}
+   ulocale {c |} Charter School (EEM,
+  variable {c |}         CCD)
+   in CCD) {c |}        No        Yes {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+      City {c |}{res}       291         86 {txt}{c |}{res}       377 
+{txt}    Suburb {c |}{res}       832         69 {txt}{c |}{res}       901 
+{txt}      Town {c |}{res}       184          6 {txt}{c |}{res}       190 
+{txt}     Rural {c |}{res}       570         16 {txt}{c |}{res}       586 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}     1,877        177 {txt}{c |}{res}     2,054 
+{txt}
+{com}. //_7
+. // this is the stata code used to create these statistics 
+. use mich_charters_2014, clear
+{txt}
+{com}. estpost ttest enroll per_fl per_as per_hi per_bl per_wh pp_curr_opp_exp, by(charter) unequal 
+
+{txt}{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(b)}{space 1}{space 1}{ralign 9:e(count)}{space 1}{space 1}{ralign 9:e(se)}{space 1}{space 1}{ralign 9:e(t)}{space 1}{space 1}{ralign 9:e(df_t)}{space 1}{space 1}{ralign 9:e(p_l)}{space 1}{space 1}{ralign 9:e(p)}{space 1}{space 1}{ralign 9:e(p_u)}{space 1}{space 1}{ralign 9:e(N_1)}{space 1}{space 1}{ralign 9:e(mu_1)}{space 1}{space 1}{ralign 9:e(N_2)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:enroll}{space 1}{c |}{space 1}{ralign 9:{res:{sf:-6.474456}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: 17.72718}}}{space 1}{space 1}{ralign 9:{res:{sf:-.3652276}}}{space 1}{space 1}{ralign 9:{res:{sf: 200.5975}}}{space 1}{space 1}{ralign 9:{res:{sf: .3576631}}}{space 1}{space 1}{ralign 9:{res:{sf: .7153263}}}{space 1}{space 1}{ralign 9:{res:{sf: .6423369}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: 436.7176}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:per_fl}{space 1}{c |}{space 1}{ralign 9:{res:{sf: -.240336}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0217067}}}{space 1}{space 1}{ralign 9:{res:{sf:-11.07198}}}{space 1}{space 1}{ralign 9:{res:{sf: 201.1655}}}{space 1}{space 1}{ralign 9:{res:{sf: 7.40e-23}}}{space 1}{space 1}{ralign 9:{res:{sf: 1.48e-22}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .4407209}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:per_as}{space 1}{c |}{space 1}{ralign 9:{res:{sf:-.0092406}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf:  .008123}}}{space 1}{space 1}{ralign 9:{res:{sf:-1.137581}}}{space 1}{space 1}{ralign 9:{res:{sf: 186.1382}}}{space 1}{space 1}{ralign 9:{res:{sf: .1283788}}}{space 1}{space 1}{ralign 9:{res:{sf: .2567577}}}{space 1}{space 1}{ralign 9:{res:{sf: .8716212}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .0281777}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:per_hi}{space 1}{c |}{space 1}{ralign 9:{res:{sf:-.0057525}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0117715}}}{space 1}{space 1}{ralign 9:{res:{sf:-.4886797}}}{space 1}{space 1}{ralign 9:{res:{sf: 193.8918}}}{space 1}{space 1}{ralign 9:{res:{sf: .3128104}}}{space 1}{space 1}{ralign 9:{res:{sf: .6256208}}}{space 1}{space 1}{ralign 9:{res:{sf: .6871896}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .0709033}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:per_bl}{space 1}{c |}{space 1}{ralign 9:{res:{sf:-.4051156}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0304445}}}{space 1}{space 1}{ralign 9:{res:{sf:-13.30668}}}{space 1}{space 1}{ralign 9:{res:{sf: 187.9968}}}{space 1}{space 1}{ralign 9:{res:{sf: 3.36e-29}}}{space 1}{space 1}{ralign 9:{res:{sf: 6.71e-29}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .1353942}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:per_wh}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .4191902}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0257851}}}{space 1}{space 1}{ralign 9:{res:{sf: 16.25704}}}{space 1}{space 1}{ralign 9:{res:{sf: 198.3097}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf: 2.50e-38}}}{space 1}{space 1}{ralign 9:{res:{sf: 1.25e-38}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .7237855}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:pp_curr_op~p}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   1605.8}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf:  146.736}}}{space 1}{space 1}{ralign 9:{res:{sf: 10.94346}}}{space 1}{space 1}{ralign 9:{res:{sf: 196.5246}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf: 4.52e-22}}}{space 1}{space 1}{ralign 9:{res:{sf: 2.26e-22}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: 6933.128}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+
+{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(mu_2)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}
+{space 0}{space 0}{ralign 12:enroll}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 443.1921}}}{space 1}
+{space 0}{space 0}{ralign 12:per_fl}{space 1}{c |}{space 1}{ralign 9:{res:{sf:  .681057}}}{space 1}
+{space 0}{space 0}{ralign 12:per_as}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .0374183}}}{space 1}
+{space 0}{space 0}{ralign 12:per_hi}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .0766558}}}{space 1}
+{space 0}{space 0}{ralign 12:per_bl}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .5405098}}}{space 1}
+{space 0}{space 0}{ralign 12:per_wh}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .3045953}}}{space 1}
+{space 0}{space 0}{ralign 12:pp_curr_op~p}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 5327.328}}}{space 1}
+
+{com}. esttab ., noobs cells("mu_1(star fmt(3)) mu_2(star fmt(3)) b(star fmt(3)) se(fmt(3)) t(fmt(3))") star(* 0.1 ** .05 *** 0.01) collabels("Public" "Charter" "Difference" "Std. Error" "t-stat")
+{res}
+{txt}{hline 86}
+{txt}                      (1)                                                             
+{txt}                                                                                      
+{txt}                   Public         Charter      Difference      Std. Error       t-stat
+{txt}{hline 86}
+{txt}enroll      {res}      436.718         443.192          -6.474          17.727       -0.365{txt}
+{txt}per_fl      {res}        0.441***        0.681***       -0.240***        0.022      -11.072{txt}
+{txt}per_as      {res}        0.028           0.037          -0.009           0.008       -1.138{txt}
+{txt}per_hi      {res}        0.071           0.077          -0.006           0.012       -0.489{txt}
+{txt}per_bl      {res}        0.135***        0.541***       -0.405***        0.030      -13.307{txt}
+{txt}per_wh      {res}        0.724***        0.305***        0.419***        0.026       16.257{txt}
+{txt}pp_curr_op~p{res}     6933.128***     5327.328***     1605.800***      146.736       10.943{txt}
+{txt}{hline 86}
+
+{com}. //_8
+. // this is the stata code used to create these statistics
+. use mich_charters_2014, clear
+{txt}
+{com}. estpost ttest pct_teach_yr1 median_experience pct_competitive pct_new_to_school, by(charter) unequal 
+
+{txt}{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(b)}{space 1}{space 1}{ralign 9:e(count)}{space 1}{space 1}{ralign 9:e(se)}{space 1}{space 1}{ralign 9:e(t)}{space 1}{space 1}{ralign 9:e(df_t)}{space 1}{space 1}{ralign 9:e(p_l)}{space 1}{space 1}{ralign 9:e(p)}{space 1}{space 1}{ralign 9:e(p_u)}{space 1}{space 1}{ralign 9:e(N_1)}{space 1}{space 1}{ralign 9:e(mu_1)}{space 1}{space 1}{ralign 9:e(N_2)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:pct_teach_~1}{space 1}{c |}{space 1}{ralign 9:{res:{sf:-.0714924}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0059614}}}{space 1}{space 1}{ralign 9:{res:{sf:-11.99248}}}{space 1}{space 1}{ralign 9:{res:{sf: 181.0469}}}{space 1}{space 1}{ralign 9:{res:{sf: 4.57e-25}}}{space 1}{space 1}{ralign 9:{res:{sf: 9.15e-25}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .0193197}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:median_exp~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 6.549449}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .1937636}}}{space 1}{space 1}{ralign 9:{res:{sf: 33.80124}}}{space 1}{space 1}{ralign 9:{res:{sf: 242.9905}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf: 7.89e-94}}}{space 1}{space 1}{ralign 9:{res:{sf: 3.95e-94}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: 11.14593}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:pct_compet~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .0023727}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0044303}}}{space 1}{space 1}{ralign 9:{res:{sf: .5355552}}}{space 1}{space 1}{ralign 9:{res:{sf: 222.7043}}}{space 1}{space 1}{ralign 9:{res:{sf: .7035998}}}{space 1}{space 1}{ralign 9:{res:{sf: .5928004}}}{space 1}{space 1}{ralign 9:{res:{sf: .2964002}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .0445731}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+{space 0}{space 0}{ralign 12:pct_new_to~l}{space 1}{c |}{space 1}{ralign 9:{res:{sf:-.1415233}}}{space 1}{space 1}{ralign 9:{res:{sf:     2054}}}{space 1}{space 1}{ralign 9:{res:{sf: .0125163}}}{space 1}{space 1}{ralign 9:{res:{sf:-11.30711}}}{space 1}{space 1}{ralign 9:{res:{sf:  187.359}}}{space 1}{space 1}{ralign 9:{res:{sf: 3.11e-23}}}{space 1}{space 1}{ralign 9:{res:{sf: 6.21e-23}}}{space 1}{space 1}{ralign 9:{res:{sf:        1}}}{space 1}{space 1}{ralign 9:{res:{sf:     1877}}}{space 1}{space 1}{ralign 9:{res:{sf: .1146763}}}{space 1}{space 1}{ralign 9:{res:{sf:      177}}}{space 1}
+
+{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(mu_2)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}
+{space 0}{space 0}{ralign 12:pct_teach_~1}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .0908121}}}{space 1}
+{space 0}{space 0}{ralign 12:median_exp~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 4.596483}}}{space 1}
+{space 0}{space 0}{ralign 12:pct_compet~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .0422005}}}{space 1}
+{space 0}{space 0}{ralign 12:pct_new_to~l}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .2561996}}}{space 1}
+
+{com}. esttab ., noobs cells("mu_1(star fmt(3)) mu_2(star fmt(3)) b(star fmt(3)) se(fmt(3)) t(fmt(3))") star(* 0.1 ** .05 *** 0.01) collabels("Public School" "Charter" "Difference" "Std. Error" "t-stat")
+{res}
+{txt}{hline 86}
+{txt}                      (1)                                                             
+{txt}                                                                                      
+{txt}             Public Sch~l         Charter      Difference      Std. Error       t-stat
+{txt}{hline 86}
+{txt}pct_teach_~1{res}        0.019***        0.091***       -0.071***        0.006      -11.992{txt}
+{txt}median_exp~e{res}       11.146***        4.596***        6.549***        0.194       33.801{txt}
+{txt}pct_compet~e{res}        0.045           0.042           0.002           0.004        0.536{txt}
+{txt}pct_new_to~l{res}        0.115***        0.256***       -0.142***        0.013      -11.307{txt}
+{txt}{hline 86}
+
+{com}. //_9
+. use mich_charters_2014, clear
+{txt}
+{com}. set seed 1492
+{txt}
+{com}. gen index = uniform()
+{txt}
+{com}. sort index
+{txt}
+{com}. gen random_charter = (_n <= 177)
+{txt}
+{com}. //_10
+. // stata code to run ttest
+. ttest pp_curr_opp_exp, by(random_charter) unequal
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6788.652{col 34} 35.35157{col 46} 1531.584{col 58}  6719.32{col 70} 6857.985
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6859.428{col 34} 153.0216{col 46} 2035.821{col 58} 6557.435{col 70} 7161.421
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-70.77575{col 34} 157.0521{col 58}-380.5122{col 70} 238.9607
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.4507
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 195.236
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.3264         {txt}Pr(|T| > |t|) = {res}0.6527          {txt}Pr(T > t) = {res}0.6736
+{txt}
+{com}. //_11
+. // stata code to run ttest
+. ttest per_fl, by(random_charter) unequal
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4605943{col 34} .0058684{col 46} .2542434{col 58} .4490851{col 70} .4721035
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4703096{col 34} .0173562{col 46} .2309087{col 58} .4360566{col 70} .5045625
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.0097153{col 34} .0183214{col 58}-.0458248{col 70} .0263942
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.5303
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 218.274
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.2982         {txt}Pr(|T| > |t|) = {res}0.5965          {txt}Pr(T > t) = {res}0.7018
+{txt}
+{com}. //_12
+. // stata code to run ttest
+. ttest median_experience, by(random_charter) unequal
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.57083{col 34} .0842587{col 46} 3.650455{col 58} 10.40558{col 70} 10.73608
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.69514{col 34} .2989882{col 46} 3.977779{col 58} 10.10508{col 70}  11.2852
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.1243088{col 34}  .310634{col 58}-.7367569{col 70} .4881393
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.4002
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 204.944
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.3447         {txt}Pr(|T| > |t|) = {res}0.6894          {txt}Pr(T > t) = {res}0.6553
+{txt}
+{com}. //_13
+. // stata code to rerandomize  
+. //gen index=. 
+. //gen random_charters=. 
+.  
+. local i=1 
+{txt}
+{com}. while `i' <= 10 {c -(} 
+{txt}  2{com}.    replace index= uniform() 
+{txt}  3{com}.    sort index 
+{txt}  4{com}.    replace random_charter=(_n<=177) 
+{txt}  5{com}. 
+.    display `i'
+{txt}  6{com}.    tab random_charter, m
+{txt}  7{com}.    ttest pp_curr_opp_exp, by (random_charter) unequal     
+{txt}  8{com}.    ttest per_fl, by(random_charter) unequal
+{txt}  9{com}.    ttest median_experience, by(random_charter) unequal
+{txt} 10{com}.    local i =`i' + 1 
+{txt} 11{com}. {c )-} 
+{txt}(2,054 real changes made)
+(318 real changes made)
+1
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6782.613{col 34} 36.72156{col 46} 1590.938{col 58} 6710.594{col 70} 6854.633
+       {txt}1 {c |}{res}{col 12}    177{col 22}  6923.47{col 34} 110.3524{col 46} 1468.143{col 58} 6705.686{col 70} 7141.254
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-140.8568{col 34} 116.3018{col 58}-370.0833{col 70} 88.36968
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.2111
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 216.887
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.1136         {txt}Pr(|T| > |t|) = {res}0.2272          {txt}Pr(T > t) = {res}0.8864
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4640526{col 34} .0058274{col 46} .2524672{col 58} .4526238{col 70} .4754814
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4336361{col 34} .0187383{col 46} .2492963{col 58} .3966555{col 70} .4706167
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0304164{col 34} .0196235{col 58}-.0082662{col 70} .0690991
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  1.5500
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 211.504
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9387         {txt}Pr(|T| > |t|) = {res}0.1226          {txt}Pr(T > t) = {res}0.0613
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.59058{col 34} .0853477{col 46} 3.697632{col 58} 10.42319{col 70} 10.75796
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.48578{col 34} .2618025{col 46} 3.483056{col 58} 9.969101{col 70} 11.00245
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .1047986{col 34}  .275363{col 58}-.4379557{col 70} .6475529
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  0.3806
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 215.169
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.6481         {txt}Pr(|T| > |t|) = {res}0.7039          {txt}Pr(T > t) = {res}0.3519
+{txt}(2,054 real changes made)
+(328 real changes made)
+2
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6803.631{col 34} 36.61655{col 46} 1586.389{col 58} 6731.817{col 70} 6875.444
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6700.588{col 34} 114.4378{col 46} 1522.496{col 58} 6474.741{col 70} 6926.435
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} 103.0424{col 34} 120.1532{col 58}-133.7949{col 70} 339.8797
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  0.8576
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 213.672
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.8040         {txt}Pr(|T| > |t|) = {res}0.3921          {txt}Pr(T > t) = {res}0.1960
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22}  .460811{col 34}  .005823{col 46} .2522776{col 58} .4493908{col 70} .4722313
+       {txt}1 {c |}{res}{col 12}    177{col 22}  .468011{col 34} .0190111{col 46} .2529256{col 58} .4304921{col 70}   .50553
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}   -.0072{col 34} .0198828{col 58}-.0463951{col 70} .0319951
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.3621
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 210.399
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.3588         {txt}Pr(|T| > |t|) = {res}0.7176          {txt}Pr(T > t) = {res}0.6412
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.62503{col 34} .0847203{col 46} 3.670454{col 58} 10.45887{col 70} 10.79118
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.12045{col 34} .2816651{col 46}  3.74731{col 58} 9.564576{col 70} 10.67633
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .5045733{col 34} .2941305{col 58}-.0752675{col 70} 1.084414
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  1.7155
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 209.126
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9561         {txt}Pr(|T| > |t|) = {res}0.0877          {txt}Pr(T > t) = {res}0.0439
+{txt}(2,054 real changes made)
+(314 real changes made)
+3
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6785.735{col 34} 35.72595{col 46} 1547.804{col 58} 6715.669{col 70} 6855.802
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6890.359{col 34} 142.7478{col 46} 1899.135{col 58} 6608.642{col 70} 7172.077
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-104.6237{col 34} 147.1505{col 58}-394.8011{col 70} 185.5536
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.7110
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 198.666
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.2390         {txt}Pr(|T| > |t|) = {res}0.4779          {txt}Pr(T > t) = {res}0.7610
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22}  .458828{col 34} .0057883{col 46} .2507758{col 58} .4474758{col 70} .4701803
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4890399{col 34}  .020061{col 46} .2668947{col 58} .4494488{col 70}  .528631
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.0302119{col 34} .0208794{col 58}-.0713761{col 70} .0109524
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.4470
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 206.391
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0747         {txt}Pr(|T| > |t|) = {res}0.1494          {txt}Pr(T > t) = {res}0.9253
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22}  10.5629{col 34} .0843831{col 46} 3.655843{col 58} 10.39741{col 70}  10.7284
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.77924{col 34}  .294721{col 46} 3.921007{col 58}  10.1976{col 70} 11.36088
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} -.216335{col 34} .3065631{col 58}-.8207401{col 70} .3880701
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.7057
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 205.909
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.2406         {txt}Pr(|T| > |t|) = {res}0.4812          {txt}Pr(T > t) = {res}0.7594
+{txt}(2,054 real changes made)
+(316 real changes made)
+4
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6807.878{col 34} 36.74127{col 46} 1591.792{col 58}  6735.82{col 70} 6879.936
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6655.548{col 34} 109.5285{col 46} 1457.181{col 58}  6439.39{col 70} 6871.706
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} 152.3302{col 34} 115.5266{col 58}-75.36433{col 70} 380.0248
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  1.3186
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 217.579
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9057         {txt}Pr(|T| > |t|) = {res}0.1887          {txt}Pr(T > t) = {res}0.0943
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4655492{col 34} .0058492{col 46} .2534141{col 58} .4540775{col 70} .4770209
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4177648{col 34} .0177545{col 46} .2362083{col 58} .3827257{col 70} .4528039
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0477844{col 34} .0186932{col 58}   .01094{col 70} .0846288
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  2.5562
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res}  216.04
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9944         {txt}Pr(|T| > |t|) = {res}0.0113          {txt}Pr(T > t) = {res}0.0056
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.61587{col 34} .0859279{col 46} 3.722773{col 58} 10.44735{col 70}  10.7844
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.21753{col 34}   .23778{col 46} 3.163457{col 58} 9.748261{col 70}  10.6868
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .3983428{col 34} .2528298{col 58}-.0998791{col 70} .8965647
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  1.5755
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 224.611
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9417         {txt}Pr(|T| > |t|) = {res}0.1165          {txt}Pr(T > t) = {res}0.0583
+{txt}(2,054 real changes made)
+(336 real changes made)
+5
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6784.441{col 34} 37.03774{col 46} 1604.636{col 58} 6711.801{col 70}  6857.08
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6904.087{col 34} 97.82759{col 46} 1301.511{col 58} 6711.021{col 70} 7097.153
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-119.6459{col 34} 104.6042{col 58}-325.7525{col 70} 86.46082
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.1438
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 229.629
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.1269         {txt}Pr(|T| > |t|) = {res}0.2539          {txt}Pr(T > t) = {res}0.8731
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4629748{col 34} .0058294{col 46} .2525569{col 58} .4515419{col 70} .4744076
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4450656{col 34} .0187492{col 46} .2494423{col 58} .4080633{col 70} .4820679
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0179092{col 34} .0196346{col 58}-.0207954{col 70} .0566137
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  0.9121
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 211.487
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.8186         {txt}Pr(|T| > |t|) = {res}0.3627          {txt}Pr(T > t) = {res}0.1814
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.54677{col 34} .0854125{col 46}  3.70044{col 58} 10.37926{col 70} 10.71428
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.95031{col 34} .2578787{col 46} 3.430853{col 58} 10.44138{col 70} 11.45924
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.4035406{col 34} .2716555{col 58}-.9389689{col 70} .1318876
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.4855
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 216.488
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0694         {txt}Pr(|T| > |t|) = {res}0.1389          {txt}Pr(T > t) = {res}0.9306
+{txt}(2,054 real changes made)
+(324 real changes made)
+6
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6809.569{col 34} 36.95946{col 46} 1601.245{col 58} 6737.083{col 70} 6882.055
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6637.612{col 34} 100.7261{col 46} 1340.074{col 58} 6438.825{col 70} 6836.398
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} 171.9579{col 34} 107.2928{col 58}-39.46339{col 70} 383.3792
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  1.6027
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 226.198
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9448         {txt}Pr(|T| > |t|) = {res}0.1104          {txt}Pr(T > t) = {res}0.0552
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4589205{col 34} .0058183{col 46} .2520744{col 58} .4475095{col 70} .4703315
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4880594{col 34} .0190645{col 46} .2536361{col 58} .4504351{col 70} .5256838
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} -.029139{col 34} .0199325{col 58}-.0684323{col 70} .0101544
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.4619
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 210.142
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0726         {txt}Pr(|T| > |t|) = {res}0.1453          {txt}Pr(T > t) = {res}0.9274
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.54517{col 34} .0851328{col 46} 3.688325{col 58}  10.3782{col 70} 10.71213
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.96732{col 34} .2679782{col 46} 3.565218{col 58} 10.43845{col 70} 11.49618
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.4221499{col 34} .2811759{col 58} -.976392{col 70} .1320922
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.5014
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 213.114
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0674         {txt}Pr(|T| > |t|) = {res}0.1347          {txt}Pr(T > t) = {res}0.9326
+{txt}(2,054 real changes made)
+(334 real changes made)
+7
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6776.558{col 34} 35.54409{col 46} 1539.925{col 58} 6706.848{col 70} 6846.268
+       {txt}1 {c |}{res}{col 12}    177{col 22}  6987.68{col 34} 147.1986{col 46} 1958.349{col 58} 6697.178{col 70} 7278.181
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-211.1215{col 34} 151.4292{col 58}-509.7512{col 70} 87.50831
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.3942
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res}  197.06
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.0824         {txt}Pr(|T| > |t|) = {res}0.1648          {txt}Pr(T > t) = {res}0.9176
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4649997{col 34}  .005811{col 46} .2517558{col 58} .4536031{col 70} .4763963
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4235921{col 34} .0191996{col 46} .2554336{col 58} .3857011{col 70} .4614831
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0414076{col 34} .0200597{col 58}  .001863{col 70} .0809522
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  2.0642
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 209.556
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9799         {txt}Pr(|T| > |t|) = {res}0.0402          {txt}Pr(T > t) = {res}0.0201
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.60333{col 34} .0841736{col 46} 3.646769{col 58} 10.43825{col 70} 10.76841
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.35052{col 34} .3012675{col 46} 4.008103{col 58} 9.755961{col 70} 10.94508
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .2528072{col 34} .3128055{col 58}-.3639314{col 70} .8695457
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  0.8082
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 204.434
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.7900         {txt}Pr(|T| > |t|) = {res}0.4199          {txt}Pr(T > t) = {res}0.2100
+{txt}(2,054 real changes made)
+(320 real changes made)
+8
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6787.463{col 34} 36.45008{col 46} 1579.176{col 58} 6715.977{col 70}  6858.95
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6872.034{col 34}   120.37{col 46} 1601.419{col 58}  6634.48{col 70} 7109.589
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-84.57067{col 34} 125.7679{col 58}-332.5028{col 70} 163.3614
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.6724
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 209.592
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.2510         {txt}Pr(|T| > |t|) = {res}0.5020          {txt}Pr(T > t) = {res}0.7490
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4600992{col 34} .0058668{col 46}  .254175{col 58} .4485931{col 70} .4716053
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4755596{col 34} .0173948{col 46} .2314226{col 58} .4412304{col 70} .5098888
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.0154604{col 34} .0183575{col 58}-.0516413{col 70} .0207205
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.8422
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 218.054
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.2003         {txt}Pr(|T| > |t|) = {res}0.4006          {txt}Pr(T > t) = {res}0.7997
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.58583{col 34} .0847673{col 46}  3.67249{col 58} 10.41958{col 70} 10.75208
+       {txt}1 {c |}{res}{col 12}    177{col 22}  10.5361{col 34} .2823896{col 46} 3.756949{col 58} 9.978796{col 70} 11.09341
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0497281{col 34} .2948379{col 58}-.5315094{col 70} .6309656
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  0.1687
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 208.988
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.5669         {txt}Pr(|T| > |t|) = {res}0.8662          {txt}Pr(T > t) = {res}0.4331
+{txt}(2,054 real changes made)
+(322 real changes made)
+9
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6784.516{col 34}  36.6666{col 46} 1588.557{col 58} 6712.604{col 70} 6856.427
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6903.295{col 34} 112.5314{col 46} 1497.133{col 58}  6681.21{col 70} 7125.379
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} -118.779{col 34} 118.3544{col 58}-352.0617{col 70} 114.5038
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -1.0036
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 215.127
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.1584         {txt}Pr(|T| > |t|) = {res}0.3167          {txt}Pr(T > t) = {res}0.8416
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4646253{col 34} .0058238{col 46} .2523102{col 58} .4532036{col 70}  .476047
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4275629{col 34} .0188033{col 46} .2501619{col 58} .3904539{col 70} .4646719
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0370624{col 34} .0196845{col 58}-.0017409{col 70} .0758657
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  1.8828
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 211.203
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.9695         {txt}Pr(|T| > |t|) = {res}0.0611          {txt}Pr(T > t) = {res}0.0305
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.55745{col 34}  .085127{col 46}  3.68807{col 58}  10.3905{col 70} 10.72441
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.83703{col 34} .2691554{col 46}  3.58088{col 58} 10.30585{col 70} 11.36822
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.2795818{col 34} .2822964{col 58}-.8360377{col 70}  .276874
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.9904
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 212.772
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.1616         {txt}Pr(|T| > |t|) = {res}0.3231          {txt}Pr(T > t) = {res}0.8384
+{txt}(2,054 real changes made)
+(326 real changes made)
+10
+
+random_char {c |}
+        ter {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      1,877       91.38       91.38
+{txt}          1 {c |}{res}        177        8.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      2,054      100.00
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 6793.441{col 34} 36.22167{col 46}  1569.28{col 58} 6722.402{col 70}  6864.48
+       {txt}1 {c |}{res}{col 12}    177{col 22} 6808.641{col 34}  128.067{col 46}  1703.82{col 58} 6555.896{col 70} 7061.385
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 6794.751{col 34} 34.88199{col 46} 1580.889{col 58} 6726.343{col 70} 6863.159
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-15.19924{col 34} 133.0908{col 58}-277.6003{col 70} 247.2018
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.1142
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 205.161
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.4546         {txt}Pr(|T| > |t|) = {res}0.9092          {txt}Pr(T > t) = {res}0.5454
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} .4629981{col 34} .0058464{col 46}  .253291{col 58}  .451532{col 70} .4744642
+       {txt}1 {c |}{res}{col 12}    177{col 22} .4448183{col 34} .0181417{col 46} .2413591{col 58} .4090151{col 70} .4806215
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} .4614315{col 34} .0055665{col 46} .2522799{col 58} .4505149{col 70} .4723481
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .0181798{col 34} .0190604{col 58}-.0193902{col 70} .0557497
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}  0.9538
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 214.238
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.8294         {txt}Pr(|T| > |t|) = {res}0.3413          {txt}Pr(T > t) = {res}0.1706
+
+{txt}Two-sample t test with unequal variances
+{hline 9}{c TT}{hline 68}
+   Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
+{hline 9}{c +}{hline 68}
+       0 {c |}{res}{col 12}  1,877{col 22} 10.56879{col 34} .0854025{col 46} 3.700007{col 58}  10.4013{col 70} 10.73629
+       {txt}1 {c |}{res}{col 12}    177{col 22} 10.71675{col 34} .2596651{col 46} 3.454619{col 58} 10.20429{col 70} 11.22921
+{txt}{hline 9}{c +}{hline 68}
+Combined {c |}{res}{col 12}  2,054{col 22} 10.58154{col 34}  .081175{col 46}  3.67894{col 58} 10.42235{col 70} 10.74074
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22}-.1479568{col 34} .2733487{col 58}-.6867306{col 70}  .390817
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res} -0.5413
+{txt}H0: diff = 0                     Satterthwaite's degrees of freedom = {res} 215.899
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}0.2944         {txt}Pr(|T| > |t|) = {res}0.5889          {txt}Pr(T > t) = {res}0.7056
+{txt}
+{com}. 
+. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps1/ps1.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 Jan 2024, 22:52:27
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

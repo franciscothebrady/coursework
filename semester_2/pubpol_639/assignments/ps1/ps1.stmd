@@ -1,0 +1,329 @@
+---
+title: Problem Set 1
+author: Francisco Brady
+date: "`s c(current_date)`"
+---
+
+### Part 1: Labor Market Discrimination  
+
+The data set assignment1race.dta contains data from Bertrand and Mullainathan, 2004. "Are Emily and Greg More Employable than Lakisha and Jamal? Evidence on Racial Discrimination in the Labor Market from a Large Randomized Experiment," September 2004, American Economic Review. Variable definitions and a more detailed description can be found in their paper. Open up the dataset and dig around - take some means, do some tabulations, get to know the data. Then get started with the questions below.  
+  
+  
+Load the dataset and create the indicator variable for college attendance.  
+
+```s
+// this is the stata code 
+use assignment1race, clear
+gen college = 1 if education == 4
+replace college = 0 if college == .
+label variable college "indicator for college attendance (education >= 4)"
+```  
+  
+  
+In order to test for equal variance, we can use the `sdtest` command. The function tests the null hypothesis of equal variance. The results are not significant for `college`, `yearsexp`, or `linc`, meaning we **reject** the null hypothesis. This means that in our t-tests below we can use the `unequal` command.  
+
+1. Test for observable differences between treatment and control baseline characteristics  
+
+```s
+// this is the stata code used to produce these statistics
+foreach var in college yearsexp linc {
+	display "`var'"
+	ttest `var', by(race) unequal
+}
+```
+<!-- Note: This is commented out. I included both markdown tables and stata output because I didn't realize the output would print to the word doc.
+
+| Characteristic | White Names | African American | Difference | t-statistic | H0 |
+|----------------|-------------|------------------|------------|-------------|--------|
+| College        |.7162218 (.009138) | .7227926 (.009073) | .0065708 (.0128772) |0.5103| Do not Reject |
+| Years Exp.     |7.856263 (.1029315)|7.829569 (.101544)|-.026694 (.1445894)|-0.1846| Do not Reject|
+| Log Income     |9.554592 (.0114816)|9.547022 (.0113012)|-.0075703 (.0161102)|-0.4699|Do not Reject|  
+
+-->  
+
+<br>  
+
+
+
+2. Test for differences in baseline characteristics for subgroups  
+
+```s
+// this is the code used to produce these statistics
+foreach var in college yearsexp linc {
+	display "`var'"
+	ttest `var' if military == 1, by(race)
+}
+```
+<!-- 
+
+//| Characteristic | White Names | African American | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| College        |.7866667 (.0273716)|.7137097 (.0287618)|-.072957 (.0398943)|-1.8288| Do Not Reject |
+//| Years Exp.     |4.066667 (.2162083)|4.225806 (.2114705)|.1591398 (.302824)|0.5255| Do Not Reject|
+//| Log Income     |9.616433 (.0359372)|9.511905 (.0332293)|-.1045279 (.0488752)|-2.1387|Reject|  
+
+-->   
+<br>  
+
+3. Discussion of balance of baseline characteristics  
+
+It looks like the randomization worked out overall. The t-statistics for college attendance, years of experience, and log of income allow us to reject the null hypothesis that the difference in means does not equal zero. In other words, the characteristics of the white name resumes and the Black name resumes are statistically similar enough.  
+The randomization did not work as well for the military experience subgroup. The subgroup with military experience showed a statistically significant difference between white and Black resumes in the log income of the applicants zip code.  
+There were some differences that were large but not statistically significant. In the military subgroup, the college variable mean difference was -.072957, where in the overall group the difference was much smaller (.0065708).  
+In the paper they mentioned that higher quality resumes were assigned some military experience, and that because of the random assignment of addresses to resumes, they are able to use the difference in incomes to test for any effect neighborhood income might have on callbacks.  
+<br>  
+
+4. Test for differences in outcomes between treatment and control groups  
+
+```s
+// this is the stata code used to produce these statistics 
+ttest call, by(race)
+ttest call if military == 1, by(race)
+```  
+
+<!-- Note: I ran these t-tests and pasted the output into these tables.  
+
+//| Characteristic | White Names | African American | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| Callback Dummy |.0965092 (.0059853)|.0644764 (.0049781)|-.0320329 (.007785)|-4.1147| Reject|
+//| Military == 1 |.0888889 (.0190145)|.0403226 (.0125167)|-.0485663 (.0223756)|-2.1705| Reject|  
+--> 
+<br>  
+
+5. Discussion  
+
+In the overall group, the callback rate was 3.5 percentage points higher for the white names than for the African American sounding names. This difference was very statistically significant, which indicates that it is unlikely we would see a difference this large in the callback rate purely by chance.  
+In the military subgroup, the difference was still significant, but less so, we can still claim that the mean difference in callback rates is significantly different in the resumes assigned white names and military experience, as compared to the resumes assigned African American names with military experience.  
+In terms of conclusions, the results make a strong causal case for the assignment of white names to resumes and the difference produced by assigning African American names to the same resumes, in terms of its affect on the callback rate. This is because there is balance along all of the other variables and we can be relatively certain that the randomization "worked". There is less strong evidence for the same claim in the military subgroup, in part because of the lack of balance between the two groups along some of the other characteristics, such as zip code income.
+
+### Part 2: College Scholarships in Michigan
+
+The state of Michigan is considering implementing a new college scholarship program for high-achieving students from economically disadvantaged backgrounds. To qualify for the scholarship, students must have a 4.0 grade point average in high school, and have family income below $65,000. A generous donor has agreed to fund the scholarship program, which would provide $20,000 scholarships to graduating high school students to attend a public college or university in the state of Michigan. The state can only afford to award 500 of these scholarships in a given year, but there are 2,000 students who meet the criteria (grade point average, family income, intentions to attend a public institution in Michigan).
+
+Below are three evaluation designs that have been proposed to allocate the scholarships and test whether the scholarship program increases college enrollment rates. For each, briefly (a few sentences) describe one or more concerns the design raises from an identification strategy perspective.
+
+1. The state would offer scholarships to the 500 poorest students who meet the achievement criteria set out by the scholarship program. Researchers would then compare the college-going rates of the 500 students who were offered the scholarship to the 1,500 students who were not.  
+
+This method of evaluation would have biased results. It is likely that the poorest students are measurably different from the other 1,500 students who were not offered the scholarship. The students would likely all come from lower-income families. The method of assignment would make it difficult to attribute college-going rates solely to the treatment (scholarship).  
+
+2. The state would open an application system requiring students to verify their income, submit their high school transcripts, and write a 2-page personal statement on what a college degree means to them. Students must also pay a $25 fee to process their applications. The first 500 students who complete applications for the scholarship are offered the scholarship. Researchers would then compare the college-going rates of those first 500 students, to the 1,500 students in the state who met the criteria, but who were not one of the first 500 students to submit an application.  
+
+This method would also produce biased results. It's possible that some students would not be able to pay the $25 application fee, even if they met the other academic criteria, excluding the lowest income students. In addition, because the scholarship will only accept the first 500 students, it is likely that those students are different in terms of other unobservables, such as motivation or some other characteristic that manifests itself in them being more ready to apply quickly. This could even be biased by differential rates of internet access and speed, creating unbalanced samples.  This would make it difficult to claim a causal effect.  
+
+3. The state would assign each of the 2,000 students a random number between 1 and 2,000 and draw 500 numbers out of a hat. Students whose number was drawn from the hat will receive the scholarship. Researchers would then compare the college-going rates of the students who were offered the scholarship to the students who were not.  
+
+This procedure is the most methodologically sound. The random assignment of the numbers would ensure that all of the students who met the criteria would be similar across most characteristics, and selection into treatment (scholarship) would not be affected by other factors, such as motivation or internet access to the application. This method would allow the strongest claim to isolating the causal effect of the treatment.  
+
+### Part 3: Charter Schools  
+
+"What is the effect of charter school status on student achievement?"  
+
+1. What is an ideal experiment that would answer the causal question above?  
+For an ideal experiment, I would take the entire public school student population in Michigan, and then randomly assign a portion of the students to attend a charter school for a year. Then I could compare the achievement scores of the children in charter schools to achievement and outcomes from children in traditional public schools. If an experiment were designed in this way, we could be assured that the randomization was such that across all other variables the groups of children were similar. Then we could isolate the treatment as the only thing affecting outcomes.  
+
+2. Using the summary statistics below, test whether the average proficiency rate in math is different for charters vs. traditional public schools.  
+
+Table 1. Summary Statistics  
+
+|                            | Mean  | SD    | Number of Schools |
+|----------------------------|-------|-------|-------------------|
+| Charter                    | 0.282 | 0.177 | 177               |
+| Traditional Public Schools | 0.430 | 0.183 | 1,877             |
+| Difference                 | 0.148 |       |                   |  
+<br>
+
+$H_o: \mu_{charter} - \mu_{TPS} = 0$  
+$H_a: \mu_{charter} - \mu_{TPS} \neq 0$  
+
+To run a t-test, we need to calculate the standard error of the difference of means:  
+$$
+    \begin{aligned}
+    se_{diff} = \sqrt{\frac{s_{1}^2}{n_1} + \frac{s_{2}^2}{n_2}} \\
+    se_{diff} = \sqrt{\frac{0.177^2}{177} + \frac{0.183^2}{1877}} \\
+    se_{diff} = 0.01395857
+    \end{aligned}
+$$
+
+Which we can then use to calculate the observed test statistic:  
+$$
+    \begin{aligned}
+    t = \frac{\bar{x_2} - \bar{x_1} - 0}{se_{diff}} \\ 
+    t = \frac{0.148 - 0}{0.01395857} \\
+    t = 10.602805
+    \end{aligned}
+$$  
+  
+The absolute value of the test statistic exceeds the critical value of 1.95 to establish 95% statistical significance, so we can reject the null hypothesis that the two means are the same.  
+<br>  
+
+3. Explore data and test for observable differences in other characteristics between districts with different grade spans.  
+    a. How many schools are in the data set?  
+
+Using the `bcode` variable, there are 2,054 unique schools in the dataset.  
+    b. What fraction of observations are charter schools?  
+    
+177/2,054 are charter schools.  
+    c. Create a crosstab of school type and urbanicity:  `tab urbanicity charter, missing`  
+    
+```s
+// this is the stata code used to create this table
+use mich_charters_2014, clear
+tab urbanicity charter, missing
+```  
+<!-- 
+//|                                                              |                           |     |       |
+//|--------------------------------------------------------------|---------------------------|-----|-------|
+//|                                                              | Charter school            |     |       |
+//| Derived 4-Category Urbanicity                                | No                        | Yes | Total |
+//| City                                                         | 291                       | 86  | 377   |
+//| Suburb                                                       | 832                       | 69  | 901   |
+//| Town                                                         | 184                       | 6   | 190   |
+//| Rural                                                        | 570                       | 16  | 586   |
+-->
+<br>
+  
+    d. Create a table that compares the student demographics and financial expenditures in charters and traditional public schools similar to what you created in Part I above. Use the variables: `enroll`, `per_fl`, `per_as`, `per_hi`, `per_bl`, `per_wh`, `pp_curr_opp_exp`.  
+ <br>  
+ 
+    
+    
+Note: pasted output created in Stata.  
+
+```s
+// this is the stata code used to create these statistics 
+use mich_charters_2014, clear
+estpost ttest enroll per_fl per_as per_hi per_bl per_wh pp_curr_opp_exp, by(charter) unequal 
+esttab ., noobs cells("mu_1(star fmt(3)) mu_2(star fmt(3)) b(star fmt(3)) se(fmt(3)) t(fmt(3))") star(* 0.1 ** .05 *** 0.01) collabels("Public" "Charter" "Difference" "Std. Error" "t-stat")
+```
+<!-- 
+//| Variable           | Public   | Charter  | Difference | Std. Error | t-stat  | H0     |
+//|--------------------|----------|----------|------------|------------|---------|--------|
+//| Total Enrollment   | 436.718  | 443.192  | -6.474     | 17.727     | -0.365  | Reject |
+//| % Free Lunch       | 0.441    | 0.441    | -0.240     | 0.022      | -11.072 | Reject |
+//| % Asian            | 0.028    | 0.037    | -0.009     | 0.008      | -1.138  | Do not Reject |
+//| % Hispanic         | 0.071    | 0.077    | -0.006     | 0.012      | -0.489  | Do not Reject |
+//| % Black            | 0.135    | 0.541    | -0.405     | 0.030      | -13.307 | Reject |
+//| % white            | 0.724    | 0.305    | 0.419      | 0.026      | 16.257  | Reject |
+//| Per-Pupil Expenses | 6933.128 | 5327.328 | 1605.800   | 146.736    | 10.943  | Reject |
+--> 
+<br>   
+
+    e. Create a table that compares the teacher characteristics in charters and traditional public schools. Use the variables: `pct_teach_yr1`, `median_experience`, `pct_competitive`, `pct_new_to_school`.  
+    
+```s
+// this is the stata code used to create these statistics
+use mich_charters_2014, clear
+estpost ttest pct_teach_yr1 median_experience pct_competitive pct_new_to_school, by(charter) unequal 
+esttab ., noobs cells("mu_1(star fmt(3)) mu_2(star fmt(3)) b(star fmt(3)) se(fmt(3)) t(fmt(3))") star(* 0.1 ** .05 *** 0.01) collabels("Public School" "Charter" "Difference" "Std. Error" "t-stat")
+```
+<!--
+//Note: pasted output created in Stata.  
+  
+//| Variable            | Public | Charter | Difference | Std. Error | t-stat  |H0      |
+//|---------------------|--------|---------|------------|------------|---------|--------|
+//| % Year 1 Teachers   | 0.019  | 0.091   | -0.071     | 0.006      | -11.992 | Reject |
+//| Median Experience   | 11.146 | 4.596   | 6.549      | 0.194      | 33.801  | Reject |
+//| % Grad. Competitive | 0.045  | 0.042   | 0.002      | 0.004      | 0.536   | Do not Reject |
+//| % New to School     | 0.115  | 0.256   | -0.142     | 0.013      | -11.307 | Reject |
+-->
+
+4. Discussion:  
+
+From the descriptive statistics produced, we cannot conclude that charter schools increase academic achievement. In particular it's difficult to claim anything causally from this testing, because there are imbalances across the treatment groups. As shown by table 3c, there are significant differences between charter and public schools in terms of their urbanicity. There are relatively more charter schools in city settings, where public schools are more concentrated in suburban areas.  
+In table 3d, we can see that along various characteristics, there are significant differences in the samples, along almost all of the variables included. Charter schools and public schools differ in a statistically significant way in their total enrollments, percent of free lunch students, percent of Black students, percent of white students, and finally in the amoutn of per-pupil expenditures. These imbalances make it difficult to establish causality, because instead of attributing any difference in outcomes to the treatment itself (charter status), we may be confounded in our estimates because of the baseline differences in the sample.  
+In table 3e, the differences across charter schools and public schools continue. The only characteristic where we cannot reject the null hypothesis is in the percent of instructors who graduated from competitive colleges. In all of the other metrics -- percent of year 1 teachers, median experience level of the teachers, and percent new to school, the charter and public school teacher populations differ in a statistically significant way. These baseline differences across the sample confound any causal claim that we can make about the effectiveness of the treatment (charter school status).
+
+<br>  
+  
+### Part 4: Random Assignment  
+
+#### Step 1: Randomly Assign Observations to treatment and control  
+Assigning 177 schools to "random charter" group.  
+<br>  
+```s  
+use mich_charters_2014, clear
+set seed 1492
+gen index = uniform()
+sort index
+gen random_charter = (_n <= 177)
+```  
+<br>  
+
+#### Step 2: Test for differences between treatment and control  
+
+a. Current operating expenditures per student  
+<br> 
+```s
+// stata code to run ttest
+ttest pp_curr_opp_exp, by(random_charter) unequal
+```
+<!--
+//| Variable | Public | Charter | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| Per-Pupil Expenses |6788.652 (35.35157)|6859.428 (153.0216)|-70.77575 (157.0521)|-0.4507| Do not Reject|  
+-->
+<br>  
+
+b. Percent free lunch  
+<br>  
+```s
+// stata code to run ttest
+ttest per_fl, by(random_charter) unequal
+```
+<!--
+//| Variable | Public | Charter | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| % Free Lunch |.4605943 (.0058684)|.4703096 (.0173562)|-.0097153 (.0183214)|-0.5303|Do not Reject|  
+-->
+<br>  
+c. Median teacher experience  
+  
+```s
+// stata code to run ttest
+ttest median_experience, by(random_charter) unequal
+```
+<!--
+//| Variable | Public | Charter | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| Median Experience|10.57083 (.0842587)|10.69514 (.2989882)|-.1243088 (.310634)|-0.4002|Do not Reject|  
+-->
+<br>  
+
+#### Step 3: Re-randomize and test for differences between newly defined treatment and control  
+<br>  
+```s
+// stata code to rerandomize  
+//gen index=. 
+//gen random_charters=. 
+ 
+local i=1 
+while `i' <= 10 { 
+   replace index= uniform() 
+   sort index 
+   replace random_charter=(_n<=177) 
+
+   display `i'
+   tab random_charter, m
+   ttest pp_curr_opp_exp, by (random_charter) unequal     
+   ttest per_fl, by(random_charter) unequal
+   ttest median_experience, by(random_charter) unequal
+   local i =`i' + 1 
+} 
+
+```
+<br>  
+
+#### Step 4: Discussion  
+<br>  
+
+The code assigns random uniform variates across all of the observations. The `uniform()` function has apparently been [replaced](https://www.statalist.org/forums/forum/general-stata-discussion/general/1358352-randomizing-the-observations-in-your-dataset) by the `runiform()` function. The next command sorts by the new index, and assigns a 1 to the newly sorted observations based on whether or not the `_n` row number/position is less than or equal to 177. In this way it randomly assigns schools to be coded as charter or non-charter schools.  
+This method of randomization created comparable treatment and control groups, except in a couple of cases across the three variables from the exercises above. There were 2 instances in which the differences between `random_charter` and public schools were statistically different (noted below). In those cases, it could be attributed to random chance.  
+In certain cases the difference between the treatment and control group means for per pupil expenditures was large. In the first randomization, the difference was -207.0487, compared to a standard deviation of around 1585 for public schools and 1520 for charter schools. The difference of $200 on average could have an impact on the estimates.  
+
+<br>
+<br>
+**statistically significant variables**  
+
+median_experience = 1  
+
+per_fl = 1
