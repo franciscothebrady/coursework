@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Francisco Brady" />
+  <title>Problem Set 1</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Problem Set 1</h1>
+<p class="author">Francisco Brady</p>
+<p class="date">26 Jan 2024</p>
+</header>
+<h3 id="part-1-labor-market-discrimination">Part 1: Labor Market
+Discrimination</h3>
+<p>The data set assignment1race.dta contains data from Bertrand and
+Mullainathan, 2004. “Are Emily and Greg More Employable than Lakisha and
+Jamal? Evidence on Racial Discrimination in the Labor Market from a
+Large Randomized Experiment,” September 2004, American Economic Review.
+Variable definitions and a more detailed description can be found in
+their paper. Open up the dataset and dig around - take some means, do
+some tabulations, get to know the data. Then get started with the
+questions below.</p>
+<p>Load the dataset and create the indicator variable for college
+attendance.</p>
+<pre class='stata'>. // this is the stata code 
+. use assignment1race, clear
+
+. gen college = 1 if education == 4
+(1,366 missing values generated)
+
+. replace college = 0 if college == .
+(1,366 real changes made)
+
+. label variable college "indicator for college attendance (education >= 4)"
+</pre>
+<p>In order to test for equal variance, we can use the
+<code>sdtest</code> command. The function tests the null hypothesis of
+equal variance. The results are not significant for
+<code>college</code>, <code>yearsexp</code>, or <code>linc</code>,
+meaning we <strong>reject</strong> the null hypothesis. This means that
+in our t-tests below we can use the <code>unequal</code> command.</p>
+<ol type="1">
+<li>Test for observable differences between treatment and control
+baseline characteristics</li>
+</ol>
+<pre class='stata'>. // this is the stata code used to produce these statistics
+. foreach var in college yearsexp linc {
+  2. display "`var'"
+  3. ttest `var', by(race) unequal
+  4. }
+college
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │   2,435    .7227926     .009073    .4477117    .7050011    .7405841
+       w │   2,435    .7162218     .009138    .4509231    .6983026    .7341409
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   4,870    .7195072    .0064381    .4492861    .7068856    .7321288
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0065708    .0128772               -.0186743     .031816
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =   0.5103
+H0: diff = 0                     Satterthwaite's degrees of freedom =  4867.75
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.6951         Pr(|T| > |t|) = 0.6099          Pr(T > t) = 0.3049
+yearsexp
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │   2,435    7.829569     .101544    5.010764    7.630447     8.02869
+       w │   2,435    7.856263    .1029315    5.079228     7.65442    8.058105
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   4,870    7.842916    .0722875    5.044612      7.7012    7.984632
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            -.026694    .1445894               -.3101545    .2567664
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =  -0.1846
+H0: diff = 0                     Satterthwaite's degrees of freedom =   4867.1
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.4268         Pr(|T| > |t|) = 0.8535          Pr(T > t) = 0.5732
+linc
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │   2,394    9.547022    .0113012     .552953    9.524861    9.569183
+       w │   2,390    9.554592    .0114816    .5613069    9.532077    9.577107
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   4,784    9.550804    .0080544    .5570967    9.535014    9.566594
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.0075703    .0161104               -.0391541    .0240135
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =  -0.4699
+H0: diff = 0                     Satterthwaite's degrees of freedom =  4780.67
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.3192         Pr(|T| > |t|) = 0.6384          Pr(T > t) = 0.6808
+</pre>
+<!-- Note: This is commented out. I included both markdown tables and stata output because I didn't realize the output would print to the word doc.
+
+| Characteristic | White Names | African American | Difference | t-statistic | H0 |
+|----------------|-------------|------------------|------------|-------------|--------|
+| College        |.7162218 (.009138) | .7227926 (.009073) | .0065708 (.0128772) |0.5103| Do not Reject |
+| Years Exp.     |7.856263 (.1029315)|7.829569 (.101544)|-.026694 (.1445894)|-0.1846| Do not Reject|
+| Log Income     |9.554592 (.0114816)|9.547022 (.0113012)|-.0075703 (.0161102)|-0.4699|Do not Reject|  
+
+-->
+<p><br></p>
+<ol start="2" type="1">
+<li>Test for differences in baseline characteristics for subgroups</li>
+</ol>
+<pre class='stata'>. // this is the code used to produce these statistics
+. foreach var in college yearsexp linc {
+  2. display "`var'"
+  3. ttest `var' if military == 1, by(race)
+  4. }
+college
+
+Two-sample t test with equal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │     248    .7137097    .0287618    .4529408    .6570601    .7703593
+       w │     225    .7866667    .0273716    .4105745    .7327278    .8406055
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │     473    .7484144     .019973    .4343837    .7091674    .7876613
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            -.072957    .0398943               -.1513499    .0054359
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =  -1.8288
+H0: diff = 0                                     Degrees of freedom =      471
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0340         Pr(|T| > |t|) = 0.0681          Pr(T > t) = 0.9660
+yearsexp
+
+Two-sample t test with equal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │     248    4.225806    .2114705    3.330241    3.809291    4.642322
+       w │     225    4.066667    .2162083    3.243125    3.640604    4.492729
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │     473    4.150106    .1511169    3.286575    3.853161    4.447051
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .1591398     .302824               -.4359134    .7541929
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =   0.5255
+H0: diff = 0                                     Degrees of freedom =      471
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.7003         Pr(|T| > |t|) = 0.5995          Pr(T > t) = 0.2997
+linc
+
+Two-sample t test with equal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │     246    9.511905    .0332293    .5211811    9.446454    9.577357
+       w │     223    9.616433    .0359372    .5366568    9.545611    9.687255
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │     469    9.561606    .0245012    .5306088     9.51346    9.609752
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.1045279    .0488752               -.2005705   -.0084852
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =  -2.1387
+H0: diff = 0                                     Degrees of freedom =      467
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0165         Pr(|T| > |t|) = 0.0330          Pr(T > t) = 0.9835
+</pre>
+<!-- 
+
+//| Characteristic | White Names | African American | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| College        |.7866667 (.0273716)|.7137097 (.0287618)|-.072957 (.0398943)|-1.8288| Do Not Reject |
+//| Years Exp.     |4.066667 (.2162083)|4.225806 (.2114705)|.1591398 (.302824)|0.5255| Do Not Reject|
+//| Log Income     |9.616433 (.0359372)|9.511905 (.0332293)|-.1045279 (.0488752)|-2.1387|Reject|  
+
+-->
+<p><br></p>
+<ol start="3" type="1">
+<li>Discussion of balance of baseline characteristics</li>
+</ol>
+<p>It looks like the randomization worked out overall. The t-statistics
+for college attendance, years of experience, and log of income allow us
+to reject the null hypothesis that the difference in means does not
+equal zero. In other words, the characteristics of the white name
+resumes and the Black name resumes are statistically similar
+enough.<br />
+The randomization did not work as well for the military experience
+subgroup. The subgroup with military experience showed a statistically
+significant difference between white and Black resumes in the log income
+of the applicants zip code.<br />
+There were some differences that were large but not statistically
+significant. In the military subgroup, the college variable mean
+difference was -.072957, where in the overall group the difference was
+much smaller (.0065708).<br />
+In the paper they mentioned that higher quality resumes were assigned
+some military experience, and that because of the random assignment of
+addresses to resumes, they are able to use the difference in incomes to
+test for any effect neighborhood income might have on callbacks.<br />
+<br></p>
+<ol start="4" type="1">
+<li>Test for differences in outcomes between treatment and control
+groups</li>
+</ol>
+<pre class='stata'>. // this is the stata code used to produce these statistics 
+. ttest call, by(race)
+
+Two-sample t test with equal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │   2,435    .0644764    .0049781    .2456501    .0547145    .0742382
+       w │   2,435    .0965092    .0059853     .295349    .0847724    .1082461
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   4,870    .0804928    .0038988    .2720826    .0728493    .0881363
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.0320329     .007785               -.0472949   -.0167708
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =  -4.1147
+H0: diff = 0                                     Degrees of freedom =     4868
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+
+. ttest call if military == 1, by(race)
+
+Two-sample t test with equal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       b │     248    .0403226    .0125167    .1971125    .0156696    .0649756
+       w │     225    .0888889    .0190145    .2852178    .0514187    .1263591
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │     473    .0634249    .0112184    .2439838    .0413808    .0854691
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.0485663    .0223756               -.0925346    -.004598
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(b) - mean(w)                                      t =  -2.1705
+H0: diff = 0                                     Degrees of freedom =      471
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0152         Pr(|T| > |t|) = 0.0305          Pr(T > t) = 0.9848
+</pre>
+<!-- Note: I ran these t-tests and pasted the output into these tables.  
+
+//| Characteristic | White Names | African American | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| Callback Dummy |.0965092 (.0059853)|.0644764 (.0049781)|-.0320329 (.007785)|-4.1147| Reject|
+//| Military == 1 |.0888889 (.0190145)|.0403226 (.0125167)|-.0485663 (.0223756)|-2.1705| Reject|  
+-->
+<p><br></p>
+<ol start="5" type="1">
+<li>Discussion</li>
+</ol>
+<p>In the overall group, the callback rate was 3.5 percentage points
+higher for the white names than for the African American sounding names.
+This difference was very statistically significant, which indicates that
+it is unlikely we would see a difference this large in the callback rate
+purely by chance.<br />
+In the military subgroup, the difference was still significant, but less
+so, we can still claim that the mean difference in callback rates is
+significantly different in the resumes assigned white names and military
+experience, as compared to the resumes assigned African American names
+with military experience.<br />
+In terms of conclusions, the results make a strong causal case for the
+assignment of white names to resumes and the difference produced by
+assigning African American names to the same resumes, in terms of its
+affect on the callback rate. This is because there is balance along all
+of the other variables and we can be relatively certain that the
+randomization “worked”. There is less strong evidence for the same claim
+in the military subgroup, in part because of the lack of balance between
+the two groups along some of the other characteristics, such as zip code
+income.</p>
+<h3 id="part-2-college-scholarships-in-michigan">Part 2: College
+Scholarships in Michigan</h3>
+<p>The state of Michigan is considering implementing a new college
+scholarship program for high-achieving students from economically
+disadvantaged backgrounds. To qualify for the scholarship, students must
+have a 4.0 grade point average in high school, and have family income
+below $65,000. A generous donor has agreed to fund the scholarship
+program, which would provide $20,000 scholarships to graduating high
+school students to attend a public college or university in the state of
+Michigan. The state can only afford to award 500 of these scholarships
+in a given year, but there are 2,000 students who meet the criteria
+(grade point average, family income, intentions to attend a public
+institution in Michigan).</p>
+<p>Below are three evaluation designs that have been proposed to
+allocate the scholarships and test whether the scholarship program
+increases college enrollment rates. For each, briefly (a few sentences)
+describe one or more concerns the design raises from an identification
+strategy perspective.</p>
+<ol type="1">
+<li>The state would offer scholarships to the 500 poorest students who
+meet the achievement criteria set out by the scholarship program.
+Researchers would then compare the college-going rates of the 500
+students who were offered the scholarship to the 1,500 students who were
+not.</li>
+</ol>
+<p>This method of evaluation would have biased results. It is likely
+that the poorest students are measurably different from the other 1,500
+students who were not offered the scholarship. The students would likely
+all come from lower-income families. The method of assignment would make
+it difficult to attribute college-going rates solely to the treatment
+(scholarship).</p>
+<ol start="2" type="1">
+<li>The state would open an application system requiring students to
+verify their income, submit their high school transcripts, and write a
+2-page personal statement on what a college degree means to them.
+Students must also pay a $25 fee to process their applications. The
+first 500 students who complete applications for the scholarship are
+offered the scholarship. Researchers would then compare the
+college-going rates of those first 500 students, to the 1,500 students
+in the state who met the criteria, but who were not one of the first 500
+students to submit an application.</li>
+</ol>
+<p>This method would also produce biased results. It’s possible that
+some students would not be able to pay the $25 application fee, even if
+they met the other academic criteria, excluding the lowest income
+students. In addition, because the scholarship will only accept the
+first 500 students, it is likely that those students are different in
+terms of other unobservables, such as motivation or some other
+characteristic that manifests itself in them being more ready to apply
+quickly. This could even be biased by differential rates of internet
+access and speed, creating unbalanced samples. This would make it
+difficult to claim a causal effect.</p>
+<ol start="3" type="1">
+<li>The state would assign each of the 2,000 students a random number
+between 1 and 2,000 and draw 500 numbers out of a hat. Students whose
+number was drawn from the hat will receive the scholarship. Researchers
+would then compare the college-going rates of the students who were
+offered the scholarship to the students who were not.</li>
+</ol>
+<p>This procedure is the most methodologically sound. The random
+assignment of the numbers would ensure that all of the students who met
+the criteria would be similar across most characteristics, and selection
+into treatment (scholarship) would not be affected by other factors,
+such as motivation or internet access to the application. This method
+would allow the strongest claim to isolating the causal effect of the
+treatment.</p>
+<h3 id="part-3-charter-schools">Part 3: Charter Schools</h3>
+<p>“What is the effect of charter school status on student
+achievement?”</p>
+<ol type="1">
+<li><p>What is an ideal experiment that would answer the causal question
+above?<br />
+For an ideal experiment, I would take the entire public school student
+population in Michigan, and then randomly assign a portion of the
+students to attend a charter school for a year. Then I could compare the
+achievement scores of the children in charter schools to achievement and
+outcomes from children in traditional public schools. If an experiment
+were designed in this way, we could be assured that the randomization
+was such that across all other variables the groups of children were
+similar. Then we could isolate the treatment as the only thing affecting
+outcomes.</p></li>
+<li><p>Using the summary statistics below, test whether the average
+proficiency rate in math is different for charters vs. traditional
+public schools.</p></li>
+</ol>
+<p>Table 1. Summary Statistics</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Mean</th>
+<th>SD</th>
+<th>Number of Schools</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Charter</td>
+<td>0.282</td>
+<td>0.177</td>
+<td>177</td>
+</tr>
+<tr class="even">
+<td>Traditional Public Schools</td>
+<td>0.430</td>
+<td>0.183</td>
+<td>1,877</td>
+</tr>
+<tr class="odd">
+<td>Difference</td>
+<td>0.148</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><span
+class="math inline"><em>H</em><sub><em>o</em></sub> : <em>μ</em><sub><em>c</em><em>h</em><em>a</em><em>r</em><em>t</em><em>e</em><em>r</em></sub> − <em>μ</em><sub><em>T</em><em>P</em><em>S</em></sub> = 0</span><br />
+<span
+class="math inline"><em>H</em><sub><em>a</em></sub> : <em>μ</em><sub><em>c</em><em>h</em><em>a</em><em>r</em><em>t</em><em>e</em><em>r</em></sub> − <em>μ</em><sub><em>T</em><em>P</em><em>S</em></sub> ≠ 0</span></p>
+<p>To run a t-test, we need to calculate the standard error of the
+difference of means:<br />
+<span class="math display">$$
+    \begin{aligned}
+    se_{diff} = \sqrt{\frac{s_{1}^2}{n_1} + \frac{s_{2}^2}{n_2}} \\
+    se_{diff} = \sqrt{\frac{0.177^2}{177} + \frac{0.183^2}{1877}} \\
+    se_{diff} = 0.01395857
+    \end{aligned}
+$$</span></p>
+<p>Which we can then use to calculate the observed test statistic:<br />
+<span class="math display">$$
+    \begin{aligned}
+    t = \frac{\bar{x_2} - \bar{x_1} - 0}{se_{diff}} \\
+    t = \frac{0.148 - 0}{0.01395857} \\
+    t = 10.602805
+    \end{aligned}
+$$</span></p>
+<p>The absolute value of the test statistic exceeds the critical value
+of 1.95 to establish 95% statistical significance, so we can reject the
+null hypothesis that the two means are the same.<br />
+<br></p>
+<ol start="3" type="1">
+<li>Explore data and test for observable differences in other
+characteristics between districts with different grade spans.
+<ol type="a">
+<li>How many schools are in the data set?</li>
+</ol></li>
+</ol>
+<p>Using the <code>bcode</code> variable, there are 2,054 unique schools
+in the dataset.<br />
+b. What fraction of observations are charter schools?</p>
+<p>177/2,054 are charter schools.<br />
+c. Create a crosstab of school type and urbanicity:
+<code>tab urbanicity charter, missing</code></p>
+<pre class='stata'>. // this is the stata code used to create this table
+. use mich_charters_2014, clear
+
+. tab urbanicity charter, missing
+
+   Derived │
+4-Category │
+Urbanicity │
+     (from │
+   ulocale │ Charter School (EEM,
+  variable │         CCD)
+   in CCD) │        No        Yes │     Total
+───────────┼──────────────────────┼──────────
+      City │       291         86 │       377 
+    Suburb │       832         69 │       901 
+      Town │       184          6 │       190 
+     Rural │       570         16 │       586 
+───────────┼──────────────────────┼──────────
+     Total │     1,877        177 │     2,054 
+</pre>
+<!-- 
+//|                                                              |                           |     |       |
+//|--------------------------------------------------------------|---------------------------|-----|-------|
+//|                                                              | Charter school            |     |       |
+//| Derived 4-Category Urbanicity                                | No                        | Yes | Total |
+//| City                                                         | 291                       | 86  | 377   |
+//| Suburb                                                       | 832                       | 69  | 901   |
+//| Town                                                         | 184                       | 6   | 190   |
+//| Rural                                                        | 570                       | 16  | 586   |
+-->
+<p><br></p>
+<pre><code>d. Create a table that compares the student demographics and financial expenditures in charters and traditional public schools similar to what you created in Part I above. Use the variables: `enroll`, `per_fl`, `per_as`, `per_hi`, `per_bl`, `per_wh`, `pp_curr_opp_exp`.  </code></pre>
+<p><br></p>
+<p>Note: pasted output created in Stata.</p>
+<pre class='stata'>. // this is the stata code used to create these statistics 
+. use mich_charters_2014, clear
+
+. estpost ttest enroll per_fl per_as per_hi per_bl per_wh pp_curr_opp_exp, by(charter) unequal 
+
+             │      e(b)   e(count)      e(se)       e(t)    e(df_t)     e(p_l)       e(p)     e(p_u)     e(N_1)    e(mu_1)     e(N_2) 
+─────────────+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+      enroll │ -6.474456       2054   17.72718  -.3652276   200.5975   .3576631   .7153263   .6423369       1877   436.7176        177 
+      per_fl │  -.240336       2054   .0217067  -11.07198   201.1655   7.40e-23   1.48e-22          1       1877   .4407209        177 
+      per_as │ -.0092406       2054    .008123  -1.137581   186.1382   .1283788   .2567577   .8716212       1877   .0281777        177 
+      per_hi │ -.0057525       2054   .0117715  -.4886797   193.8918   .3128104   .6256208   .6871896       1877   .0709033        177 
+      per_bl │ -.4051156       2054   .0304445  -13.30668   187.9968   3.36e-29   6.71e-29          1       1877   .1353942        177 
+      per_wh │  .4191902       2054   .0257851   16.25704   198.3097          1   2.50e-38   1.25e-38       1877   .7237855        177 
+pp_curr_op~p │    1605.8       2054    146.736   10.94346   196.5246          1   4.52e-22   2.26e-22       1877   6933.128        177 
+
+             │   e(mu_2) 
+─────────────+───────────
+      enroll │  443.1921 
+      per_fl │   .681057 
+      per_as │  .0374183 
+      per_hi │  .0766558 
+      per_bl │  .5405098 
+      per_wh │  .3045953 
+pp_curr_op~p │  5327.328 
+
+. esttab ., noobs cells("mu_1(star fmt(3)) mu_2(star fmt(3)) b(star fmt(3)) se(fmt(3)) t(fmt(3))") star(* 0.1 ** .05 *** 0.01) collabels("P
+> ublic" "Charter" "Difference" "Std. Error" "t-stat")
+
+──────────────────────────────────────────────────────────────────────────────────────
+                      (1)                                                             
+                                                                                      
+                   Public         Charter      Difference      Std. Error       t-stat
+──────────────────────────────────────────────────────────────────────────────────────
+enroll            436.718         443.192          -6.474          17.727       -0.365
+per_fl              0.441***        0.681***       -0.240***        0.022      -11.072
+per_as              0.028           0.037          -0.009           0.008       -1.138
+per_hi              0.071           0.077          -0.006           0.012       -0.489
+per_bl              0.135***        0.541***       -0.405***        0.030      -13.307
+per_wh              0.724***        0.305***        0.419***        0.026       16.257
+pp_curr_op~p     6933.128***     5327.328***     1605.800***      146.736       10.943
+──────────────────────────────────────────────────────────────────────────────────────
+</pre>
+<!-- 
+//| Variable           | Public   | Charter  | Difference | Std. Error | t-stat  | H0     |
+//|--------------------|----------|----------|------------|------------|---------|--------|
+//| Total Enrollment   | 436.718  | 443.192  | -6.474     | 17.727     | -0.365  | Reject |
+//| % Free Lunch       | 0.441    | 0.441    | -0.240     | 0.022      | -11.072 | Reject |
+//| % Asian            | 0.028    | 0.037    | -0.009     | 0.008      | -1.138  | Do not Reject |
+//| % Hispanic         | 0.071    | 0.077    | -0.006     | 0.012      | -0.489  | Do not Reject |
+//| % Black            | 0.135    | 0.541    | -0.405     | 0.030      | -13.307 | Reject |
+//| % white            | 0.724    | 0.305    | 0.419      | 0.026      | 16.257  | Reject |
+//| Per-Pupil Expenses | 6933.128 | 5327.328 | 1605.800   | 146.736    | 10.943  | Reject |
+-->
+<p><br></p>
+<pre><code>e. Create a table that compares the teacher characteristics in charters and traditional public schools. Use the variables: `pct_teach_yr1`, `median_experience`, `pct_competitive`, `pct_new_to_school`.  </code></pre>
+<pre class='stata'>. // this is the stata code used to create these statistics
+. use mich_charters_2014, clear
+
+. estpost ttest pct_teach_yr1 median_experience pct_competitive pct_new_to_school, by(charter) unequal 
+
+             │      e(b)   e(count)      e(se)       e(t)    e(df_t)     e(p_l)       e(p)     e(p_u)     e(N_1)    e(mu_1)     e(N_2) 
+─────────────+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+pct_teach_~1 │ -.0714924       2054   .0059614  -11.99248   181.0469   4.57e-25   9.15e-25          1       1877   .0193197        177 
+median_exp~e │  6.549449       2054   .1937636   33.80124   242.9905          1   7.89e-94   3.95e-94       1877   11.14593        177 
+pct_compet~e │  .0023727       2054   .0044303   .5355552   222.7043   .7035998   .5928004   .2964002       1877   .0445731        177 
+pct_new_to~l │ -.1415233       2054   .0125163  -11.30711    187.359   3.11e-23   6.21e-23          1       1877   .1146763        177 
+
+             │   e(mu_2) 
+─────────────+───────────
+pct_teach_~1 │  .0908121 
+median_exp~e │  4.596483 
+pct_compet~e │  .0422005 
+pct_new_to~l │  .2561996 
+
+. esttab ., noobs cells("mu_1(star fmt(3)) mu_2(star fmt(3)) b(star fmt(3)) se(fmt(3)) t(fmt(3))") star(* 0.1 ** .05 *** 0.01) collabels("P
+> ublic School" "Charter" "Difference" "Std. Error" "t-stat")
+
+──────────────────────────────────────────────────────────────────────────────────────
+                      (1)                                                             
+                                                                                      
+             Public Sch~l         Charter      Difference      Std. Error       t-stat
+──────────────────────────────────────────────────────────────────────────────────────
+pct_teach_~1        0.019***        0.091***       -0.071***        0.006      -11.992
+median_exp~e       11.146***        4.596***        6.549***        0.194       33.801
+pct_compet~e        0.045           0.042           0.002           0.004        0.536
+pct_new_to~l        0.115***        0.256***       -0.142***        0.013      -11.307
+──────────────────────────────────────────────────────────────────────────────────────
+</pre>
+<!--
+//Note: pasted output created in Stata.  
+  
+//| Variable            | Public | Charter | Difference | Std. Error | t-stat  |H0      |
+//|---------------------|--------|---------|------------|------------|---------|--------|
+//| % Year 1 Teachers   | 0.019  | 0.091   | -0.071     | 0.006      | -11.992 | Reject |
+//| Median Experience   | 11.146 | 4.596   | 6.549      | 0.194      | 33.801  | Reject |
+//| % Grad. Competitive | 0.045  | 0.042   | 0.002      | 0.004      | 0.536   | Do not Reject |
+//| % New to School     | 0.115  | 0.256   | -0.142     | 0.013      | -11.307 | Reject |
+-->
+<ol start="4" type="1">
+<li>Discussion:</li>
+</ol>
+<p>From the descriptive statistics produced, we cannot conclude that
+charter schools increase academic achievement. In particular it’s
+difficult to claim anything causally from this testing, because there
+are imbalances across the treatment groups. As shown by table 3c, there
+are significant differences between charter and public schools in terms
+of their urbanicity. There are relatively more charter schools in city
+settings, where public schools are more concentrated in suburban
+areas.<br />
+In table 3d, we can see that along various characteristics, there are
+significant differences in the samples, along almost all of the
+variables included. Charter schools and public schools differ in a
+statistically significant way in their total enrollments, percent of
+free lunch students, percent of Black students, percent of white
+students, and finally in the amoutn of per-pupil expenditures. These
+imbalances make it difficult to establish causality, because instead of
+attributing any difference in outcomes to the treatment itself (charter
+status), we may be confounded in our estimates because of the baseline
+differences in the sample.<br />
+In table 3e, the differences across charter schools and public schools
+continue. The only characteristic where we cannot reject the null
+hypothesis is in the percent of instructors who graduated from
+competitive colleges. In all of the other metrics – percent of year 1
+teachers, median experience level of the teachers, and percent new to
+school, the charter and public school teacher populations differ in a
+statistically significant way. These baseline differences across the
+sample confound any causal claim that we can make about the
+effectiveness of the treatment (charter school status).</p>
+<p><br></p>
+<h3 id="part-4-random-assignment">Part 4: Random Assignment</h3>
+<h4
+id="step-1-randomly-assign-observations-to-treatment-and-control">Step
+1: Randomly Assign Observations to treatment and control</h4>
+<p>Assigning 177 schools to “random charter” group.<br />
+<br></p>
+<pre class='stata'>. use mich_charters_2014, clear
+
+. set seed 1492
+
+. gen index = uniform()
+
+. sort index
+
+. gen random_charter = (_n &lt;= 177)
+</pre>
+<p><br></p>
+<h4 id="step-2-test-for-differences-between-treatment-and-control">Step
+2: Test for differences between treatment and control</h4>
+<ol type="a">
+<li>Current operating expenditures per student<br />
+<br></li>
+</ol>
+<pre class='stata'>. // stata code to run ttest
+. ttest pp_curr_opp_exp, by(random_charter) unequal
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6788.652    35.35157    1531.584     6719.32    6857.985
+       1 │     177    6859.428    153.0216    2035.821    6557.435    7161.421
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -70.77575    157.0521               -380.5122    238.9607
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.4507
+H0: diff = 0                     Satterthwaite's degrees of freedom =  195.236
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.3264         Pr(|T| > |t|) = 0.6527          Pr(T > t) = 0.6736
+</pre>
+<!--
+//| Variable | Public | Charter | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| Per-Pupil Expenses |6788.652 (35.35157)|6859.428 (153.0216)|-70.77575 (157.0521)|-0.4507| Do not Reject|  
+-->
+<p><br></p>
+<ol start="2" type="a">
+<li>Percent free lunch<br />
+<br></li>
+</ol>
+<pre class='stata'>. // stata code to run ttest
+. ttest per_fl, by(random_charter) unequal
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4605943    .0058684    .2542434    .4490851    .4721035
+       1 │     177    .4703096    .0173562    .2309087    .4360566    .5045625
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.0097153    .0183214               -.0458248    .0263942
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.5303
+H0: diff = 0                     Satterthwaite's degrees of freedom =  218.274
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.2982         Pr(|T| > |t|) = 0.5965          Pr(T > t) = 0.7018
+</pre>
+<!--
+//| Variable | Public | Charter | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| % Free Lunch |.4605943 (.0058684)|.4703096 (.0173562)|-.0097153 (.0183214)|-0.5303|Do not Reject|  
+-->
+<p><br><br />
+c. Median teacher experience</p>
+<pre class='stata'>. // stata code to run ttest
+. ttest median_experience, by(random_charter) unequal
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.57083    .0842587    3.650455    10.40558    10.73608
+       1 │     177    10.69514    .2989882    3.977779    10.10508     11.2852
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.1243088     .310634               -.7367569    .4881393
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.4002
+H0: diff = 0                     Satterthwaite's degrees of freedom =  204.944
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.3447         Pr(|T| > |t|) = 0.6894          Pr(T > t) = 0.6553
+</pre>
+<!--
+//| Variable | Public | Charter | Difference | t-statistic | H0 |
+//|----------------|-------------|------------------|------------|-------------|--------|
+//| Median Experience|10.57083 (.0842587)|10.69514 (.2989882)|-.1243088 (.310634)|-0.4002|Do not Reject|  
+-->
+<p><br></p>
+<h4
+id="step-3-re-randomize-and-test-for-differences-between-newly-defined-treatment-and-control">Step
+3: Re-randomize and test for differences between newly defined treatment
+and control</h4>
+<p><br></p>
+<pre class='stata'>. // stata code to rerandomize  
+. //gen index=. 
+. //gen random_charters=. 
+.  
+. local i=1 
+
+. while `i' &lt;= 10 { 
+  2.    replace index= uniform() 
+  3.    sort index 
+  4.    replace random_charter=(_n&lt;=177) 
+  5. 
+.    display `i'
+  6.    tab random_charter, m
+  7.    ttest pp_curr_opp_exp, by (random_charter) unequal     
+  8.    ttest per_fl, by(random_charter) unequal
+  9.    ttest median_experience, by(random_charter) unequal
+ 10.    local i =`i' + 1 
+ 11. } 
+(2,054 real changes made)
+(318 real changes made)
+1
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6782.613    36.72156    1590.938    6710.594    6854.633
+       1 │     177     6923.47    110.3524    1468.143    6705.686    7141.254
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -140.8568    116.3018               -370.0833    88.36968
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.2111
+H0: diff = 0                     Satterthwaite's degrees of freedom =  216.887
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.1136         Pr(|T| > |t|) = 0.2272          Pr(T > t) = 0.8864
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4640526    .0058274    .2524672    .4526238    .4754814
+       1 │     177    .4336361    .0187383    .2492963    .3966555    .4706167
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0304164    .0196235               -.0082662    .0690991
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   1.5500
+H0: diff = 0                     Satterthwaite's degrees of freedom =  211.504
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9387         Pr(|T| > |t|) = 0.1226          Pr(T > t) = 0.0613
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.59058    .0853477    3.697632    10.42319    10.75796
+       1 │     177    10.48578    .2618025    3.483056    9.969101    11.00245
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .1047986     .275363               -.4379557    .6475529
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   0.3806
+H0: diff = 0                     Satterthwaite's degrees of freedom =  215.169
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.6481         Pr(|T| > |t|) = 0.7039          Pr(T > t) = 0.3519
+(2,054 real changes made)
+(328 real changes made)
+2
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6803.631    36.61655    1586.389    6731.817    6875.444
+       1 │     177    6700.588    114.4378    1522.496    6474.741    6926.435
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            103.0424    120.1532               -133.7949    339.8797
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   0.8576
+H0: diff = 0                     Satterthwaite's degrees of freedom =  213.672
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.8040         Pr(|T| > |t|) = 0.3921          Pr(T > t) = 0.1960
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877     .460811     .005823    .2522776    .4493908    .4722313
+       1 │     177     .468011    .0190111    .2529256    .4304921      .50553
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │              -.0072    .0198828               -.0463951    .0319951
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.3621
+H0: diff = 0                     Satterthwaite's degrees of freedom =  210.399
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.3588         Pr(|T| > |t|) = 0.7176          Pr(T > t) = 0.6412
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.62503    .0847203    3.670454    10.45887    10.79118
+       1 │     177    10.12045    .2816651     3.74731    9.564576    10.67633
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .5045733    .2941305               -.0752675    1.084414
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   1.7155
+H0: diff = 0                     Satterthwaite's degrees of freedom =  209.126
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9561         Pr(|T| > |t|) = 0.0877          Pr(T > t) = 0.0439
+(2,054 real changes made)
+(314 real changes made)
+3
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6785.735    35.72595    1547.804    6715.669    6855.802
+       1 │     177    6890.359    142.7478    1899.135    6608.642    7172.077
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -104.6237    147.1505               -394.8011    185.5536
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.7110
+H0: diff = 0                     Satterthwaite's degrees of freedom =  198.666
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.2390         Pr(|T| > |t|) = 0.4779          Pr(T > t) = 0.7610
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877     .458828    .0057883    .2507758    .4474758    .4701803
+       1 │     177    .4890399     .020061    .2668947    .4494488     .528631
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.0302119    .0208794               -.0713761    .0109524
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.4470
+H0: diff = 0                     Satterthwaite's degrees of freedom =  206.391
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0747         Pr(|T| > |t|) = 0.1494          Pr(T > t) = 0.9253
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877     10.5629    .0843831    3.655843    10.39741     10.7284
+       1 │     177    10.77924     .294721    3.921007     10.1976    11.36088
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            -.216335    .3065631               -.8207401    .3880701
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.7057
+H0: diff = 0                     Satterthwaite's degrees of freedom =  205.909
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.2406         Pr(|T| > |t|) = 0.4812          Pr(T > t) = 0.7594
+(2,054 real changes made)
+(316 real changes made)
+4
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6807.878    36.74127    1591.792     6735.82    6879.936
+       1 │     177    6655.548    109.5285    1457.181     6439.39    6871.706
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            152.3302    115.5266               -75.36433    380.0248
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   1.3186
+H0: diff = 0                     Satterthwaite's degrees of freedom =  217.579
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9057         Pr(|T| > |t|) = 0.1887          Pr(T > t) = 0.0943
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4655492    .0058492    .2534141    .4540775    .4770209
+       1 │     177    .4177648    .0177545    .2362083    .3827257    .4528039
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0477844    .0186932                  .01094    .0846288
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   2.5562
+H0: diff = 0                     Satterthwaite's degrees of freedom =   216.04
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9944         Pr(|T| > |t|) = 0.0113          Pr(T > t) = 0.0056
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.61587    .0859279    3.722773    10.44735     10.7844
+       1 │     177    10.21753      .23778    3.163457    9.748261     10.6868
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .3983428    .2528298               -.0998791    .8965647
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   1.5755
+H0: diff = 0                     Satterthwaite's degrees of freedom =  224.611
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9417         Pr(|T| > |t|) = 0.1165          Pr(T > t) = 0.0583
+(2,054 real changes made)
+(336 real changes made)
+5
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6784.441    37.03774    1604.636    6711.801     6857.08
+       1 │     177    6904.087    97.82759    1301.511    6711.021    7097.153
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -119.6459    104.6042               -325.7525    86.46082
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.1438
+H0: diff = 0                     Satterthwaite's degrees of freedom =  229.629
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.1269         Pr(|T| > |t|) = 0.2539          Pr(T > t) = 0.8731
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4629748    .0058294    .2525569    .4515419    .4744076
+       1 │     177    .4450656    .0187492    .2494423    .4080633    .4820679
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0179092    .0196346               -.0207954    .0566137
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   0.9121
+H0: diff = 0                     Satterthwaite's degrees of freedom =  211.487
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.8186         Pr(|T| > |t|) = 0.3627          Pr(T > t) = 0.1814
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.54677    .0854125     3.70044    10.37926    10.71428
+       1 │     177    10.95031    .2578787    3.430853    10.44138    11.45924
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.4035406    .2716555               -.9389689    .1318876
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.4855
+H0: diff = 0                     Satterthwaite's degrees of freedom =  216.488
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0694         Pr(|T| > |t|) = 0.1389          Pr(T > t) = 0.9306
+(2,054 real changes made)
+(324 real changes made)
+6
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6809.569    36.95946    1601.245    6737.083    6882.055
+       1 │     177    6637.612    100.7261    1340.074    6438.825    6836.398
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            171.9579    107.2928               -39.46339    383.3792
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   1.6027
+H0: diff = 0                     Satterthwaite's degrees of freedom =  226.198
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9448         Pr(|T| > |t|) = 0.1104          Pr(T > t) = 0.0552
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4589205    .0058183    .2520744    .4475095    .4703315
+       1 │     177    .4880594    .0190645    .2536361    .4504351    .5256838
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            -.029139    .0199325               -.0684323    .0101544
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.4619
+H0: diff = 0                     Satterthwaite's degrees of freedom =  210.142
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0726         Pr(|T| > |t|) = 0.1453          Pr(T > t) = 0.9274
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.54517    .0851328    3.688325     10.3782    10.71213
+       1 │     177    10.96732    .2679782    3.565218    10.43845    11.49618
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.4221499    .2811759                -.976392    .1320922
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.5014
+H0: diff = 0                     Satterthwaite's degrees of freedom =  213.114
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0674         Pr(|T| > |t|) = 0.1347          Pr(T > t) = 0.9326
+(2,054 real changes made)
+(334 real changes made)
+7
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6776.558    35.54409    1539.925    6706.848    6846.268
+       1 │     177     6987.68    147.1986    1958.349    6697.178    7278.181
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -211.1215    151.4292               -509.7512    87.50831
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.3942
+H0: diff = 0                     Satterthwaite's degrees of freedom =   197.06
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0824         Pr(|T| > |t|) = 0.1648          Pr(T > t) = 0.9176
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4649997     .005811    .2517558    .4536031    .4763963
+       1 │     177    .4235921    .0191996    .2554336    .3857011    .4614831
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0414076    .0200597                 .001863    .0809522
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   2.0642
+H0: diff = 0                     Satterthwaite's degrees of freedom =  209.556
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9799         Pr(|T| > |t|) = 0.0402          Pr(T > t) = 0.0201
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.60333    .0841736    3.646769    10.43825    10.76841
+       1 │     177    10.35052    .3012675    4.008103    9.755961    10.94508
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .2528072    .3128055               -.3639314    .8695457
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   0.8082
+H0: diff = 0                     Satterthwaite's degrees of freedom =  204.434
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.7900         Pr(|T| > |t|) = 0.4199          Pr(T > t) = 0.2100
+(2,054 real changes made)
+(320 real changes made)
+8
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6787.463    36.45008    1579.176    6715.977     6858.95
+       1 │     177    6872.034      120.37    1601.419     6634.48    7109.589
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -84.57067    125.7679               -332.5028    163.3614
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.6724
+H0: diff = 0                     Satterthwaite's degrees of freedom =  209.592
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.2510         Pr(|T| > |t|) = 0.5020          Pr(T > t) = 0.7490
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4600992    .0058668     .254175    .4485931    .4716053
+       1 │     177    .4755596    .0173948    .2314226    .4412304    .5098888
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.0154604    .0183575               -.0516413    .0207205
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.8422
+H0: diff = 0                     Satterthwaite's degrees of freedom =  218.054
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.2003         Pr(|T| > |t|) = 0.4006          Pr(T > t) = 0.7997
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.58583    .0847673     3.67249    10.41958    10.75208
+       1 │     177     10.5361    .2823896    3.756949    9.978796    11.09341
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0497281    .2948379               -.5315094    .6309656
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   0.1687
+H0: diff = 0                     Satterthwaite's degrees of freedom =  208.988
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.5669         Pr(|T| > |t|) = 0.8662          Pr(T > t) = 0.4331
+(2,054 real changes made)
+(322 real changes made)
+9
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6784.516     36.6666    1588.557    6712.604    6856.427
+       1 │     177    6903.295    112.5314    1497.133     6681.21    7125.379
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            -118.779    118.3544               -352.0617    114.5038
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -1.0036
+H0: diff = 0                     Satterthwaite's degrees of freedom =  215.127
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.1584         Pr(|T| > |t|) = 0.3167          Pr(T > t) = 0.8416
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4646253    .0058238    .2523102    .4532036     .476047
+       1 │     177    .4275629    .0188033    .2501619    .3904539    .4646719
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0370624    .0196845               -.0017409    .0758657
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   1.8828
+H0: diff = 0                     Satterthwaite's degrees of freedom =  211.203
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.9695         Pr(|T| > |t|) = 0.0611          Pr(T > t) = 0.0305
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.55745     .085127     3.68807     10.3905    10.72441
+       1 │     177    10.83703    .2691554     3.58088    10.30585    11.36822
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.2795818    .2822964               -.8360377     .276874
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.9904
+H0: diff = 0                     Satterthwaite's degrees of freedom =  212.772
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.1616         Pr(|T| > |t|) = 0.3231          Pr(T > t) = 0.8384
+(2,054 real changes made)
+(326 real changes made)
+10
+
+random_char │
+        ter │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │      1,877       91.38       91.38
+          1 │        177        8.62      100.00
+────────────┼───────────────────────────────────
+      Total │      2,054      100.00
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    6793.441    36.22167     1569.28    6722.402     6864.48
+       1 │     177    6808.641     128.067     1703.82    6555.896    7061.385
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    6794.751    34.88199    1580.889    6726.343    6863.159
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -15.19924    133.0908               -277.6003    247.2018
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.1142
+H0: diff = 0                     Satterthwaite's degrees of freedom =  205.161
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.4546         Pr(|T| > |t|) = 0.9092          Pr(T > t) = 0.5454
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    .4629981    .0058464     .253291     .451532    .4744642
+       1 │     177    .4448183    .0181417    .2413591    .4090151    .4806215
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    .4614315    .0055665    .2522799    .4505149    .4723481
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │            .0181798    .0190604               -.0193902    .0557497
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =   0.9538
+H0: diff = 0                     Satterthwaite's degrees of freedom =  214.238
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.8294         Pr(|T| > |t|) = 0.3413          Pr(T > t) = 0.1706
+
+Two-sample t test with unequal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │   1,877    10.56879    .0854025    3.700007     10.4013    10.73629
+       1 │     177    10.71675    .2596651    3.454619    10.20429    11.22921
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │   2,054    10.58154     .081175     3.67894    10.42235    10.74074
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.1479568    .2733487               -.6867306     .390817
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t =  -0.5413
+H0: diff = 0                     Satterthwaite's degrees of freedom =  215.899
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.2944         Pr(|T| > |t|) = 0.5889          Pr(T > t) = 0.7056
+
+. 
+</pre>
+<p><br></p>
+<h4 id="step-4-discussion">Step 4: Discussion</h4>
+<p><br></p>
+<p>The code assigns random uniform variates across all of the
+observations. The <code>uniform()</code> function has apparently been <a
+href="https://www.statalist.org/forums/forum/general-stata-discussion/general/1358352-randomizing-the-observations-in-your-dataset">replaced</a>
+by the <code>runiform()</code> function. The next command sorts by the
+new index, and assigns a 1 to the newly sorted observations based on
+whether or not the <code>_n</code> row number/position is less than or
+equal to 177. In this way it randomly assigns schools to be coded as
+charter or non-charter schools.<br />
+This method of randomization created comparable treatment and control
+groups, except in a couple of cases across the three variables from the
+exercises above. There were 2 instances in which the differences between
+<code>random_charter</code> and public schools were statistically
+different (noted below). In those cases, it could be attributed to
+random chance.<br />
+In certain cases the difference between the treatment and control group
+means for per pupil expenditures was large. In the first randomization,
+the difference was -207.0487, compared to a standard deviation of around
+1585 for public schools and 1520 for charter schools. The difference of
+$200 on average could have an impact on the estimates.</p>
+<p><br> <br> <strong>statistically significant variables</strong></p>
+<p>median_experience = 1</p>
+<p>per_fl = 1</p>
+</body>
+</html>

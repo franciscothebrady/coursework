@@ -1,0 +1,22 @@
+{
+  "url": "https://starwars.fandom.com/wiki/Din_Djarin",
+  "name": "Din Djarin",
+  "birth_year": "prior to 19BBY",
+  "height_cm": 180.0,
+  "mass_kg": null,
+  "homeworld": {
+    "url": "https://starwars.fandom.com/wiki/Aq_Vetina",
+    "name": "Aq Vetina",
+    "region": null,
+    "sector": null,
+    "suns": null,
+    "moons": null,
+    "orbital_period_days": null,
+    "diameter_km": null,
+    "gravity_std": null,
+    "climate": null,
+    "terrain": null,
+    "population": null
+  },
+  "force_sensitive": "False"
+}

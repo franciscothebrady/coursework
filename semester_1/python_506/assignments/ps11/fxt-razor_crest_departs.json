@@ -1,0 +1,129 @@
+{
+  "url": "https://starwars.fandom.com/wiki/Razor_Crest",
+  "name": "Razor Crest",
+  "model": "ST-70 class Razor Crest M-111",
+  "starship_class": "gunship",
+  "manufacturer": null,
+  "length_m": 80,
+  "max_atmosphering_speed": null,
+  "hyperdrive_rating": null,
+  "top_speed_mglt": null,
+  "armament": [
+    "2 x Mk 3e/W heavy laser cannons"
+  ],
+  "crew_size": 1,
+  "crew_members": null,
+  "max_passengers": 5,
+  "passengers_on_board": [
+    {
+      "url": "https://starwars.fandom.com/wiki/Din_Djarin",
+      "name": "Din Djarin",
+      "birth_year": "prior to 19BBY",
+      "height_cm": 180.0,
+      "mass_kg": null,
+      "homeworld": {
+        "url": "https://starwars.fandom.com/wiki/Aq_Vetina",
+        "name": "Aq Vetina",
+        "region": null,
+        "sector": null,
+        "suns": null,
+        "moons": null,
+        "orbital_period_days": null,
+        "diameter_km": null,
+        "gravity_std": null,
+        "climate": null,
+        "terrain": null,
+        "population": null
+      },
+      "force_sensitive": "False"
+    },
+    {
+      "url": "https://starwars.fandom.com/wiki/Grogu",
+      "name": "Grogu",
+      "birth_year": "41BBY",
+      "height_cm": 34.0,
+      "mass_kg": null,
+      "homeworld": null,
+      "force_sensitive": "True"
+    }
+  ],
+  "cargo_capacity_kg": null,
+  "consumables": null,
+  "planets_visited": [
+    {
+      "name": "Arvala-7",
+      "region": null,
+      "sector": null,
+      "suns": 1,
+      "orbital_position": 7,
+      "moons": null,
+      "class": "terrestrial",
+      "atmosphere": null,
+      "rotation_period": null,
+      "orbital_period": null,
+      "diameter": null,
+      "climate": "arid",
+      "gravity": null,
+      "terrain": "desert",
+      "surface_water": null,
+      "population": null,
+      "url": "https://starwars.fandom.com/wiki/Arvala-7"
+    },
+    {
+      "name": "Nevarro",
+      "region": "Outer Rim Territories",
+      "sector": "Nevarro sector",
+      "suns": 1,
+      "orbital_position": null,
+      "moons": null,
+      "class": "terrestrial",
+      "atmosphere": "breathable",
+      "rotation_period": null,
+      "orbital_period": null,
+      "diameter": null,
+      "climate": "arid",
+      "gravity": null,
+      "terrain": "ashen, rocky, volcanic",
+      "surface_water": null,
+      "population": null,
+      "url": "https://starwars.fandom.com/wiki/Nevarro"
+    },
+    {
+      "name": "Sorgan",
+      "region": "Outer Rim Territories",
+      "sector": null,
+      "suns": 1,
+      "orbital_position": null,
+      "moons": 2,
+      "class": "terrestrial",
+      "atmosphere": "breathable",
+      "rotation_period": null,
+      "orbital_period": null,
+      "diameter": null,
+      "climate": null,
+      "gravity": null,
+      "terrain": "coniferous forests, meadows, swamps, wetlands",
+      "surface_water": "lakes, ponds",
+      "population": null,
+      "url": "https://starwars.fandom.com/wiki/Sorgan"
+    },
+    {
+      "url": "https://swapi.py4e.com/api/planets/1/",
+      "name": "Tatooine",
+      "region": null,
+      "sector": null,
+      "suns": null,
+      "moons": null,
+      "orbital_period_days": 304.0,
+      "diameter_km": 10465,
+      "gravity_std": 1.0,
+      "climate": [
+        "arid"
+      ],
+      "terrain": [
+        "desert"
+      ],
+      "population": 200000
+    }
+  ]
+}

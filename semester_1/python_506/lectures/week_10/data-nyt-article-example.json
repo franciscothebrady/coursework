@@ -1,0 +1,88 @@
+{
+  "abstract": "A new study of a fossilized ankylosaur suggests it could have uttered birdlike calls.",
+  "web_url": "https://www.nytimes.com/2023/02/24/science/dinosaur-sounds-fossils.html",
+  "snippet": "A new study of a fossilized ankylosaur suggests it could have uttered birdlike calls.",
+  "lead_paragraph": "In the next generation of dinosaur-based blockbuster films, some of the star creatures could perhaps sound more like a bird and a little less like a roaring lion.",
+  "source": "The New York Times",
+  "headline": {
+    "main": "What Sounds Did Dinosaurs Make?",
+    "kicker": "Trilobites",
+    "content_kicker": null,
+    "print_headline": null,
+    "name": null,
+    "seo": null,
+    "sub": null
+  },
+  "keywords": [
+    {
+      "name": "subject",
+      "value": "Dinosaurs",
+      "rank": 1,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Larynx",
+      "rank": 2,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Voice and Speech",
+      "rank": 3,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Paleontology",
+      "rank": 4,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Animals",
+      "rank": 5,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Research",
+      "rank": 6,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Birds",
+      "rank": 7,
+      "major": "N"
+    },
+    {
+      "name": "organizations",
+      "value": "Communications Biology (Journal)",
+      "rank": 8,
+      "major": "N"
+    }
+  ],
+  "pub_date": "2023-02-24T17:52:16+0000",
+  "document_type": "article",
+  "news_desk": "Science",
+  "section_name": "Science",
+  "byline": {
+    "original": "By Carolyn Wilke",
+    "person": [
+      {
+        "firstname": "Carolyn",
+        "middlename": null,
+        "lastname": "Wilke",
+        "qualifier": null,
+        "title": null,
+        "role": "reported",
+        "organization": "",
+        "rank": 1
+      }
+    ],
+    "organization": null
+  },
+  "type_of_material": "News",
+  "word_count": 906
+}

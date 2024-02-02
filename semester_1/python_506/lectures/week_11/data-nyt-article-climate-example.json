@@ -1,0 +1,74 @@
+{
+  "abstract": "Seaweed is being reimagined as a plastic substitute, even as cattle feed. But can it thrive in a warming world?",
+  "web_url": "https://www.nytimes.com/interactive/2023/03/15/climate/seaweed-plastic-climate-change.html",
+  "snippet": "Seaweed is being reimagined as a plastic substitute, even as cattle feed. But can it thrive in a warming world?",
+  "lead_paragraph": "Seaweed is being reimagined as a plastic substitute, even as cattle feed. But can it thrive in a warming world?",
+  "source": "The New York Times",
+  "headline": {
+    "main": "Seaweed Is Having Its Moment in the Sun",
+    "kicker": null,
+    "content_kicker": null,
+    "print_headline": null,
+    "name": null,
+    "seo": null,
+    "sub": null
+  },
+  "keywords": [
+    {
+      "name": "subject",
+      "value": "Global Warming",
+      "rank": 1,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Plastics",
+      "rank": 2,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Environment",
+      "rank": 3,
+      "major": "N"
+    },
+    {
+      "name": "subject",
+      "value": "Seaweed",
+      "rank": 4,
+      "major": "N"
+    }
+  ],
+  "pub_date": "2023-03-15T15:31:13+0000",
+  "document_type": "multimedia",
+  "news_desk": "Climate",
+  "section_name": "Climate",
+  "byline": {
+    "original": "By Somini Sengupta and Chang W. Lee",
+    "person": [
+      {
+        "firstname": "Somini",
+        "middlename": null,
+        "lastname": "Sengupta",
+        "qualifier": null,
+        "title": null,
+        "role": "reported",
+        "organization": "",
+        "rank": 1
+      },
+      {
+        "firstname": "Chang",
+        "middlename": "W.",
+        "lastname": "Lee",
+        "qualifier": null,
+        "title": null,
+        "role": "reported",
+        "organization": "",
+        "rank": 2
+      }
+    ],
+    "organization": null
+  },
+  "type_of_material": "Interactive Feature",
+  "word_count": 0
+}
