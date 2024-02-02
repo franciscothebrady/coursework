@@ -1,0 +1,38 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps2/ps2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 2 Feb 2024, 11:24:29
+{txt}
+{com}. //_1
+. display c(current_date)
+{res} 2 Feb 2024
+{txt}
+{com}. //_2
+. // this is the stata code 
+. use Earnings_and_Height-1.dta, clear
+{txt}
+{com}. quietly eststo summary1: estpost tabstat earnings, statistics(min p50 mean p75 max) 
+{txt}
+{com}. esttab summary1, cells("min p50 mean p75 max")
+{res}
+{txt}{hline 77}
+{txt}                      (1)                                                    
+{txt}                                                                             
+{txt}                      min          p50         mean          p75          max
+{txt}{hline 77}
+{txt}earnings    {res}     4726.391     38925.34     46875.32     84054.75     84054.75{txt}
+{txt}{hline 77}
+{txt}N           {res}        17870                                                    {txt}
+{txt}{hline 77}
+
+{com}. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps2/ps2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 2 Feb 2024, 11:24:29
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

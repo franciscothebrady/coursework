@@ -1,0 +1,22 @@
+---
+title: Problem Set 2
+author: Francisco Brady
+date: "`s c(current_date)`"
+---
+
+### Part 1: Data Analysis
+
+The dataset `Earnings_and_Height.dta` contains data from the 1994 National Health Interview Survey. This is a subset of the data used in the Anne Case and Christina Paxson paper "Stature and Status: Height, Ability, and Labor Market Outcomes", Journal of Political Economy, 2008, 116(3): 499-532. The dataset contains information on 17,870 workers. A more detailed codebook is provided at the end of the problem set.
+  
+  
+1. Explore and describe the data.
+
+```s
+// this is the stata code 
+use Earnings_and_Height-1.dta, clear
+quietly eststo summary1: estpost tabstat earnings, statistics(min p50 mean p75 max) 
+esttab summary1, cells("min p50 mean p75 max")
+```  
+The minimum earnings are 4736.39, with a median of around 38,900 and a mean of 46,875. The 75th percentile and the max are 84,054.75. The mean is greater than the median, which indicates a positive skew.  
+
+
