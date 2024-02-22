@@ -212,7 +212,7 @@ table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid bl
 <header id="title-block-header">
 <h1 class="title">Problem Set 2</h1>
 <p class="author">Francisco Brady</p>
-<p class="date">2 Feb 2024</p>
+<p class="date">3 Feb 2024</p>
 </header>
 <h3 id="part-1-data-analysis">Part 1: Data Analysis</h3>
 <p>The dataset <code>Earnings_and_Height.dta</code> contains data from
@@ -222,15 +222,14 @@ Height, Ability, and Labor Market Outcomes”, Journal of Political
 Economy, 2008, 116(3): 499-532. The dataset contains information on
 17,870 workers. A more detailed codebook is provided at the end of the
 problem set.</p>
-<ol type="1">
-<li>Explore and describe the data.</li>
-</ol>
+<h4 id="explore-and-describe-the-data.">1. Explore and describe the
+data.</h4>
 <pre class='stata'>. // this is the stata code 
 . use Earnings_and_Height-1.dta, clear
 
-. quietly eststo summary1: estpost tabstat earnings, statistics(min p50 mean p75 max) 
+. quietly eststo sumstats: estpost tabstat earnings educ, listwise statistics(min p50 mean p75 max) columns(statistics)
 
-. esttab summary1, cells("min p50 mean p75 max")
+. esttab sumstats, cells("min p50 mean p75 max")
 
 ─────────────────────────────────────────────────────────────────────────────
                       (1)                                                    
@@ -238,12 +237,68 @@ problem set.</p>
                       min          p50         mean          p75          max
 ─────────────────────────────────────────────────────────────────────────────
 earnings         4726.391     38925.34     46875.32     84054.75     84054.75
+educ                    0           13     13.53733           16           19
 ─────────────────────────────────────────────────────────────────────────────
 N                   17870                                                    
 ─────────────────────────────────────────────────────────────────────────────
+
+.     
 </pre>
-<p>The minimum earnings are 4736.39, with a median of around 38,900 and
-a mean of 46,875. The 75th percentile and the max are 84,054.75. The
-mean is greater than the median, which indicates a positive skew.</p>
+<pre><code>a.  Describe the variation in earnings. What is the mean, median, min, max, 25th percentile, 75th percentile? (Note: In addition to pasting Stata or R output, please interpret what you find using 1-2 sentences).  </code></pre>
+<p>The mean earnings is $46,875.32, with a median value of $38,925.34.
+The lowest earnings amount is $4736.39, while both the 75ht percentile
+and the max are $84,054.75. The mean is greater than the median, which
+can indicate a positive skew.</p>
+<pre><code>b.  Describe the variation in years of schooling. What is the mean, median, min, max, 25th percentile, 75th percentile? (Note: In addition to pasting Stata or R output, please interpret what you find using 1-2 sentences).  </code></pre>
+<p>The mean years of education is 13.53, with a median value of 13. The
+years of education is 0. The 75th percentile is 16 years, and the max
+years of education is 19. The data has a positive skew.</p>
+<pre><code>c.  What is the correlation between earnings and years of schooling? Interpret the correlation using a few sentences (e.g. is it positive or negative? Weak or strongly correlated?)  </code></pre>
+<p>Education and earnings are weakly positively correlated. This can be
+seen by visualizing the data, as years of education increase, earnings
+also increase, although the correlation is not as strong below the mean
+of earnings.</p>
+<h4 id="regression-analysis-i">2. Regression Analysis I</h4>
+<pre><code>a. What is the unconditional relationship between earnings and years of education? As a first step, use a bivariate regression to regress earnings on years of education and paste the output below.  </code></pre>
+<pre class='stata'>. regress earnings educ, robust
+
+Linear regression                               Number of obs     =     17,870
+                                                F(1, 17868)       =    3414.09
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1505
+                                                Root MSE          =      24815
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │               Robust
+    earnings │ Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │   3953.761   67.66637    58.43   0.000     3821.129    4086.394
+       _cons │  -6648.031   918.8802    -7.23   0.000    -8449.125   -4846.937
+─────────────┴────────────────────────────────────────────────────────────────
+</pre>
+<p>The relationship between earnings and education is positive and
+significant. On average, one year increase in schooling is associated
+with an additional $3,953.76 dollars in earnings. The t statistic is
+56.27 and the estimates are significant at greater than 95% confidence
+levels.</p>
+<pre><code>b.  Write out the equation for the sample regression line that corresponds to this regression.  </code></pre>
+<p><span
+class="math display">Earnings =  − 6648.03 + 3953.76Education + <em>u</em></span></p>
+<pre><code>c. Find and label the following on your Stata or R output and interpret these statistics with words.  
+    i.  $\hat{\beta_1}$: The coeffieient on Education is 3953.761, which is the average increase in earnings associated with an additional year of education.  
+ii. Standard error of $\hat{\beta_1}$: The standard error is 67.666 on Education, which represents the average distance of the observed values from the regression estimate.  
+iii. t-test for null hypothesis that $\hat{\beta_1} = 0$: The t statistic for the test that the coefficient on education is 0 is 58.43. The absolute value of the t statistic is larger than 1.96, which means that we can reject the null hypothesis that the coefficient is 0 with a 95% level of confidence.  
+iv. $\hat{\beta_0}$:  The constant is -6648.013, which is the value produced by the estimate for someone with 0 years of education.  
+v. $R^2$:  The $R^2$ for the model is .1505, which means that around 15% of the variance in earnings can be predicted from years of education. This is the overall strength of the association.  
+
+d.  Based on this regression, what is the predicted earnings for someone with 12 years of schooling? What about 16 years of schooling? Show your work.  </code></pre>
+<p><span class="math display">$$
+\begin{aligned}
+\text{12 years of schooling} \
+\text{Earnings} = -6648.03 + 3953.76 \cdot 12  \
+\text{Earnings} = -6648.03 + 47445.132  \
+\text{Earnings} = 40797.101  \
+\end{aligned}
+$$</span></p>
 </body>
 </html>

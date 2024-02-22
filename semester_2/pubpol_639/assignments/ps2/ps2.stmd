@@ -9,14 +9,197 @@ date: "`s c(current_date)`"
 The dataset `Earnings_and_Height.dta` contains data from the 1994 National Health Interview Survey. This is a subset of the data used in the Anne Case and Christina Paxson paper "Stature and Status: Height, Ability, and Labor Market Outcomes", Journal of Political Economy, 2008, 116(3): 499-532. The dataset contains information on 17,870 workers. A more detailed codebook is provided at the end of the problem set.
   
   
-1. Explore and describe the data.
+#### 1. Explore and describe the data.
+
+```s/
+    // this is the stata code 
+    use Earnings_and_Height-1.dta, clear
+    quietly eststo sumstats: estpost tabstat earnings educ, listwise statistics(min p50 mean p75 max) columns(statistics) 
+    esttab sumstats, cells("min p50 mean p75 max") modelwidth(10)
+    
+```  
+
+##### a. Describe the variation in earnings. What is the mean, median, min, max, 25th percentile, 75th percentile? (Note: In addition to pasting Stata or R output, please interpret what you find using 1-2 sentences).  
+
+The mean earnings is $46,875.32, with a median value of  $38,925.34. The lowest earnings amount is $4736.39, while both the 75ht percentile and the max are $84,054.75. The mean is greater than the median, which can indicate a positive skew.  
+    
+##### b. Describe the variation in years of schooling. What is the mean, median, min, max, 25th percentile, 75th percentile? (Note: In addition to pasting Stata or R output, please interpret what you find using 1-2 sentences).  
+
+The mean years of education is 13.53, with a median value of 13. The years of education is 0. The 75th percentile is 16 years, and the max years of education is 19. The data has a positive skew.  
+    
+##### c. What is the correlation between earnings and years of schooling? Interpret the correlation using a few sentences (e.g. is it positive or negative? Weak or strongly correlated?)  
+
+```s/
+correlate earnings educ
+```
+
+Education and earnings are weakly positively correlated. This can be seen by visualizing the data, as years of education increase, earnings also increase, although the correlation is not as strong below the mean of earnings.  
+    
+#### 2. Regression Analysis I  
+
+##### a. What is the unconditional relationship between earnings and years of education? As a first step, use a bivariate regression to regress earnings on years of education and paste the output below.  
+    
+```s
+regress earnings educ, robust
+```  
+
+The relationship between earnings and education is positive and significant. On average, one year increase in schooling is associated with an additional $3,953.76 dollars in earnings. The t statistic is 56.27 and the estimates are significant at greater than 95% confidence levels.  
+
+##### b. Write out the equation for the sample regression line that corresponds to this regression.  
+    
+$$  
+    \text{Earnings} = -6648.03 + 3953.76 \text{Education}
+$$  
+
+##### c. Find and label the following on your Stata or R output and interpret these statistics with words.  
+
+###### i.  $\hat{\beta_1}$:  
+
+The coefficient on Education is 3953.761, which is the average increase in earnings associated with an additional year of education.  
+
+###### ii. Standard error of $\hat{\beta_1}$:  
+
+The standard error is 67.666 on Education, which represents the average distance of the observed values from the regression estimate.  
+
+###### iii. t-test for null hypothesis that $\hat{\beta_1} = 0$:  
+
+The t statistic for the test that the coefficient on education is 0 is 58.43. The absolute value of the t statistic is larger than 1.96, which means that we can reject the null hypothesis that the coefficient is 0 with a 95% level of confidence.  
+
+###### iv. $\hat{\beta_0}$:  
+
+The intercept/constant is -6648.013, which is the value estimated by the equation for someone with 0 years of education.  
+
+###### v. $R^2$:  
+
+The $R^2$ for the model is .1505, which means that around 15% of the variance in earnings can be predicted from years of education. This is the overall strength of the association.  
+
+##### d. Based on this regression, what is the predicted earnings for someone with 12 years of schooling? What about 16 years of schooling? Show your work.  
+    
+$$
+\begin{aligned}
+\text{12 years of schooling} \\
+\text{Earnings} = -6648.03 + 3953.76 \cdot 12  \\
+\text{Earnings} = -6648.03 + 47445.132  \\
+\text{Earnings} = 40797.101  \\
+\end{aligned}
+$$  
+
+$$
+\begin{aligned}
+\text{16 years of schooling} \\
+\text{Earnings} = -6648.03 + 3953.76 \cdot 16  \\
+\text{Earnings} = -6648.03 + 63260.16  \\
+\text{Earnings} = 56612.13  \\
+\end{aligned}
+$$  
+  
+#### 3. Regression Analysis II  
+
+##### a. Regress earnings on the variable indicating the sex of the worker (check the codebook below to verify the values of this variable).  
 
 ```s
-// this is the stata code 
-use Earnings_and_Height-1.dta, clear
-quietly eststo summary1: estpost tabstat earnings, statistics(min p50 mean p75 max) 
-esttab summary1, cells("min p50 mean p75 max")
-```  
-The minimum earnings are 4736.39, with a median of around 38,900 and a mean of 46,875. The 75th percentile and the max are 84,054.75. The mean is greater than the median, which indicates a positive skew.  
+regress earnings sex, robust
+```
+  
+##### b. Write out the equation for the sample regression line that corresponds to this regression.  
+$$
+\text{Earnings} = 45621 + 2838.752 \cdot \text{sex} + u
+$$  
+
+##### c. What is the "omitted" category in this regression?  
+    
+In this regression, the sex variable is coded as a binary variable (0/1), with 0 indicating female and 1 indicating male. The omitted group in the regression is male identification.  
+
+##### d. Find and label the following on your Stata or R output and interpret these statistics with words.  
+
+###### i. $\hat{\beta_1}$:  
+
+The coefficient on $\hat{\beta_1}$ is 2838.752, which is the average contribution to earnings of being male.  
+
+###### ii. Standard error of $\hat{\beta_1}$:  
+
+The standard error on $\beta_1$ is 405.2162, which is the average distance of the observed values from the values predicted by the regression equation.  
+
+###### iii. t-test for null hypothesis that $\hat{\beta_1} = 0$:  
+
+The t statistic for the test that the coefficient on sex is 0 is 7.01. The absolute value of the t statistic is larger than 1.96, which means that we can reject the null hypothesis that the coefficient on sex is 0 with a 95% level of confidence.  
+
+###### iv. $\hat{\beta_0}$:  
+
+The constant is 45,621, which is the value produced by the estimate for someone who identifies as a woman.  
+
+###### v. $R^2$:  
+
+The $R^2$ for the model is .0027, which means that around .027% of the variance in earnings can be predicted by the sex of the individual. This is the overall strength of the association.  
+
+##### d. Based on this regression, what is the predicted earnings for a worker who identifies as male? As female? Show your work.  
+    
+$$
+\begin{aligned}
+\text{Identify as male} \\
+\text{Earnings} = 45621 + 2838.752 \cdot (1)  \\
+\text{Earnings} = 48459.752 \\
+\end{aligned}
+$$  
+
+$$
+\begin{aligned}
+\text{Identify as female} \\
+\text{Earnings} = 45621 + 2838.752 \cdot (0)  \\
+\text{Earnings} = 45621 \\
+\end{aligned}
+$$  
+
+#### 4. Model Fit  
+
+Based on the two models above, which characteristic – education or sex – explains more of the variation in earnings in this data?  
+  
+The model using education explains almost 15% more of the variance in earnings. The $R^2$ is higher than the model using sex identity. In addition, the standard errors for the regression using education are much smaller, indicating that the observed values are closer to the values predicted by the model.  
+  
+#### 5. Introduction to multiple regression  
+
+In assessing the relationship between earnings and education, you might want to control for several possible confounders. Create a table (in Excel or Word or some other spreadsheet tool) that looks like Table 7.1 from S&W (though you can simply report the R-squared and not the adjusted R-squared or SER). Each column should correspond to a separate regression and each row should correspond to a different variable, with education in the first row. Each cell of the table should report the coefficient and the standard error for the given variable and specification. The table should contain the follow specifications:
+
+(Hint: to control for years of experience, generate a new variable, exp, where exp=age-educ-6; this is a fairly standard way of measuring potential years of experience in labor economics—we take a person's age, subtract the number of years they were in school, and subtract 6 to account for school starting age, the balance is the expected number of years of work experience).
+
+Column 1: Regress earnings on education (same model estimated above)  
+Column 2: Regress earnings on education and years of experience  
+Column 3: Regress earnings on education and years of experience and sex  
+Column 4: Regress earnings on education and years of experience and sex and height and whether the individual is married  
+
+
+```s/
+// create experience variable 
+gen exp = age - educ - 6
+quietly reg earnings educ, robust
+estimates store reg1, title(Model 1)
+quietly reg earnings educ exp, robust
+estimates store reg2, title(Model 2)
+quietly reg earnings educ exp sex, robust
+estimates store reg3, title(Model 3)
+quietly reg earnings educ exp sex height married, robust
+estimates store reg4, title(Model 4)
+estout reg1 reg2 reg3 reg4, cells(b(star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+```
+
+##### a. Discuss the change in magnitude and statistical significance of the coefficient on educ from column 1 to 2.  
+
+In regression 1, the coefficient on education is 3953.761. In regression 2, the estimate for education rose to 4347.498. In both regressions, the coefficient of education is significant at greater than the 95% level. After adding `exp`, the $R^2$ of the model increased.  
+
+##### b. Interpret the coefficient on exp in column 2. Please discuss the magnitude and statistical significance.  
+
+In regression 2, the coefficient on experience is 326.536. The coefficient is significant at greater than the 95% level. This means that on average an additional year of experience, holding education equal, is associated with an increase of around $326 dollars in earnings.  
+
+##### c. From the results in column 2, would you argue that education or experience matters more for earnings? Why?  
+
+Based on the magnitude of the coefficients in column 2, an additional year of education is associated with a larger increase in earnings (holding experience equal), than an additional year of experience. This supports the argument that education matters more for experience in explaining earnings for this sample.  
+
+##### d. Discuss the difference between the R-squared across columns 1 through 4.  
+
+In the first 3 regressions, the $R^2$ is between .15 and .168, meaning that those regressions were able to explain around 15-16.8% of the variance in the sample. As more variables are added to the regressions, the $R^2$ increases, indicating that the additional variables increase the ability of the overall model to explain the variance between the observed values and the predicted values. It is important to note that the increase in $R^2$ can happen because of how it is calculated. The additional variables not only increased the $R^2$, but decreased the standard errors on the coefficients for most of the variables. This indicates that adding those variables improved the explanatory power of the model. In the last regression, the $R^2$ doubles to .304, which supports the inclusion of the `height` and `married` variables. Interestingly, the coefficient on the `sex` variable actually loses significance when holding height and marital status equal.
+
+##### e. In about 2 sentences, describe the relationship between earnings and education and whether including these controls changes this relationship much.  
+
+The relationship between earnings and education is positive and statistically significant, with an additional year of education increasing earnings around $4300, on average. The addition of controls for experience, sex, height, and marital status increase the precision of the education estimate and are all statistically significant to the model.  
 
 

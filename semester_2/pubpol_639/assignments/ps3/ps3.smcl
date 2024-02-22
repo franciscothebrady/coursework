@@ -1,0 +1,85 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps3/ps3.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}16 Feb 2024, 00:21:23
+{txt}
+{com}. //_1
+. display c(current_date)
+{res}16 Feb 2024
+{txt}
+{com}. //_2q
+. // this is the stata code 
+. use unions.dta, clear
+{txt}
+{com}. quietly regress hrwage union, robust
+{txt}
+{com}. eststo col1, title(1)
+{txt}
+{com}. quietly regress hrwage union age, robust
+{txt}
+{com}. eststo col2, title(2)
+{txt}
+{com}. quietly regress hrwage union age empsize, robust
+{txt}
+{com}. eststo col3, title(3)
+{txt}
+{com}. quietly regress hrwage union age empsize ind_retail ind_personal ///
+> ind_health ind_educ, robust
+{txt}
+{com}. eststo col4, title(4)
+{txt}
+{com}. estout col1 col2 col3 col4, cells(b(star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("")   
+{res}
+{txt}{hline 84}
+{txt}                                1               2               3               4   
+{txt}                                                                                    
+{txt}{hline 84}
+{txt}= 1 if in or cover~n{res}        5.324***        4.662***        4.140***        2.313***{txt}
+                    {res}       (0.73)          (0.73)          (0.76)          (0.79)   {txt}
+{txt}Age                 {res}                        0.122***        0.123***        0.088***{txt}
+                    {res}                       (0.02)          (0.02)          (0.02)   {txt}
+{txt}Firm size           {res}                                        0.002***        0.002***{txt}
+                    {res}                                       (0.00)          (0.00)   {txt}
+{txt}ind_retail          {res}                                                       -6.534***{txt}
+                    {res}                                                       (0.93)   {txt}
+{txt}ind_personal        {res}                                                       -4.477***{txt}
+                    {res}                                                       (1.47)   {txt}
+{txt}ind_health          {res}                                                       -1.562   {txt}
+                    {res}                                                       (1.03)   {txt}
+{txt}ind_educ            {res}                                                       -2.327** {txt}
+                    {res}                                                       (0.95)   {txt}
+{txt}_cons               {res}       15.286***       10.438***        9.229***       14.711***{txt}
+                    {res}       (0.29)          (0.74)          (0.79)          (1.21)   {txt}
+{txt}{hline 84}
+{txt}Adj. R-Squared      {res}        0.054           0.091           0.102           0.169   {txt}
+{txt}R-Squared           {res}        0.054           0.093           0.104           0.175   {txt}
+{txt}Observations        {res}     1000.000        1000.000        1000.000        1000.000   {txt}
+{txt}{hline 84}
+{txt}* p<0.10, ** p<0.05, *** p<0.01
+
+{com}. 
+.     
+. //_3
+. quietly regress hrwage union age empsize ind_retail ind_educ ind_health ind_personal, robust
+{txt}
+{com}. test ind_retail ind_educ ind_health ind_personal
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}ind_retail = 0{p_end}
+{p 0 7}{space 1}{text:( 2)}{space 1} ind_educ = 0{p_end}
+{p 0 7}{space 1}{text:( 3)}{space 1} ind_health = 0{p_end}
+{p 0 7}{space 1}{text:( 4)}{space 1} ind_personal = 0{p_end}
+
+{txt}       F(  4,   992) ={res}   22.52
+{txt}{col 13}Prob > F ={res}    0.0000
+{txt}
+{com}. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps3/ps3.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}16 Feb 2024, 00:21:23
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

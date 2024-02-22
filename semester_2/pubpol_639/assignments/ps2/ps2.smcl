@@ -3,36 +3,127 @@
       name:  {res}<unnamed>
        {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps2/ps2.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 2 Feb 2024, 11:24:29
+ {txt}opened on:  {res} 6 Feb 2024, 21:10:17
 {txt}
 {com}. //_1
 . display c(current_date)
-{res} 2 Feb 2024
+{res} 6 Feb 2024
 {txt}
-{com}. //_2
+{com}. //_2q
 . // this is the stata code 
 . use Earnings_and_Height-1.dta, clear
 {txt}
-{com}. quietly eststo summary1: estpost tabstat earnings, statistics(min p50 mean p75 max) 
+{com}. quietly eststo sumstats: estpost tabstat earnings educ, listwise statistics(min p50 mean p75 max) columns(statistics) 
 {txt}
-{com}. esttab summary1, cells("min p50 mean p75 max")
+{com}. esttab sumstats, cells("min p50 mean p75 max") modelwidth(10)
 {res}
-{txt}{hline 77}
-{txt}                      (1)                                                    
-{txt}                                                                             
-{txt}                      min          p50         mean          p75          max
-{txt}{hline 77}
-{txt}earnings    {res}     4726.391     38925.34     46875.32     84054.75     84054.75{txt}
-{txt}{hline 77}
-{txt}N           {res}        17870                                                    {txt}
-{txt}{hline 77}
+{txt}{hline 67}
+{txt}                    (1)                                            
+{txt}                                                                   
+{txt}                    min        p50       mean        p75        max
+{txt}{hline 67}
+{txt}earnings    {res}   4726.391   38925.34   46875.32   84054.75   84054.75{txt}
+{txt}educ        {res}          0         13   13.53733         16         19{txt}
+{txt}{hline 67}
+{txt}N           {res}      17870                                            {txt}
+{txt}{hline 67}
+
+{com}.     
+. //_3q
+. correlate earnings educ
+{txt}(obs=17,870)
+
+             {c |} earnings     educ
+{hline 13}{c +}{hline 18}
+    earnings {c |}{res}   1.0000
+        {txt}educ {c |}{res}   0.3880   1.0000
+
+{txt}
+{com}. //_4
+. regress earnings educ, robust
+
+{txt}Linear regression                               Number of obs     = {res}    17,870
+                                                {txt}F(1, 17868)       =  {res}  3414.09
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.1505
+                                                {txt}Root MSE          =    {res}  24815
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}    earnings{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2} 3953.761{col 26}{space 2} 67.66637{col 37}{space 1}   58.43{col 46}{space 3}0.000{col 54}{space 4} 3821.129{col 67}{space 3} 4086.394
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-6648.031{col 26}{space 2} 918.8802{col 37}{space 1}   -7.23{col 46}{space 3}0.000{col 54}{space 4}-8449.125{col 67}{space 3}-4846.937
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. //_5
+. regress earnings sex, robust
+
+{txt}Linear regression                               Number of obs     = {res}    17,870
+                                                {txt}F(1, 17868)       =  {res}    49.08
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0027
+                                                {txt}Root MSE          =    {res}  26887
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}    earnings{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}sex {c |}{col 14}{res}{space 2} 2838.752{col 26}{space 2} 405.2162{col 37}{space 1}    7.01{col 46}{space 3}0.000{col 54}{space 4} 2044.489{col 67}{space 3} 3633.015
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}    45621{col 26}{space 2} 268.7055{col 37}{space 1}  169.78{col 46}{space 3}0.000{col 54}{space 4} 45094.31{col 67}{space 3} 46147.69
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. //_6q
+. // create experience variable 
+. gen exp = age - educ - 6
+{txt}
+{com}. quietly reg earnings educ, robust
+{txt}
+{com}. estimates store reg1, title(Model 1)
+{txt}
+{com}. quietly reg earnings educ exp, robust
+{txt}
+{com}. estimates store reg2, title(Model 2)
+{txt}
+{com}. quietly reg earnings educ exp sex, robust
+{txt}
+{com}. estimates store reg3, title(Model 3)
+{txt}
+{com}. quietly reg earnings educ exp sex height married, robust
+{txt}
+{com}. estimates store reg4, title(Model 4)
+{txt}
+{com}. estout reg1 reg2 reg3 reg4, cells(b(star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+{res}
+{txt}{hline 84}
+{txt}                          Model 1         Model 2         Model 3         Model 4   
+{txt}                                                                                    
+{txt}{hline 84}
+{txt}Education of Indiv~l{res}     3953.761***     4347.498***     4345.374***     4292.414***{txt}
+                    {res}      (67.67)         (69.36)         (69.13)         (67.15)   {txt}
+{txt}exp                 {res}                      326.536***      327.744***      292.110***{txt}
+                    {res}                      (18.27)         (18.21)         (16.86)   {txt}
+{txt}Sex                 {res}                                     2751.913***     -355.257   {txt}
+                    {res}                                     (368.96)        (479.20)   {txt}
+{txt}height              {res}                                                      438.043***{txt}
+                    {res}                                                      (60.71)   {txt}
+{txt}married             {res}                                                    20920.802***{txt}
+                    {res}                                                     (337.50)   {txt}
+{txt}_cons               {res}    -6648.031***   -18960.229***   -20173.272***   -60282.661***{txt}
+                    {res}     (918.88)       (1104.10)       (1113.83)       (3931.18)   {txt}
+{txt}{hline 84}
+{txt}Adj. R-Squared      {res}        0.150           0.165           0.168           0.306   {txt}
+{txt}R-Squared           {res}        0.151           0.165           0.168           0.306   {txt}
+{txt}Observations        {res}    17870.000       17870.000       17870.000       17870.000   {txt}
+{txt}{hline 84}
+{txt}* p<0.10, ** p<0.05, *** p<0.01
 
 {com}. //_^
 . log close
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps2/ps2.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 2 Feb 2024, 11:24:29
+ {txt}closed on:  {res} 6 Feb 2024, 21:10:17
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}
