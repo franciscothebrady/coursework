@@ -1,0 +1,82 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps4/ps4.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 9 Mar 2024, 18:53:32
+{txt}
+{com}. //_1
+. display c(current_date)
+{res} 9 Mar 2024
+{txt}
+{com}. //_2q
+. // this is the stata code 
+. use unions4.dta, clear
+{txt}
+{com}. gen agesquared = age^2
+{txt}
+{com}. gen empsize_union = empsize*union
+{txt}
+{com}. gen health_union  = ind_health*union
+{txt}
+{com}. quietly regress lnwage age union empsize ind_retail ind_personal ind_health ind_educ, robust
+{txt}
+{com}. eststo col1, title(simple)
+{txt}
+{com}. quietly regress lnwage age agesquared union empsize ind_retail ind_personal ind_health ind_educ, robust
+{txt}
+{com}. eststo col2, title(age squared)
+{txt}
+{com}. quietly regress lnwage age agesquared union empsize empsize_union ind_retail ind_personal ind_health ind_educ, robust
+{txt}
+{com}. eststo col3, title(empsize-union)
+{txt}
+{com}. quietly regress lnwage age agesquared union empsize health_union ind_retail ind_personal ind_health ind_educ, robust
+{txt}
+{com}. eststo col4, title(health-union)
+{txt}
+{com}. estout col1 col2 col3 col4, cells(b(star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+{res}
+{txt}{hline 84}
+{txt}                           simple     age squared    empsize-un~n    health-union   
+{txt}                                                                                    
+{txt}{hline 84}
+{txt}Age                 {res}        0.006***        0.046***        0.046***        0.046***{txt}
+                    {res}       (0.00)          (0.01)          (0.01)          (0.01)   {txt}
+{txt}= 1 if in or cover~n{res}        0.139***        0.120***        0.271***        0.116** {txt}
+                    {res}       (0.04)          (0.04)          (0.10)          (0.05)   {txt}
+{txt}Firm size           {res}        0.011***        0.010***        0.012***        0.010***{txt}
+                    {res}       (0.00)          (0.00)          (0.00)          (0.00)   {txt}
+{txt}ind_retail          {res}       -0.432***       -0.409***       -0.409***       -0.410***{txt}
+                    {res}       (0.05)          (0.05)          (0.05)          (0.05)   {txt}
+{txt}ind_personal        {res}       -0.306***       -0.329***       -0.330***       -0.330***{txt}
+                    {res}       (0.10)          (0.10)          (0.10)          (0.10)   {txt}
+{txt}ind_health          {res}       -0.080          -0.099*         -0.097*         -0.102*  {txt}
+                    {res}       (0.06)          (0.06)          (0.06)          (0.06)   {txt}
+{txt}ind_educ            {res}       -0.149***       -0.137***       -0.144***       -0.138***{txt}
+                    {res}       (0.05)          (0.05)          (0.05)          (0.05)   {txt}
+{txt}agesquared          {res}                       -0.000***       -0.000***       -0.000***{txt}
+                    {res}                       (0.00)          (0.00)          (0.00)   {txt}
+{txt}empsize_union       {res}                                       -0.016*                  {txt}
+                    {res}                                       (0.01)                   {txt}
+{txt}health_union        {res}                                                        0.025   {txt}
+                    {res}                                                       (0.13)   {txt}
+{txt}_cons               {res}        2.516***        1.769***        1.764***        1.771***{txt}
+                    {res}       (0.08)          (0.14)          (0.14)          (0.14)   {txt}
+{txt}{hline 84}
+{txt}Adj. R-Squared      {res}        0.183           0.213           0.215           0.212   {txt}
+{txt}R-Squared           {res}        0.189           0.219           0.222           0.219   {txt}
+{txt}Observations        {res}     1000.000        1000.000        1000.000        1000.000   {txt}
+{txt}{hline 84}
+{txt}* p<0.10, ** p<0.05, *** p<0.01
+
+{com}.  
+. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps4/ps4.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 9 Mar 2024, 18:53:32
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

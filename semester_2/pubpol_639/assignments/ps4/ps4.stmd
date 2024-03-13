@@ -1,0 +1,125 @@
+---
+title: Problem Set 4
+author: Francisco Brady
+date: "`s c(current_date)`"
+---
+
+### Section I: Modelling Non-linear Relationships
+
+In this part, you will be revisiting the dataset from Assignment 3, on union status and hourly wages. Please use the dataset unions.dta, provided under the Assignment 4 tab on Canvas. This time, we will be using the logged hourly wage, rather than the level, which is common in this literature.
+
+The variables we will be using are:
+
+    1. `lnwage` – Logged hourly wage last year (in $). This was estimated by dividing wage and salary income by the approximate number of hours worked last year (weeks worked X usual hours worked per week). Observations with hourly wages less than $3 and more than $40 were excluded.
+    2. `union` - A dummy variable indicating whether the worker was a union member or covered by some other collective bargaining agreement.
+    3. `age` - Age in years.
+    4. `empsize` - The size of the firm the person works for. This was originally a categorical variable with ranges (e.g. 10-24, 25-99, etc) for which I have imputed the midpoint of the ranges, but just ignore that for now. Treat it as a continuous variable. For this assignment, I have also divided the firm size by 100, so a one-unit increase in `empsize` can be interpreted as a 100-person increase in the size of the firm. 
+    5. And five, mutually exclusive variables indicating industry of employer:
+        a. `Ind_retail` - binary variable indicating working in retail
+        b. `Ind_personal` - binary variable indicating working in personal/service industry
+        c. `Ind_health` - binary variable indicating working in health care industry
+        d. `Ind_educ` - binary variable indicating working in education industry
+        e. `Ind_govt` - binary variable indicating working in government
+
+
+
+#### 1. Regress the logged hourly wage on the following variables: age, union, empsize, ind_retail, ind_personal, ind_health, ind_educ. Put the results of this regression into column 1 of Table 1. Based on this model:   
+
+```s/
+// this is the stata code 
+use unions4.dta, clear
+gen agesquared = age^2
+gen empsize_union = empsize*union
+gen health_union  = ind_health*union
+quietly regress lnwage age union empsize ind_retail ind_personal ind_health ind_educ, robust
+eststo col1, title(simple)
+quietly regress lnwage age agesquared union empsize ind_retail ind_personal ind_health ind_educ, robust
+eststo col2, title(age squared)
+quietly regress lnwage age agesquared union empsize empsize_union ind_retail ind_personal ind_health ind_educ, robust
+eststo col3, title(empsize-union)
+quietly regress lnwage age agesquared union empsize health_union ind_retail ind_personal ind_health ind_educ, robust
+eststo col4, title(health-union)
+estout col1 col2 col3 col4, cells(b(star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+ 
+```
+
+##### a. Interpret the coefficient on union and discuss its statistical significance.    
+
+##### b. Interpret the coefficient on age and discuss its statistical significance.  
+   
+##### c. If age increases from 25 to 30, how is the hourly wage expected to change?  
+
+##### d. If age increases from 40 to 45, how is the hourly wage expected to change?  
+    
+#### 2. Now add a quadratic term for the age variable (note, you will have to make this variable yourself. Call it `agesquared`), keeping all other controls the same as in column 1. Put the results of this regression into column 2 of Table 1. Based on this model:  
+
+##### a. Look at the signs on the age and age-squared terms. Based only on this information, how would you describe the relationship between age and hourly wages?  
+
+##### b. If age increases from 25 to 30, how is the hourly wage expected to change?  
+
+##### c. If age increases from 40 to 45, how is the hourly wage expected to change?  
+
+##### d. Which of the two specifications of age (the linear specification in column 1, or the quadratic in column 2), do you think best explains the relationship between age and hourly wages? Explain your reasoning in 1-2 sentences.  
+
+ 
+#### 3. Now add an interaction term of employer size and union status (`empsize`*`union`) and put the results into column 3 of Table 1. Describe the relationship between hourly wages, employer size, and union status, incorporating the interaction terms and main effects. Your answer should include reference to a specific numerical illustration of the relationship and note the statistical significance of these relationships.  
+
+#### 4. Now go back to the model specified in column 2, and add an interaction term of whether the worker is in the health care industry and union status (`ind_health`*`union`). Put the results of this regression into column 4 of Table 1. Describe the relationship between hourly wages, working in the health care industry, and union status, incorporating the interaction terms and main effects. Your answer should include reference to a specific numerical illustration of the relationship and note the statistical significance of these relationships.  
+
+### Section II: Binary dependent variables  
+
+In this part of the assignment, you will be using data from the Panel Study of Income Dynamics (PSID) to examine teen birth rates. The simplified dataset contains the following information:  
+
+- `teenbirth` - an indicator variable =1 if the individual had a birth by the age of 19; zero otherwise.
+- A set of mutually-exclusive indicators for race/ethnicity:
+    - `white` - An indicator for whether the respondent identifies as White, non-Hispanic
+    - `black` - An indicator for whether the respondent identifies as Black, non-Hispanic
+    - `Hisp` - An indicator for whether the respondent identifies as Hispanic
+    - `Other` - An indicator for whether the respondent identifies as an other race or ethnicity
+- `head_educ` - The number of years of completed education for the parent of the individual
+- `frac_marr_parents` - The fraction of childhood that the individual spent with married parents, continuous variable ranging from 0 to 1, with 0 representing individuals who never had married parents during childhood, and 1 representing individuals who always lived with married parents.
+- `familyincome` - Average family income (in $1,000s) during childhood
+
+Please create a second table (Table 2) to display all the regression output from Part II (as you did above for Part I).  Remember to use robust standard errors throughout.  
+
+#### 1. Using a linear probability model, regress the variable teenbirth on the following variables: black, hisp, other, head_educ frac_marr_parents familyincome.  This will be column 1.  
+
+##### a. Interpret the coefficient of the following variables:  
+- `familyincome`
+- `black`
+- `frac_marr_parents`  
+
+If the coefficient is statistically different than zero, you should make sure to discuss the magnitude of the estimated coefficient (this can be done in several ways. For example you can characterize the effect size in words, or standardize the coefficient).  NOTE: For binary variables, make sure to (i) include mention of a reference category and (ii) note the effect in terms of both percentage points and percent.  For a baseline, you can simply use the average probability of having a teen birth in the data.  
+
+##### b. Using the results from the regression above, calculate predicted values for each observation in the data set.  What fraction of observations has predicted values outside of the range 0-1?  
+
+#### 2. Estimate the model from question 1 above as a logit model. This will be column 2. Calculate the predicted values for each observation.  What fraction of observations has predicted values outside the range 0-1?  
+
+#### 3. Estimate the model from question 1 above as a probit model. This will be column 3.  Calculate the predicted values for each observation.  What fraction of observations has predicted values outside the range 0-1?  
+
+#### 4. Compare the coefficients from the LPM model with the coefficients from the analogous probit and logit models. For which, if any, predictors, do you see a difference in terms of sign (positive or negative) or statistical significance across the three models?  
+
+For the questions below, imagine an individual with the following values of the variables:  
+- `familyincome` = 25 
+- `black` = 0 
+- `hisp` = 1
+- `other` = 0
+- `head_educ` = 12
+- `frac_marr_parents` = .50
+
+#### 5. Using the results from the LPM model, how much would the probability of having a teen birth change if the individual spent all of their childhood with married parents?  
+
+#### 6. Now answer the same question using the logit model. We would like you to do this two different ways for practice.  
+
+##### a. Calculate the effect "long hand" using the fact that:  
+$$
+Pr(Y = 1|X) F(\beta_0 + \displaystyle\sum_{k=1} ^{K} \beta_k x_k) = \frac{1}{1 + e ^{-(\beta_0 + \displaystyle\sum_{k=1} ^{K} \beta_k x_k)}}
+$$  
+
+##### b. Now do the same calculation using the margins command in Stata/R. (note: for the margins command to work, you need to re-run the logit model, then find the predicted value.)  
+
+#### 7. How do the effects calculated in 5 (based on LPM) and 6 (based on the Logit) differ from each other? Briefly discuss in a sentence or two.  
+
+#### 8. Redo the logit model shown in column 2, but instead of presenting the coefficients, present the odds ratios associated with each predictor.  This should be column 4. Interpret the odds ratios associated with the predictors familyincome and black. One sentence should be sufficient for each predictor.  
+
+#### 9. Briefly describe what you found most interesting about the results of the analyses above from a substantive policy perspective. One short paragraph should be sufficient.

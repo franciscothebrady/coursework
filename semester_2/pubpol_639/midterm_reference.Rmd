@@ -53,7 +53,7 @@ Assumption 3: Large outliers are unlikely. Large outliers can make the model res
 ### Homoskedasticity and Heteroskedasticity
 **Heteroskedasticity:** The variance of the error term ($u$) is **not** constant across the sample.  **This affects the standard errors of the model.**  
 **Homoskedasticity:** The variance of the error term ($u$) is constant across the sample, this implies that $var(u|X = x)$ does *not* depend on the value of $X$, i.e. errors are uncorrelated.  
-
+**Impact:** Heteroskedastic errors affect: standard errors, which affect t-statistics, p-values, and confidence intervals.
 **Effect on coefficients:** Because the least squares assumption places no restrictions on the conditional variance, they apply to both the general case of heteroskedasticity and the special case of homoskedasticity. **Therefore, the OLS estimators remain unbiased and consistent even if the errors are homoskedastic.**  
 
 **tldr: use (heteroskedasticity-) robust standard errors in your models**   
@@ -73,20 +73,19 @@ $$
 
 ### Causal Inference and Experimental Design
 
-Fundamental problem of Causal Inference: We **cannot** observe two values of a variable in the **same** unit at the **same** time. **This is addressed (solved?) by randomization.**
+Fundamental problem of Causal Inference: We **cannot** observe two outcomes of a variable in the **same** unit/individual at the **same** time. **This is addressed (solved?) by randomization.**
 
 **The Ideal Experiment**  
 - Create two groups that would be identical in the absence of treatment  
-- Apply treatment to one group, measure the difference in outcomes
+- Apply treatment to one group, observe the difference in outcomes  
+- An RCT enforces **no** correlation between treatment and other factors
 
 **Internal validity** - Did we estimate an unbiased causal effect for our sample?  
 - Fails when treatment and control groups are different in ways (beside the treatment) that may affect the outcome of interest
-- Non-compliance, attrition, evaluation-driven effects  
-
+- Non-compliance, attrition, evaluation-driven effects
 **External validity** - Can we extrapolate these estimates to other populations? To whom can we generalize?
 - Fails when the treatment effect is different outside the evaluation  
-
 \noindent\rule[0.5ex]{\linewidth}{1pt}
 
-### Indicator Variables
-Interpret regression results by multiplying all the category coefficients by 0. That is the estimate for the reference group, and all coefficients are interpreted relative to the reference group.
+### Indicator Variables  
+Interpret regression results by multiplying all the category coefficients by 0. That is the estimate for the reference group, and all coefficients are interpreted relative to the reference group. To test, use the F-test. The null for the F-test is that all of the coefficients are zero. 

@@ -1,0 +1,82 @@
+## 2024-03-05
+
+### Agenda
+- nonlinearity (next 2 weeks)
+    - categorical variables (done)
+    - polynomials
+    - logs: 3 types
+    - interactions
+- last 4-weeks: quasi-experimental methods for getting towards causality
+
+### nonlinear relationships
+- we have often assumed linear relationships between X and Y
+- we predict that each one unit change in X is associated with a beta_1 change in Y, no matter what the value of X
+    - each additoinal year of schooling will increase log earnings by the same amount
+- does this fit the data?
+
+### modeling nonlinear relationships
+- there are manyways to model nonlinear relationships in OLS, even though you'll hear OLS referred to as a linear estimator
+
+### non-linear relationships: multiple dummy variables
+- we have already experimented with allowing a nonlinear relationship between X and Y by including multiple dummy variables
+    - transforming single education variable into a set of three dummy variables
+    - this allows for a nonlinear relationship between education and earnings
+- contrast this with putting in a single variable for years of schooling
+    - forces a linear relationship between schooling and earnings
+    - beta is forced to be the same for each year of schooling
+
+### polynomials
+- adding x^2 to the regressoin allows us to add curvature to the line without adding lots of parameters
+- when we include both X and X^2 in the regression we say we have "included a quadratic in X"
+
+### Interpretation of polynomials
+- have to take into account both X and X^2
+
+### how to calculate predicted changes in Y with quadratics
+- the predicted change in Y is associated with a one-unit change in X must be computed for specific values of X
+- we can calculate the predicted change in one of two ways:
+    - numerically:
+        - calculate predicted Y at x = x -> \hat{y}
+        - calculate the predicted Y at x = x+\deltaX -> \hat{y}+\delta\hat{y}
+    - formulaically:
+        - \deltaY = (\beta_1 + 2\beta_2X)\deltaX
+        - comes from taking the derivative of the X specification: \beta_1X_1 + \beta_2X^2
+        There is a general formula for calculating the derivative of a polynomial, which is called the power rule in calculus:
+            - \frac{dy}{dx} = k * x^{k-1}
+
+### Why use polynomial terms?
+- to the extent that we want a model that "fits the data best" we should want to include polynomial terms
+- estimating nonlinear relationships without polynomial terms can lead to biased estimates
+- more precise estimates
+
+policy importance:
+- models diminishing marginal returns
+- helps determine amount of investments
+
+### logs
+
+- terminology: log in a statistics context refers to the natural log
+    - denoted by log or ln
+- allows us to express relationships in terms of the approximate percentage changes
+    - a 1-year increase in education is associated with a [blank]% increase in earnings
+    - a 1% increase in the value of the EITC is associated with a [blank] point increase in the female labor force participation rate
+    - a 10% increase in energy prices is associated with a [blank]% decrease in the quantity of energy consumed
+
+- very useful when units vary (currencies, $s over time)
+
+### logarithm
+
+- the natural logaritm is the inverse of the exponential function
+X = ln(e^x) where e = 2.71828...
+
+things to know:
+- large slope for small values of X
+- defined only for positive values of X
+- log of zero or negative numbers is undefined
+- if you take the log of zero or a negative number, Stata will set those values to missing
+
+### 3 types of log regression models
+
+1. level-log: Y = \beta_0 + \beta_1lnX_1 + u
+2. log-level (log-linear)
+3. log-log
