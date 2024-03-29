@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Francisco Brady" />
+  <title>Problem Set 4</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px; max-width:90em}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Problem Set 4</h1>
+<p class="author">Francisco Brady</p>
+<p class="date">22 Mar 2024</p>
+</header>
+<h3 id="section-i-modeling-non-linear-relationships">Section I: Modeling
+Non-linear Relationships</h3>
+<p>In this part, you will be revisiting the dataset from Assignment 3,
+on union status and hourly wages. Please use the dataset unions.dta,
+provided under the Assignment 4 tab on Canvas. This time, we will be
+using the logged hourly wage, rather than the level, which is common in
+this literature.</p>
+<p>The variables we will be using are:</p>
+<ol type="1">
+<li><code>lnwage</code> – Logged hourly wage last year (in $). This was
+estimated by dividing wage and salary income by the approximate number
+of hours worked last year (weeks worked X usual hours worked per week).
+Observations with hourly wages less than $3 and more than $40 were
+excluded.</li>
+<li><code>union</code> - A dummy variable indicating whether the worker
+was a union member or covered by some other collective bargaining
+agreement.</li>
+<li><code>age</code> - Age in years.</li>
+<li><code>empsize</code> - The size of the firm the person works for.
+This was originally a categorical variable with ranges (e.g. 10-24,
+25-99, etc) for which I have imputed the midpoint of the ranges, but
+just ignore that for now. Treat it as a continuous variable. For this
+assignment, I have also divided the firm size by 100, so a one-unit
+increase in <code>empsize</code> can be interpreted as a 100-person
+increase in the size of the firm.</li>
+<li>And five, mutually exclusive variables indicating industry of
+employer:
+<ol type="a">
+<li><code>Ind_retail</code> - binary variable indicating working in
+retail
+<ol start="2" type="a">
+<li><code>Ind_personal</code> - binary variable indicating working in
+personal/service industry</li>
+<li><code>Ind_health</code> - binary variable indicating working in
+health care industry</li>
+<li><code>Ind_educ</code> - binary variable indicating working in
+education industry</li>
+<li><code>Ind_govt</code> - binary variable indicating working in
+government</li>
+</ol></li>
+</ol></li>
+</ol>
+<h4
+id="regress-the-logged-hourly-wage-on-the-following-variables-age-union-empsize-ind_retail-ind_personal-ind_health-ind_educ.-put-the-results-of-this-regression-into-column-1-of-table-1.-based-on-this-model">1.
+Regress the logged hourly wage on the following variables: age, union,
+empsize, ind_retail, ind_personal, ind_health, ind_educ. Put the results
+of this regression into column 1 of Table 1. Based on this model:</h4>
+<pre class='stata'>────────────────────────────────────────────────────────────────────────────────────
+                          model 1         model 2         model 3         model 4   
+                                                                                    
+────────────────────────────────────────────────────────────────────────────────────
+Age                         0.006***        0.046***        0.046***        0.046***
+                           (0.00)          (0.01)          (0.01)          (0.01)   
+= 1 if in or cover~n        0.139***        0.120***        0.271***        0.116** 
+                           (0.04)          (0.04)          (0.10)          (0.05)   
+Firm size                   0.011***        0.010***        0.012***        0.010***
+                           (0.00)          (0.00)          (0.00)          (0.00)   
+ind_retail                 -0.432***       -0.409***       -0.409***       -0.410***
+                           (0.05)          (0.05)          (0.05)          (0.05)   
+ind_personal               -0.306***       -0.329***       -0.330***       -0.330***
+                           (0.10)          (0.10)          (0.10)          (0.10)   
+ind_health                 -0.080          -0.099*         -0.097*         -0.102*  
+                           (0.06)          (0.06)          (0.06)          (0.06)   
+ind_educ                   -0.149***       -0.137***       -0.144***       -0.138***
+                           (0.05)          (0.05)          (0.05)          (0.05)   
+agesquared                                 -0.000***       -0.000***       -0.000***
+                                           (0.00)          (0.00)          (0.00)   
+empsize_union                                              -0.016*                  
+                                                           (0.01)                   
+health_union                                                                0.025   
+                                                                           (0.13)   
+_cons                       2.516***        1.769***        1.764***        1.771***
+                           (0.08)          (0.14)          (0.14)          (0.14)   
+────────────────────────────────────────────────────────────────────────────────────
+Adj. R-Squared              0.183           0.213           0.215           0.212   
+R-Squared                   0.189           0.219           0.222           0.219   
+Observations             1000.000        1000.000        1000.000        1000.000   
+────────────────────────────────────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+</pre>
+<h5
+id="a.-interpret-the-coefficient-on-union-and-discuss-its-statistical-significance.">a.
+Interpret the coefficient on union and discuss its statistical
+significance.</h5>
+<p><br></p>
+<p>The coefficient on union membership is 0.139, and it is statistically
+significant at the p&lt;0.01 level. This implies that a transition from
+non-union government jobs to union government jobs is associated with an
+increase in hourly wage of around 14%, holding all else equal.</p>
+<h5
+id="b.-interpret-the-coefficient-on-age-and-discuss-its-statistical-significance.">b.
+Interpret the coefficient on age and discuss its statistical
+significance.</h5>
+<p>The coefficient on age is 0.006, and it is also statistically
+significant at the p&lt;0.01 level. This implies that an a worker 1 year
+older can expect something like a .6% increase in their predicted hourly
+wage, holding everything else constant.</p>
+<h5
+id="c.-if-age-increases-from-25-to-30-how-is-the-hourly-wage-expected-to-change">c. If
+age increases from 25 to 30, how is the hourly wage expected to
+change?</h5>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta_{ln(wage)} = \beta_1 \cdot (30 - 25) \\
+\Delta_{ln(wage)} = 0.006 \cdot (5) \\
+\Delta_{ln(wage)} = .03
+\end{aligned}
+\]</span></p>
+<p>Between workers who are 25 and those who are 30, holding all else
+constant, the predicted hourly wage is around 3% higher on average.</p>
+<h5
+id="d.-if-age-increases-from-40-to-45-how-is-the-hourly-wage-expected-to-change">d. If
+age increases from 40 to 45, how is the hourly wage expected to
+change?</h5>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta_{ln(wage)} = \beta_1 \cdot (45 - 40) \\
+\Delta_{ln(wage)} = 0.006 \cdot (5) \\
+\Delta_{ln(wage)} = .03
+\end{aligned}
+\]</span></p>
+<p>Between workers who are 40 and those who are 45, holding all else
+constant, the predicted hourly wage is around 3% higher on average.</p>
+<h4
+id="now-add-a-quadratic-term-for-the-age-variable-note-you-will-have-to-make-this-variable-yourself.-call-it-agesquared-keeping-all-other-controls-the-same-as-in-column-1.-put-the-results-of-this-regression-into-column-2-of-table-1.-based-on-this-model">2.
+Now add a quadratic term for the age variable (note, you will have to
+make this variable yourself. Call it <code>agesquared</code>), keeping
+all other controls the same as in column 1. Put the results of this
+regression into column 2 of Table 1. Based on this model:</h4>
+<h5
+id="a.-look-at-the-signs-on-the-age-and-age-squared-terms.-based-only-on-this-information-how-would-you-describe-the-relationship-between-age-and-hourly-wages">a.
+Look at the signs on the age and age-squared terms. Based only on this
+information, how would you describe the relationship between age and
+hourly wages?</h5>
+<p>The coefficient on age increased from 0.006 to 0.046 and it is
+significant at the p&lt;0.01 level, as before. The coefficient on
+agesquared is -0.0004 and significant at the p&lt;0.01 level. Because
+<span class="math inline">\(\beta_1\)</span> is positive and
+significant, and <span class="math inline">\(\beta_2\)</span> is
+negative and significant, this implies that log wages increase as age
+increases, but as a <strong>decreasing</strong> rate.</p>
+<h5
+id="b.-if-age-increases-from-25-to-30-how-is-the-hourly-wage-expected-to-change">b.
+If age increases from 25 to 30, how is the hourly wage expected to
+change?</h5>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta Y = (\beta_1 + 2 \beta_2 X) \Delta X \\
+\Delta Y = (0.046 + 2 * (-0.0005 * 25)) * (5) \\
+\Delta Y = .105 \\
+\end{aligned}
+\]</span></p>
+<p>So the wages of the government non-union worker is expected to
+increase by 10.5% on average, holding all else equal.</p>
+<h5
+id="c.-if-age-increases-from-40-to-45-how-is-the-hourly-wage-expected-to-change">c. If
+age increases from 40 to 45, how is the hourly wage expected to
+change?</h5>
+<p>To do this, we need to calculate the predicted Y at both 40 and
+45.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta Y = (\beta_1 + 2 \beta_2 X) \Delta X \\
+\Delta Y = (0.046 + 2 * (-0.0005 * 40)) * (5) \\
+\Delta Y = .03 \\
+\end{aligned}
+\]</span></p>
+<p>So the wages of the government non-union worker is expected to
+increase by 3% on average, holding all else equal.</p>
+<h5
+id="d.-which-of-the-two-specifications-of-age-the-linear-specification-in-column-1-or-the-quadratic-in-column-2-do-you-think-best-explains-the-relationship-between-age-and-hourly-wages-explain-your-reasoning-in-1-2-sentences.">d. Which
+of the two specifications of age (the linear specification in column 1,
+or the quadratic in column 2), do you think best explains the
+relationship between age and hourly wages? Explain your reasoning in 1-2
+sentences.</h5>
+<p>Including a squared age term is significant, which means that it is
+appropriate to include in the model. This makes intuitive sense because
+at the beginning of a career, extra years (age) can translate into wage
+gains, but the rate of wage increases, will taper off over time.</p>
+<h4
+id="now-add-an-interaction-term-of-employer-size-and-union-status-empsizeunion-and-put-the-results-into-column-3-of-table-1.-describe-the-relationship-between-hourly-wages-employer-size-and-union-status-incorporating-the-interaction-terms-and-main-effects.-your-answer-should-include-reference-to-a-specific-numerical-illustration-of-the-relationship-and-note-the-statistical-significance-of-these-relationships.">3.
+Now add an interaction term of employer size and union status
+(<code>empsize</code>*<code>union</code>) and put the results into
+column 3 of Table 1. Describe the relationship between hourly wages,
+employer size, and union status, incorporating the interaction terms and
+main effects. Your answer should include reference to a specific
+numerical illustration of the relationship and note the statistical
+significance of these relationships.</h4>
+<p>The coefficient on union has increased from 0.120 to 0.271,
+indicating that on average, switching from a non-union firm to union
+firm is associated with ~27% higher hourly wages, for government
+workers, holding all else equal. The interaction term on employer size
+and union is significant at a lower level (p&lt;0.10). This implies that
+larger non-union government jobs are associated with slower wage
+increases. Employer size is still positive, indicating that increasing
+size of the firm and going from non-union to union are both associated
+with The interaction term between employer and union status is negative
+but only significant at p&lt;0.10. This implies that a weak relationship
+exists, and that on average an increase of 100 employees and going from
+union to non-union firms is associated with 1.6% lower hourly wages.</p>
+<h4
+id="now-go-back-to-the-model-specified-in-column-2-and-add-an-interaction-term-of-whether-the-worker-is-in-the-health-care-industry-and-union-status-ind_healthunion.-put-the-results-of-this-regression-into-column-4-of-table-1.-describe-the-relationship-between-hourly-wages-working-in-the-health-care-industry-and-union-status-incorporating-the-interaction-terms-and-main-effects.-your-answer-should-include-reference-to-a-specific-numerical-illustration-of-the-relationship-and-note-the-statistical-significance-of-these-relationships.">4.
+Now go back to the model specified in column 2, and add an interaction
+term of whether the worker is in the health care industry and union
+status (<code>ind_health</code>*<code>union</code>). Put the results of
+this regression into column 4 of Table 1. Describe the relationship
+between hourly wages, working in the health care industry, and union
+status, incorporating the interaction terms and main effects. Your
+answer should include reference to a specific numerical illustration of
+the relationship and note the statistical significance of these
+relationships.</h4>
+<p>The coefficient for health care industry interacted with union is
+0.025, however it is not positive. This implies that for a non-union
+health care worker, you cannot reject the hypothesis that hourly wages
+across union and non-union jobs are the same. The main effects for age
+and union are both still positive and significant, which implies that 1)
+as workers age, hourly wages increase for health care workers relative
+to non-union government workers, and 2) switching from non-union to
+union firms is associated with an 11.6% increase in hourly pay relative
+to non-union government workers, holding all else equal.</p>
+<h3 id="section-ii-binary-dependent-variables">Section II: Binary
+dependent variables</h3>
+<p>In this part of the assignment, you will be using data from the Panel
+Study of Income Dynamics (PSID) to examine teen birth rates. The
+simplified dataset contains the following information:</p>
+<ul>
+<li><code>teenbirth</code> - an indicator variable =1 if the individual
+had a birth by the age of 19; zero otherwise.</li>
+<li>A set of mutually-exclusive indicators for race/ethnicity:
+<ul>
+<li><code>white</code> - An indicator for whether the respondent
+identifies as White, non-Hispanic</li>
+<li><code>black</code> - An indicator for whether the respondent
+identifies as Black, non-Hispanic</li>
+<li><code>Hisp</code> - An indicator for whether the respondent
+identifies as Hispanic</li>
+<li><code>Other</code> - An indicator for whether the respondent
+identifies as an other race or ethnicity</li>
+</ul></li>
+<li><code>head_educ</code> - The number of years of completed education
+for the parent of the individual</li>
+<li><code>frac_marr_parents</code> - The fraction of childhood that the
+individual spent with married parents, continuous variable ranging from
+0 to 1, with 0 representing individuals who never had married parents
+during childhood, and 1 representing individuals who always lived with
+married parents.</li>
+<li><code>familyincome</code> - Average family income (in $1,000s)
+during childhood</li>
+</ul>
+<p>Please create a second table (Table 2) to display all the regression
+output from Part II (as you did above for Part I). Remember to use
+robust standard errors throughout.</p>
+<pre class='stata'>. use teen_births, clear
+
+. quietly regress teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. eststo col1, title(LPM)
+
+. quietly logit teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. eststo col2, title(logit)
+
+. quietly probit teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. eststo col3, title(probit)
+
+. quietly logit teenbirth black hisp other head_educ frac_marr_parents familyincome, robust or
+
+. eststo col4, title(odds)
+
+. estout col1 col2 col3 col4, eform(0 0 0 1) cells(b(star fmt(3)) se(par fmt(2))) starlevels(* 0
+> .10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observation
+> s")) label collabels("") 
+
+────────────────────────────────────────────────────────────────────────────────────
+                              LPM           logit          probit            odds   
+                                                                                    
+────────────────────────────────────────────────────────────────────────────────────
+main                                                                                
+black                       0.079***        0.555***        0.314***        1.742***
+                           (0.01)          (0.10)          (0.05)          (0.17)   
+hisp                        0.071           0.648*          0.371**         1.911*  
+                           (0.05)          (0.33)          (0.19)          (0.64)   
+other                      -0.019          -0.373          -0.188           0.688   
+                           (0.05)          (0.75)          (0.37)          (0.51)   
+head_educ                  -0.015***       -0.078***       -0.045***        0.925***
+                           (0.00)          (0.01)          (0.01)          (0.01)   
+frac_marr_parents          -0.026**         0.055           0.031           1.057   
+                           (0.01)          (0.09)          (0.05)          (0.09)   
+familyincome               -0.000***       -0.018***       -0.009***        0.982***
+                           (0.00)          (0.00)          (0.00)          (0.00)   
+_cons                       0.324***       -0.517***       -0.339***        0.596***
+                           (0.03)          (0.20)          (0.11)          (0.12)   
+────────────────────────────────────────────────────────────────────────────────────
+Adj. R-Squared              0.063                                                   
+R-Squared                   0.064                                                   
+Observations             6616.000        6616.000        6616.000        6616.000   
+────────────────────────────────────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+
+. 
+</pre>
+<h4
+id="using-a-linear-probability-model-regress-the-variable-teenbirth-on-the-following-variables-black-hisp-other-head_educ-frac_marr_parents-familyincome.-this-will-be-column-1.">1.
+Using a linear probability model, regress the variable teenbirth on the
+following variables: black, hisp, other, head_educ frac_marr_parents
+familyincome. This will be column 1.</h4>
+<h5 id="a.-interpret-the-coefficient-of-the-following-variables">a.
+Interpret the coefficient of the following variables:</h5>
+<ul>
+<li><code>familyincome</code></li>
+<li><code>black</code></li>
+<li><code>frac_marr_parents</code></li>
+</ul>
+<p>If the coefficient is statistically different than zero, you should
+make sure to discuss the magnitude of the estimated coefficient (this
+can be done in several ways. For example you can characterize the effect
+size in words, or standardize the coefficient). NOTE: For binary
+variables, make sure to (i) include mention of a reference category and
+(ii) note the effect in terms of both percentage points and percent. For
+a baseline, you can simply use the average probability of having a teen
+birth in the data.</p>
+<ul>
+<li>Family Income: The coefficient on family income is -0.000 and is
+statistically significant at the p&lt;0.01 level. This implies that an
+increase of 1000 of family income has a small negative impact on teen
+birth.</li>
+<li>Black: The coefficient on Black is 0.079 and statistically
+significant at the p&lt;0.01 level. This implies that relative to the
+reference group (white), on average Black racial identification is
+associated with an increase of 7.9 percentage points in the likelihood
+of a teen birth.</li>
+<li>Fraction of childhood with Married Parents: The coefficient on this
+variable is -0.026 and significant at the p&lt;0.01 level. This implies
+that on average an individual with parents married their entire
+childhood (frac_marr_parents == 1) is associated with a decrease of 2.6
+percentage points in the probability of teen births, relative to the
+white reference group with frac_marr_parents == 0.</li>
+</ul>
+<h5
+id="b.-using-the-results-from-the-regression-above-calculate-predicted-values-for-each-observation-in-the-data-set.-what-fraction-of-observations-has-predicted-values-outside-of-the-range-0-1">b.
+Using the results from the regression above, calculate predicted values
+for each observation in the data set. What fraction of observations has
+predicted values outside of the range 0-1?</h5>
+<pre class='stata'>. quietly reg teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. predict predicted_values1
+(option xb assumed; fitted values)
+(6 missing values generated)
+
+. sum predicted_values1 if predicted_values1 &lt; 0 | predicted_values1 > 1
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+predicted_~1 │        275   -.0410155    .0737929  -.8012976  -6.64e-06
+
+. local fraction = r(N) / _N
+
+. di `fraction'
+.04152824
+</pre>
+<p>4.15% of the predicted values are either greater than 1 or less than
+0.</p>
+<h4
+id="estimate-the-model-from-question-1-above-as-a-logit-model.-this-will-be-column-2.-calculate-the-predicted-values-for-each-observation.-what-fraction-of-observations-has-predicted-values-outside-the-range-0-1">2.
+Estimate the model from question 1 above as a logit model. This will be
+column 2. Calculate the predicted values for each observation. What
+fraction of observations has predicted values outside the range
+0-1?</h4>
+<pre class='stata'>. quietly logit teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. predict predicted_values2
+(option pr assumed; Pr(teenbirth))
+(6 missing values generated)
+
+. sum predicted_values2 if predicted_values2 &lt; 0 | predicted_values2 > 1
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+predicted_~2 │          0
+
+. local fraction = r(N) / _N
+
+. di `fraction'
+0
+</pre>
+<p>None of the predicted values are greater than 1 or less than 0.</p>
+<h4
+id="estimate-the-model-from-question-1-above-as-a-probit-model.-this-will-be-column-3.-calculate-the-predicted-values-for-each-observation.-what-fraction-of-observations-has-predicted-values-outside-the-range-0-1">3.
+Estimate the model from question 1 above as a probit model. This will be
+column 3. Calculate the predicted values for each observation. What
+fraction of observations has predicted values outside the range
+0-1?</h4>
+<pre class='stata'>. quietly probit teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. predict predicted_values3
+(option pr assumed; Pr(teenbirth))
+(6 missing values generated)
+
+. sum predicted_values3 if predicted_values3 &lt; 0 | predicted_values3 > 1
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+predicted_~3 │          0
+
+. local fraction = r(N) / _N
+
+. di `fraction'
+0
+</pre>
+<p>None of the predicted values are greater than 1 or less than 0.</p>
+<h4
+id="compare-the-coefficients-from-the-lpm-model-with-the-coefficients-from-the-analogous-probit-and-logit-models.-for-which-if-any-predictors-do-you-see-a-difference-in-terms-of-sign-positive-or-negative-or-statistical-significance-across-the-three-models">4.
+Compare the coefficients from the LPM model with the coefficients from
+the analogous probit and logit models. For which, if any, predictors, do
+you see a difference in terms of sign (positive or negative) or
+statistical significance across the three models?</h4>
+<p><br> - Family income has the same level of significance across all of
+the models. This implies that increasing family income is associated
+with lower probabilities of teen birth.<br />
+- Hispanic identification is not positive across all of the models, but
+more significant in the probit model than in the logit model. This
+implies that hispanic identification is most likely weakly associated
+with increased probability of teen birth.<br />
+- Fraction of childhood parents are married switches signs, and loses
+any significant from the linear probability model and the logit and
+probit.</p>
+<p>For the questions below, imagine an individual with the following
+values of the variables:<br />
+- <code>familyincome</code> = 25<br />
+- <code>black</code> = 0<br />
+- <code>hisp</code> = 1<br />
+- <code>other</code> = 0<br />
+- <code>head_educ</code> = 12<br />
+- <code>frac_marr_parents</code> = .50</p>
+<h4
+id="using-the-results-from-the-lpm-model-how-much-would-the-probability-of-having-a-teen-birth-change-if-the-individual-spent-all-of-their-childhood-with-married-parents">5.
+Using the results from the LPM model, how much would the probability of
+having a teen birth change if the individual spent all of their
+childhood with married parents?</h4>
+<p><br> Calculate <code>frac_marr_parents = .50</code> <span
+class="math display">\[
+\begin{aligned}
+Pr(teenbirth_{.50}) = 0.079(0) + 0.071(1) + (-0.019*0) + (-0.015*12) +
+(-0.026*0.5) + (-0.0005*25) \\
+Pr(teenbirth_{.50}) = 0.1956026 \\
+\end{aligned}
+\]</span> Calculate <code>frac_marr_parents = 1</code> <span
+class="math display">\[
+\begin{aligned}
+Pr(teenbirth_{1}) = 0.079(0) + 0.071(1) + (-0.019*0) + (-0.015*12) +
+(-0.026*1) + (-0.0005*25) \\
+Pr(teenbirth_{1}) = 0.1826618 \\
+\end{aligned}
+\]</span> Calculate <code>frac_marr_parents = 1</code> -
+<code>frac_marr_parents = .50</code> <span class="math display">\[
+\begin{aligned}
+Pr(teenbirth_{1}) - Pr(teenbirth_{.50}) = 0.1956026 - 0.1826618 \\
+Pr(teenbirth_{1}) - Pr(teenbirth_{.50}) = 0.01294075 \\
+\end{aligned}
+\]</span></p>
+<h4
+id="now-answer-the-same-question-using-the-logit-model.-we-would-like-you-to-do-this-two-different-ways-for-practice.">6.
+Now answer the same question using the logit model. We would like you to
+do this two different ways for practice.</h4>
+<h5 id="a.-calculate-the-effect-long-hand-using-the-fact-that">a.
+Calculate the effect “long hand” using the fact that:</h5>
+<p><span class="math display">\[
+Pr(Y = 1|X) F(\beta_0 + \displaystyle\sum_{k=1} ^{K} \beta_k x_k) =
+\frac{1}{1 + e ^{-(\beta_0 + \displaystyle\sum_{k=1} ^{K} \beta_k x_k)}}
+\]</span></p>
+<p>General Formula <span class="math display">\[
+\begin{aligned}
+Pr(Y = 1 | X) = \frac{1}{1+e^{-(\beta_0 + \beta_1 Black + \beta_2 Hisp +
+\beta_3 Other + \beta_4 headeduc + \beta_5 marrparents + \beta_6
+famincome)}} \\
+\end{aligned}
+\]</span></p>
+<p><code>frac_marr_parents = .50</code></p>
+$$
+<span class="math display">\[\begin{aligned}  
+
+Pr(Y = 1 | X = .50) = \frac{1}{1+e^{-( -0.517 + (0.555*0) + (0.648*1) +
+(-0.373*0) + (-0.078*12) + (0.055*.50) + (-0.018*25)}} \\
+Pr(Y = 1 | X = .50) = 0.2276325 \\
+\end{aligned}\]</span>
+<p>$$</p>
+<p><code>frac_marr_parents = 1</code></p>
+<p><span class="math display">\[
+\begin{aligned}
+Pr(Y = 1 | X = 1) = \frac{1}{1+e^{-( -0.517 + (0.555*0) + (0.648*1) +
+(-0.373*0) + (-0.078*12) + (0.055*.50) + (-0.018*25)}} \\
+Pr(Y = 1 | X = 1) = 0.2325338 \\
+\end{aligned}
+\]</span></p>
+<p>Change:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\Delta Pr(Y = 1)} = Pr(Y = 1 | X = 1) - Pr(Y = 1 | X = .50) \\
+\hat{\Delta Pr(Y = 1)} = 0.2325338 - 0.2276325 \\
+\hat{\Delta Pr(Y = 1)} = 0.004901257 \\
+\end{aligned}
+\]</span></p>
+<h5
+id="b.-now-do-the-same-calculation-using-the-margins-command-in-statar.-note-for-the-margins-command-to-work-you-need-to-re-run-the-logit-model-then-find-the-predicted-value.">b.
+Now do the same calculation using the margins command in Stata/R. (note:
+for the margins command to work, you need to re-run the logit model,
+then find the predicted value.)</h5>
+<pre class='stata'>. quietly logit teenbirth black hisp other head_educ frac_marr_parents familyincome, robust
+
+. margins, at(black=0 hisp=1 other=0 head_educ=12 frac_marr_parents= (.50 1) familyincome=25)
+
+Adjusted predictions                                     Number of obs = 6,616
+Model VCE: Robust
+
+Expression: Pr(teenbirth), predict()
+1._at: black            =  0
+       hisp             =  1
+       other            =  0
+       head_educ        = 12
+       frac_marr_pare~s = .5
+       familyincome     = 25
+2._at: black            =  0
+       hisp             =  1
+       other            =  0
+       head_educ        = 12
+       frac_marr_pare~s =  1
+       familyincome     = 25
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │            Delta-method
+             │     Margin   std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+         _at │
+          1  │   .2276324   .0576313     3.95   0.000      .114677    .3405877
+          2  │   .2325336   .0585373     3.97   0.000     .1178026    .3472646
+─────────────┴────────────────────────────────────────────────────────────────
+
+. di .2325336 - .2276324
+.0049012
+</pre>
+<h4
+id="how-do-the-effects-calculated-in-5-based-on-lpm-and-6-based-on-the-logit-differ-from-each-other-briefly-discuss-in-a-sentence-or-two.">7.
+How do the effects calculated in 5 (based on LPM) and 6 (based on the
+Logit) differ from each other? Briefly discuss in a sentence or
+two.</h4>
+<p>The LPM model finds a much larger effect and it is significant, which
+factors into the expected probability calculation.</p>
+<h4
+id="redo-the-logit-model-shown-in-column-2-but-instead-of-presenting-the-coefficients-present-the-odds-ratios-associated-with-each-predictor.-this-should-be-column-4.-interpret-the-odds-ratios-associated-with-the-predictors-familyincome-and-black.-one-sentence-should-be-sufficient-for-each-predictor.">8.
+Redo the logit model shown in column 2, but instead of presenting the
+coefficients, present the odds ratios associated with each predictor.
+This should be column 4. Interpret the odds ratios associated with the
+predictors familyincome and black. One sentence should be sufficient for
+each predictor.</h4>
+<p>Family income: The odds ratio of family income is .982, which implies
+that an increase of 1000 in family income would decrease the odds of
+teen birth by a little bit less than 2%, holding all else equal.<br />
+Black: Relative to white teens, being Black increases the probability of
+a teen birth by 72%, holding all else equal.</p>
+<h4
+id="briefly-describe-what-you-found-most-interesting-about-the-results-of-the-analyses-above-from-a-substantive-policy-perspective.-one-short-paragraph-should-be-sufficient.">9.
+Briefly describe what you found most interesting about the results of
+the analyses above from a substantive policy perspective. One short
+paragraph should be sufficient.</h4>
+<p>Depending on what model you pick to estimate the coefficients, you
+may arrive at different conclusions. This could affect the policy
+implications and approach. If you choose the LPM, then you will arrive
+at the conclusion that encouraging parents of children to get and stay
+married will reduce the likelihood of teen births. If you choose a logit
+or probit model, that is not the most important conclusion to reach. In
+terms of policy implications, you may conclude that policies that
+support increasing family income or increasing educational attainment
+are more important and worth advocating.</p>
+</body>
+</html>
