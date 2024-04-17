@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Francisco Brady" />
+  <title>Problem Set 5</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Problem Set 5</h1>
+<p class="author">Francisco Brady</p>
+<p class="date">5 Apr 2024</p>
+</header>
+<h3 id="part-i-estimating-and-interpreting-fixed-effects">Part I:
+Estimating and interpreting fixed effects</h3>
+<p>Approximately 40%-50% of driving fatalities occur in accidents in
+which at least one of the drivers involved has been drinking. There are
+approximately 40,000 highway traffic fatalities annually in the United
+States, so perhaps 20,000 of these deaths are alcohol-related. In the
+U.S., highway laws are under the jurisdiction of the states, and states
+have adopted different strategies to address the problem of drunk
+driving. In this problem set, you will use data (drunkdri.dta) on
+traffic death rates by state for 1982-1988 to evaluate the effectiveness
+of some of these laws.</p>
+<h3 id="output">Output</h3>
+<p>This assignment has you run a total of six regressions. You should
+put the results from all of your regressions into a single table (which
+you can create in excel or word or another spreadsheet software, see
+Table 7.1 in the S&amp;W book for suggested format). The table does not
+need to display the estimated coefficients for any of the state and year
+fixed effects, but it should note which specifications include year
+and/or state fixed effects and should display coefficient estimates and
+standard errors for all of the other covariates. Each regression output
+should be presented in a different column within the table.</p>
+<h4 id="use-data-for-1988-only">1. <em>Use data for 1988 only</em>:</h4>
+<h5
+id="a-produce-a-scatterplot-of-the-vehicle-fatality-rate-against-the-beer-tax.">a)
+Produce a scatterplot of the vehicle fatality rate against the beer
+tax.</h5>
+<pre class='stata'>. use drunkdri.dta, clear
+
+. twoway scatter vfrall beertax if year == 1988, legend(off) 
+
+. graph export vfr_beer.png, width(500) replace
+file vfr_beer.png saved as PNG format
+</pre>
+<figure>
+<img src="vfr_beer.png" alt="VFR and Beer Tax" />
+<figcaption aria-hidden="true">VFR and Beer Tax</figcaption>
+</figure>
+<pre class='stata'>. qui reg vfrall beertax mlda if year == 1988, robust
+
+. eststo raw, title(Reg. 1)
+
+. qui reg vfrall beertax mlda dry vmiles yngdrv perinc if year == 1988, robust
+
+. eststo stuff, title(Reg. 2)
+
+. estout raw stuff, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_
+> a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+
+────────────────────────────────────────────────────
+                           Reg. 1          Reg. 2   
+                                                    
+────────────────────────────────────────────────────
+Tax on Case of Beer         0.508***        0.141   
+                           (0.12)          (0.14)   
+Minimum Legal Drin~e       -0.945***       -0.345** 
+                           (0.07)          (0.13)   
+% Residing in Dry ~s                        0.004   
+                                           (0.00)   
+Ave. Mile per Driver                        0.000***
+                                           (0.00)   
+% of Drivers Aged~24                        0.869   
+                                           (2.78)   
+Per Capita Persona~e                       -0.000***
+                                           (0.00)   
+_cons                      21.645***        8.454** 
+                           (1.27)          (3.16)   
+────────────────────────────────────────────────────
+Adj. R-Squared              0.253           0.546   
+R-Squared                   0.285           0.604   
+Observations               48.000          48.000   
+────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+
+.  
+</pre>
+<h5
+id="b-regression-1-raw-correlation-regress-the-vehicle-fatality-rate-against-the-beer-tax-and-the-minimum-legal-drinking-age.-interpret-the-coefficients-on-the-beer-tax-and-minimum-legal-drinking-age.">b)
+[Regression 1, Raw correlation]: Regress the vehicle fatality rate
+against the beer tax and the minimum legal drinking age. Interpret the
+coefficients on the beer tax and minimum legal drinking age.</h5>
+<p>The coefficient on beertax is positive and significant, implying that
+holding the legal drinking age constant, a percentage increase in the
+tax on beer is associated with an increase of .51 in the Vehicle
+Fatality Rate per 10,000. [Range is from .82 to 4.21, sd .57, so this is
+big-ish].<br />
+The coefficient on the minimum legal drinking age is negative and
+significant. This implies that an increasing the minimum legal drinking
+age by one year is associated with a .95 decrease in the Vehicle
+Fatality Rate per 10,000, holding beer taxes constant.</p>
+<h5
+id="c-regression-2-control-for-stuff-add-to-the-previous-regression-the-percent-of-the-population-living-in-dry-counties-average-miles-driven-the-percent-of-drivers-aged-15-24-and-the-per-capita-income-in-the-state.-this-set-of-variables-will-be-referred-to-for-the-rest-of-the-problem-set-as-the-state-control-variables.">c)
+[Regression 2, control for “stuff”]: Add to the previous regression the
+percent of the population living in dry counties, average miles driven,
+the percent of drivers aged 15-24, and the per capita income in the
+state. This set of variables will be referred to for the rest of the
+problem set as the “state control variables.”</h5>
+<h5
+id="d-do-the-coefficients-on-the-beer-tax-and-drinking-age-change-substantively-from-b-to-c-if-so-explain-why.">d)
+Do the coefficients on the beer tax and drinking age change
+substantively from (b) to (c)? If so, explain why.</h5>
+<p>Yes. The coefficient on beer tax and drinking age both decrease
+substantively.<br />
+The coefficient on beer taxes goes from 0.508 (significant at the 1%
+level) to 0.141 and loses significance at any conventional level. This
+suggests that the first regression suffered from omitted variable bias,
+and that including the state control variables helped to account for
+some of the differences in Vehicle Fatality Rates (VFR) that were not
+captured previously.<br />
+The coefficient on minimum legal drinking age also decreases, however it
+is still significant (at the 5% level). This suggests again that
+including the state control variables helps to account for omitted
+variable bias, and that the naive regression was over-attributing some
+of the effects to minimum legal drinking age.</p>
+<h4 id="use-the-full-dataset">2) <em>Use the full dataset:</em></h4>
+<pre class='stata'>. gen y83 = (year == 1983) 
+
+. gen y84 = (year == 1984)
+
+. gen y85 = (year == 1985)
+
+. gen y86 = (year == 1986)
+
+. gen y87 = (year == 1987)
+
+. gen y88 = (year == 1988)
+
+. 
+. qui reg vfrall beertax mlda dry vmiles yngdrv perinc, robust
+
+. eststo col1, title(Reg. 3)
+
+. qui reg vfrall beertax mlda dry vmiles yngdrv perinc y83-y88, robust
+
+. eststo col2, title(Reg. 4)
+
+. qui reg vfrall beertax mlda dry vmiles yngdrv perinc y83-y88, absorb(state) robust
+
+. eststo col3, title(Reg. 5)
+
+. estout col1 col2 col3, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stat
+> s(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+
+────────────────────────────────────────────────────────────────────
+                           Reg. 3          Reg. 4          Reg. 5   
+                                                                    
+────────────────────────────────────────────────────────────────────
+Tax on Case of Beer         0.095           0.083          -0.571** 
+                           (0.07)          (0.06)          (0.26)   
+Minimum Legal Drin~e       -0.008          -0.028           0.004   
+                           (0.03)          (0.03)          (0.02)   
+% Residing in Dry ~s       -0.000          -0.000           0.020** 
+                           (0.00)          (0.00)          (0.01)   
+Ave. Mile per Driver        0.000*          0.000           0.000   
+                           (0.00)          (0.00)          (0.00)   
+% of Drivers Aged~24        0.650           2.043           0.731   
+                           (1.31)          (1.24)          (1.03)   
+Per Capita Persona~e       -0.000***       -0.000***        0.000***
+                           (0.00)          (0.00)          (0.00)   
+y83                                        -0.074          -0.092** 
+                                           (0.11)          (0.05)   
+y84                                        -0.068          -0.153***
+                                           (0.11)          (0.05)   
+y85                                        -0.036          -0.233***
+                                           (0.12)          (0.06)   
+y86                                         0.085          -0.196** 
+                                           (0.14)          (0.08)   
+y87                                         0.106          -0.260***
+                                           (0.16)          (0.10)   
+y88                                         0.135          -0.306***
+                                           (0.18)          (0.11)   
+_cons                       2.445***        2.680***        0.103   
+                           (0.78)          (0.80)          (0.62)   
+────────────────────────────────────────────────────────────────────
+Adj. R-Squared              0.372           0.374           0.909   
+R-Squared                   0.383           0.396           0.925   
+Observations              336.000         336.000         336.000   
+────────────────────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+
+.  
+</pre>
+<h5
+id="a-regression-3-control-for-stuff-regress-the-vehicle-fatality-rate-against-the-beer-tax-the-minimum-legal-drinking-age-and-the-state-control-variables.">a)
+[Regression 3, control for stuff]: Regress the vehicle fatality rate
+against the beer tax, the minimum legal drinking age and the state
+control variables.</h5>
+<h5
+id="b-regression-4-add-year-fixed-effects-add-to-the-previous-regression-a-full-set-of-year-dummies.-are-the-year-dummies-statistically-significantly-related-to-the-fatality-rate">b)
+[Regression 4, add year fixed effects]: Add to the previous regression a
+full set of year dummies. Are the year dummies statistically
+significantly related to the fatality rate?</h5>
+<p>When adding year fixed effects to the regression with state controls,
+none of the year dummies are statistically significant. To confirm this,
+we can run an F test for the year dummies.</p>
+<pre class='stata'>. qui reg vfrall beertax mlda dry vmiles yngdrv perinc y83-y88, robust
+
+. test  y83 y84 y85 y86 y87 y88
+
+ ( 1)  y83 = 0
+ ( 2)  y84 = 0
+ ( 3)  y85 = 0
+ ( 4)  y86 = 0
+ ( 5)  y87 = 0
+ ( 6)  y88 = 0
+
+       F(  6,   323) =    0.64
+            Prob > F =    0.6960
+</pre>
+<p>[ADD INTERPRETATION OF F TEST]</p>
+<h5
+id="c-interpret-the-coefficients-on-the-beer-tax-and-minimum-legal-drinking-age-in-the-previous-regression.-do-the-coefficients-on-the-beer-tax-and-minimum-legal-drinking-age-change-substantively-from-2a-to-2b-why-or-why-not">c)
+Interpret the coefficients on the beer tax and minimum legal drinking
+age in the previous regression. Do the coefficients on the beer tax and
+minimum legal drinking age change substantively from 2(a) to 2(b)? Why
+or why not?</h5>
+<p>The coefficient on beer tax in the full sample regression is 0.095,
+and is not significant. This decreases to 0.083 in the year fixed
+effects model, and is also not significant.<br />
+The coefficient on minimum legal drinking age in the full sample
+regression is -0.008, and is not significant. This increases to -0.028
+in the year fixed effects model, but is also not significant.<br />
+These changes are small and do not affect the significance of the
+coefficients. It’s possible that some omitted variables that vary over
+time but not across states do not affect the vehicle fatality rate.</p>
+<h5
+id="d-regression-5-add-state-and-year-fixed-effects-now-add-to-the-regression-in-2b-a-set-of-state-fixed-effects.-do-the-coefficients-on-the-beer-tax-and-minimum-legal-drinking-age-change-substantively-why-or-why-not">d)
+[Regression 5, add state and year fixed effects]: Now, add to the
+regression in 2(b) a set of state fixed effects. Do the coefficients on
+the beer tax and minimum legal drinking age change substantively Why or
+why not?</h5>
+<p>Yes, the coefficients on beer tax and minimum legal drinking age
+change substantively. For beer tax, the coefficient increases in
+magnitude, and changes direction, from 0.083 in the year fixed effects
+model to -0.571 in the state-year fixed effects model. The coefficient
+is also significant at the 5% level, compared to not significant in the
+previous model. This suggests that time-invariant state-level factors
+were not being included in the model, resulting in an underestimate of
+the impact of beer taxes in the year fixed effects model.<br />
+For minimum legal drinking age, the coefficient increases from -0.027 to
+0.004, however it is still not significant. [ADD REASON WHY]</p>
+<h5
+id="e-write-a-paragraph-in-which-you-discuss-whether-you-can-confidently-place-a-causal-interpretation-on-the-analysis-you-have-undertaken.-in-your-answer-discuss-the-biases-that-could-threaten-the-analysis-and-how-the-control-variables-year-effects-and-state-effects-each-attempt-to-deal-with-these-biases.">e)
+Write a paragraph in which you discuss whether you can confidently place
+a causal interpretation on the analysis you have undertaken. In your
+answer, discuss the biases that could threaten the analysis and how the
+control variables, year effects and state effects each attempt to deal
+with these biases.</h5>
+<p>I don’t think I would be confident in a causal interpretation for
+this analysis. I could be confident about claiming a strong association
+between VFR and the beer tax, but there are other things that could
+potentially impact the vehicle fatality rate. This is the reason for
+including the state control variables (% of dry counties, average miles
+driven, % of young drivers, and income). Leaving these out, as we saw,
+positively biased the coefficients on both beer tax and driving age
+upwards, overestimating their impacts.<br />
+The inclusion of year fixed effects is to account for any time trends
+that could affect all of the states in the analysis, like a recession or
+new national law related to driving.<br />
+Including state fixed effects attempts to control for any differences
+across states, and including them produced significant changes magnitude
+and direction of the coefficients.</p>
+<h3 id="part-ii-difference-in-differences">Part II:
+Difference-in-Differences</h3>
+<p>For this assignment, you will read the following article and answer
+the questions below. As you read the article, do not worry about
+understanding all the technical details. Your goal is to get a big
+picture understanding of the study.</p>
+<p>Akee, R.K., Copeland, W.E., Keeler, G., Angold, A. and Costello,
+E.J., 2010. Parents’ incomes and children’s outcomes: a quasi-experiment
+using transfer payments from casino profits. American Economic Journal:
+Applied Economics, 2(1), pp.86-115.</p>
+<h4
+id="what-is-the-causal-question-addressed-in-the-study-1-sentence">1.
+What is the causal question addressed in the study? (1 sentence)</h4>
+<p>The study tries to estimate the effectiveness of cash transfer
+programs on a number of outcomes for children in treated households.</p>
+<h4
+id="what-are-the-comparisons-the-authors-are-using-in-their-difference-in-differences-estimator-2-3-sentences.">2.
+What are the comparisons the authors are using in their
+difference-in-differences estimator (2-3 sentences).</h4>
+<p>The pre- and post groups are the cohorts of children in households
+with at least one American Indian parent that received cash transfers,
+with the younger children acting as the treated group (pre), and the
+older children serving as the before treatment group (post). The
+comparison group is children in households with no American Indian
+parent in the household that were not treated with cash transfers.</p>
+<h4
+id="what-are-the-main-assumptions-the-authors-are-making-with-their-difference-in-differences-strategy-give-two-examples-of-how-these-assumptions-could-be-violated-in-this-specific-scenario-1-paragraph.">3.
+What are the main assumptions the authors are making with their
+difference-in-differences strategy? Give two examples of how these
+assumptions could be violated in this specific scenario (1
+paragraph).</h4>
+<p>Parallel Trends: The authors assume that macroeconomic conditions are
+similar across the groups being differenced. They show that labor market
+conditions are not statistically different across the groups. An example
+of how this could be violated is if there were employment opportunities
+that only tribal members were eligible for, which could explain
+increased incomes in excess of the cash transfer payments.<br />
+[REASON TWO]:</p>
+<h4
+id="what-are-the-main-outcome-variables-and-how-are-they-measured-1-2-sentences">4.
+What are the main outcome variables and how are they measured? (1-2
+sentences)</h4>
+<ol type="1">
+<li>Educational attainment, measured as number of years of schooling,
+and probability of graduating high school.<br />
+</li>
+<li>Justice involvement, measured from survey responses of drug dealing
+by the children in the households, as well as arrest data.</li>
+</ol>
+<h4
+id="what-are-the-main-findings-make-sure-you-discuss-the-economic-significance-magnitude-as-well-as-the-statistical-significance.-1-short-paragraph">5.
+What are the main findings? Make sure you discuss the economic
+significance (magnitude) as well as the statistical significance. (1
+short paragraph)</h4>
+<p>[REASONS]</p>
+<h4
+id="the-authors-test-a-couple-of-different-mechanisms-through-which-the-casino-opening-may-have-affected-childrens-long-run-outcomes.-which-of-these-mechanisms-do-you-think-is-most-plausible-and-why-2-3-sentences">6.
+The authors test a couple of different mechanisms through which the
+casino opening may have affected children’s long-run outcomes. Which of
+these mechanisms do you think is most plausible, and why? (2-3
+sentences)</h4>
+<p>[REASONS]</p>
+<h4
+id="briefly-describe-what-you-view-as-the-key-limitations-or-shortcomings-of-the-study-and-why.-1-paragraph">7.
+Briefly describe what you view as the key limitations or shortcomings of
+the study, and why. (1 paragraph)</h4>
+<p>[REASONS]</p>
+</body>
+</html>

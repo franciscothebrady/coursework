@@ -1,99 +1,136 @@
-## set up dashboard display
-## use flask to set up the dashboard
-
-from flask import Flask, render_template
-import dash
-from dash import dcc
-from dash import html
 import pandas as pd
+from dash import Dash, dcc, html, Input, Output, callback_context, dash_table
 import plotly.express as px
-import numpy as np
-import os
+from flask import Flask
 
-# set up the flask app
+# Reading the data from the zipped CSV file
+cdc_data = pd.read_csv('cdc_data.zip', compression='zip')
+
+# Flask server setup
 server = Flask(__name__)
 
-# set up the dash app
-app = dash.Dash(__name__, server=server)
+# Initialize the Dash app and suppress callback exceptions
+app = Dash(__name__, server=server, suppress_callback_exceptions=True)
 
-# read in the CDC data
-# set path to the data
-path = os.getcwd()
-filepath = path + '/U.S._Chronic_Disease_Indicators.csv'
+# Utility function to create dropdown options
+def create_dropdown_options(column_name):
+    unique_values = sorted(cdc_data[column_name].dropna().unique())
+    return [{'label': item, 'value': item} for item in unique_values]
 
-cdc_data = pd.read_csv(filepath)
-
-# create a list of the unique states
-states = cdc_data['LocationDesc'].unique()
-
-# create a list of the unique indicators
-indicators = cdc_data['Question'].unique()
-
-# create a list of the unique years
-years = cdc_data['YearStart'].unique()
-
-# create app layout
+# Define the application layout with tabs for data table and line chart
 app.layout = html.Div([
-    html.H1('CDC Chronic Disease Indicators'),
+    html.H1("CDC Data Dashboard"),
+    
+    # Dropdown filters
     html.Div([
-        html.Label('Select State'),
+        html.Label('Select State:'),
         dcc.Dropdown(
-            id='state-dropdown',
-            options=[{'label': state, 'value': state} for state in states],
-            value='Alabama'
-        )
-    ]),
-    html.Div([
-        html.Label('Select Indicator'),
-        dcc.Dropdown(
-            id='indicator-dropdown',
-            options=[{'label': indicator, 'value': indicator} for indicator in indicators],
-            value='Current asthma prevalence among adults aged >= 18 years'
-        )
-    ]),
-    # daterange picker (start and end year)
-    html.Div([
-        html.Label('Start Year'),
-        dcc.Dropdown(
-            id='year-dropdown',
-            options=[{'label': year, 'value': year} for year in years],
-            value=2011
+            id='location-dropdown',
+            options=create_dropdown_options('LocationAbbr'),
+            value=None  # Default value is intentionally None for no selection
         ),
-    ]),
-    # end daterange picker
-    html.Div([
-        html.Label('End Year'),
+        
+        html.Label('Select Question:'),
         dcc.Dropdown(
-            id='year-dropdown',
-            options=[{'label': year, 'value': year} for year in years],
-            value=2011
+            id='question-dropdown',
+            options=create_dropdown_options('Question'),
+            value=None  # Default value is intentionally None for no selection
         ),
-
-
-    dcc.Graph(id='indicator-graph')
+        
+        html.Label('Select Stratification Category:'),
+        dcc.Dropdown(
+            id='strat-category-dropdown',
+            options=create_dropdown_options('StratificationCategory1'),
+            value=None  # Default value is intentionally None for no selection
+        ),
+        
+        html.Label('Select Data Value Type:'),
+        dcc.Dropdown(
+            id='data-value-type-dropdown',
+            options=create_dropdown_options('DataValueType'),
+            value=None  # Default value is intentionally None for no selection
+        ),
+    ], className="filters-panel"),
+    
+    # Tabs for switching between DataTable and LineChart
+    dcc.Tabs(id='tabs', children=[
+        dcc.Tab(label='Data Table', value='tab-datatable'),
+        dcc.Tab(label='Line Chart', value='tab-linechart'),
+    ]),
+    
+    # Div that will contain the content of the tabs
+    html.Div(id='tabs-content')
 ])
 
-
+# Callback for rendering tab content dynamically
 @app.callback(
-    dash.dependencies.Output('indicator-graph', 'figure'),
-    [dash.dependencies.Input('state-dropdown', 'value'),
-     dash.dependencies.Input('indicator-dropdown', 'value'),
-     dash.dependencies.Input('year-dropdown', 'value')]
+    Output('tabs-content', 'children'),
+    [
+        Input('tabs', 'value'),
+        Input('location-dropdown', 'value'),
+        Input('question-dropdown', 'value'),
+        Input('strat-category-dropdown', 'value'),
+        Input('data-value-type-dropdown', 'value')
+    ]
 )
-def update_graph(selected_state, selected_indicator, selected_year):
-    filtered_data = cdc_data[
-        (cdc_data['LocationDesc'] == selected_state) &
-        (cdc_data['Question'] == selected_indicator) &
-        (cdc_data['YearStart'] == selected_year)   ]
-    # convert data value to numeric
-    filtered_data['DataValue'] = pd.to_numeric(filtered_data['DataValue'], errors='coerce')
-    fig = px.bar(filtered_data, x='DataValue', y='StratificationCategory1', orientation='h')
-    return fig
+def render_tab_content(tab, state, question, strat_category, data_value_type):
+    # Use callback context to prevent triggering before all dropdowns are set
+    if not (state and question and strat_category and data_value_type):
+        triggered = callback_context.triggered[0]
+        if not triggered['value']:  # Nothing has triggered the callback yet
+            return html.Div("Please select filters above to show data.")
+        else:
+            return html.Div("Select values from all dropdowns to see results.")
 
+    # Apply filtering based on the selected dropdown options
+    filtered_df = cdc_data[
+        (cdc_data['LocationAbbr'] == state) &
+        (cdc_data['Question'] == question) &
+        (cdc_data['StratificationCategory1'] == strat_category) &
+        (cdc_data['DataValueType'] == data_value_type)
+    ]
 
+    # Choose what to render based on the selected tab
+    if tab == 'tab-datatable':
+        if filtered_df.empty:
+            return html.Div("No data available for the selected criteria.")
+        else:
+            # Define columns to display in the Data Table
+            columns = ['YearStart', 'LocationAbbr', 'Question',
+                       'DataValue',
+                       'StratificationCategory1',
+                       'StratificationCategory2']
+            # Return DataTable with filtering applied
+            return dash_table.DataTable(
+                data=filtered_df.to_dict('records'),
+                columns=[{'name': i, 'id': i} for i in filtered_df.columns if i in columns],
+                page_size=10,
+                style_table={'overflowY': 'auto'}  # Make the table horizontally scrollable
+            )
+    elif tab == 'tab-linechart':
+        if filtered_df.empty:
+            return html.Div("No data available for the selected criteria.")
+        else:
+            # Check if we should use stratification for the line chart
+            if strat_category and strat_category != "Overall":
+                # Generate and return LineChart figure with Stratification 2
+                figure = px.line(
+                    filtered_df,
+                    x='YearStart',
+                    y='DataValue',
+                    color='StratificationCategory2'  # Differentiating lines by Stratification Category 2
+                )
+            else:
+                # Generate and return LineChart without Stratification 2
+                figure = px.line(
+                    filtered_df,
+                    x='YearStart',
+                    y='DataValue'
+                )
+            return dcc.Graph(figure=figure)
+    else:
+        return html.Div("Something went wrong. Please try selecting the filters again.")
+
+# Run the application
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-# run the app
-# if __name__ == '__main__':
-#     app.run_server(debug=True)

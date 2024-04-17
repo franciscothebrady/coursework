@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Francisco Brady" />
+  <title>Problem Set 6</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Problem Set 6</h1>
+<p class="author">Francisco Brady</p>
+<p class="date">14 Apr 2024</p>
+</header>
+<h3
+id="part-i-minimum-legal-drinking-age-and-mortality-regression-discontinuity">Part
+I: Minimum legal drinking age and mortality (Regression
+Discontinuity)</h3>
+<p>This assignment is based on a research paper by Chris Carpenter and
+Carlos Dobkin, who investigate the effect of alcohol consumption on
+mortality:
+https://www.aeaweb.org/articles/pdf/doi/10.1257/app.1.1.164</p>
+<p>To investigate the causal relationship between alcohol consumption
+and mortality, the authors exploit a discontinuity in when people are
+legally able to purchase alcohol in the United States, at age 21. The
+authors compare the mortality rates of individuals leading up to their
+21st birthday, to the mortality rates of individuals just past their
+21st birthday. You will use data from age21mort.dta to investigate this
+question, which contains information from the National Center for Health
+Statistics, which contains mortality data due to a variety of causes,
+including internal, external, homicide, suicide, and motor vehicle
+accidents.</p>
+<p>The idea is that the minimum legal drinking age (which is currently
+set at age 21) produces a sharp difference in access to alcohol for
+young adults. We assume that observed and unobserved determinants of
+alcohol consumption and mortality are likely smooth across the age-21
+threshold, so the only difference between those just above 21 and just
+below 21 is their legal access to alcohol.</p>
+<h4 id="how-does-alcohol-consumption-affect-overall-mortality">1. How
+does alcohol consumption affect overall mortality?</h4>
+<h5
+id="a-produce-a-scatterplot-of-mortality-due-to-all-causes-and-the-running-variable.-do-you-see-evidence-of-a-discontinuity-at-age-21">a)
+Produce a scatterplot of mortality due to all causes and the running
+variable. Do you see evidence of a discontinuity at age 21?</h5>
+<pre class='stata'>. use age21mort.dta, clear
+
+. * create variables 
+. gen over21 = (agecell > 21)
+
+. gen agesq  = age^2
+
+. twoway scatter all agecell, xline(21) 
+
+. graph export all_age.png, width(500) replace
+file all_age.png saved as PNG format
+</pre>
+<figure>
+<img src="all_age.png" alt="All Mortality and Age" />
+<figcaption aria-hidden="true">All Mortality and Age</figcaption>
+</figure>
+<p>Yes, there is a clear discontinuity as the age variable crosses
+21.</p>
+<h5
+id="b-write-down-a-regression-model-to-estimate-this-regression-discontinuity-using-mortality-due-to-all-causes-as-the-outcome-variable-and-assuming-a-linear-function-for-the-running-variable-with-constant-slopes-on-either-side-of-the-cut-point.">b)
+Write down a regression model to estimate this regression discontinuity,
+using mortality due to all causes as the outcome variable, and assuming
+a linear function for the running variable, with constant slopes on
+either side of the cut-point.</h5>
+<p><span
+class="math display"><em>M</em><em>o</em><em>r</em><em>t</em><em>a</em><em>l</em><em>i</em><em>t</em><em>y</em><sub><em>i</em></sub> = <em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>A</em><em>g</em><em>e</em><sub><em>i</em></sub> + <em>β</em><sub>3</sub><em>O</em><em>v</em><em>e</em><em>r</em>21<sub><em>i</em></sub> + <em>ϵ</em><sub><em>i</em></sub></span></p>
+<pre class='stata'>. * regressions
+. qui reg all agecell over21, r 
+
+. eststo one, title(Reg. 1)
+
+. qui reg all agecell over21 c.agecell#i.over21, r
+
+. eststo two, title(Reg. 2)
+
+. qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+
+. eststo three, title(Reg. 3)
+
+. qui reg all agecell over21 c.agecell#i.over21 if agecell >= 20 &amp; agecell &lt;= 22, r
+
+. eststo four, title(Reg. 4)
+
+. * output
+. estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label coll
+> abels("") 
+
+────────────────────────────────────────────────────────────────────────────────────
+                           Reg. 1          Reg. 2          Reg. 3          Reg. 4   
+                                                                                    
+────────────────────────────────────────────────────────────────────────────────────
+Age Cell                   -0.975           0.827          34.460          -1.612   
+                           (0.66)          (0.72)         (61.95)          (2.28)   
+over21                      7.663***       83.333***     1416.610          78.828   
+                           (1.51)         (24.12)       (1014.10)         (79.08)   
+over21=0 # Age Cell                         0.000           0.000           0.000   
+                                              (.)             (.)             (.)   
+over21=1 # Age Cell                        -3.603***     -127.989          -3.289   
+                                           (1.12)         (95.51)          (3.73)   
+agesq                                                      -0.840                   
+                                                           (1.54)                   
+over21=0 # agesq                                            0.000                   
+                                                              (.)                   
+over21=1 # agesq                                            2.904                   
+                                                           (2.26)                   
+_cons                     112.310***       76.251***     -260.037         126.368** 
+                          (13.45)         (14.68)        (622.21)         (47.14)   
+────────────────────────────────────────────────────────────────────────────────────
+Adj. R-Squared              0.577           0.645           0.644           0.674   
+R-Squared                   0.595           0.668           0.682           0.716   
+Observations               48.000          48.000          48.000          24.000   
+────────────────────────────────────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+
+. 
+</pre>
+<h5
+id="c-regression-1-now-run-the-regression-using-stata.-interpret-the-coefficient-on-the-treatment-variable.-hint-in-stata-create-a-variable-call-it-over21-to-indicate-whether-the-estimate-is-above-the-cut-point-21.-this-is-your-treatment-variable.">c)
+[Regression 1]: Now run the regression using Stata. Interpret the
+coefficient on the treatment variable. (Hint: In Stata, create a
+variable [call it “over21”] to indicate whether the estimate is above
+the cut-point, 21. This is your ‘treatment’ variable).</h5>
+<p>[INTERPRETATION]<br />
+- The coefficient on treatment (<code>over21</code>) is 7.663.<br />
+- The estimate is significant at the p&gt;0.01 level.<br />
+- This implies that being over 21 is associated with an increase of
+7.663 in the all cause mortality rate per 100,000.</p>
+<h5
+id="d-now-lets-allow-the-running-variable-to-have-a-different-slope-on-either-side-of-the-discontinuity.-write-down-a-regression-function-that-assumes-a-linear-function-for-the-running-variable-but-allows-for-a-different-slope-on-either-side-of-the-discontinuity.">d)
+Now let’s allow the running variable to have a different “slope” on
+either side of the discontinuity. Write down a regression function that
+assumes a linear function for the running variable, but allows for a
+different slope on either side of the discontinuity.</h5>
+<p><span
+class="math display"><em>M</em><em>o</em><em>r</em><em>t</em><em>a</em><em>l</em><em>i</em><em>t</em><em>y</em><sub><em>i</em></sub> = <em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>A</em><em>g</em><em>e</em><sub>1</sub> + <em>β</em><sub>2</sub><em>O</em><em>v</em><em>e</em><em>r</em>21<sub><em>i</em></sub> + <em>β</em><sub>3</sub>(<em>A</em><em>g</em><em>e</em><sub><em>i</em></sub><em>X</em><em>O</em><em>v</em><em>e</em><em>r</em>21<sub><em>i</em></sub>) + <em>ϵ</em><sub><em>i</em></sub></span></p>
+<h5
+id="e-regression-2-now-run-the-regression-specified-in-part-d-in-stata-and-interpret-the-two-slopes.-do-the-results-suggest-different-slopes-on-age-on-either-side-of-the-discontinuity-explain-how-you-reached-your-conclusion.">e)
+[Regression 2]: Now run the regression specified in part d) in Stata and
+interpret the two slopes. Do the results suggest different slopes on age
+on either side of the discontinuity? Explain how you reached your
+conclusion.</h5>
+<ul>
+<li>The results imply different slopes on either side of the
+cutoff.<br />
+</li>
+<li>The over21 coefficient increased to 83.33 and it is significant,
+implying that crossing the over 21 threshold is associated with an
+increase of 83.33 in the all cause mortality rate.<br />
+</li>
+<li>The interaction coefficient is -3.60, and it is significant. This
+implies that the change in mortality rate for those over 21 increases at
+a different rate than for those under the age of 21.<br />
+</li>
+<li>[OTHER REASONS]</li>
+</ul>
+<h5
+id="f-regression-3-now-run-the-regression-assuming-a-quadratic-function-for-the-running-variable-with-separate-quadratic-functions-on-either-side-of-the-discontinuity.-does-the-results-suggest-a-quadratic-fit-is-a-better-fit-of-the-data-how-can-you-tell-hint-you-will-have-to-create-variables-for-the-quadratic-function-of-the-running-variable.">f)
+[Regression 3]: Now run the regression assuming a quadratic function for
+the running variable, with separate quadratic functions on either side
+of the discontinuity. Does the results suggest a quadratic fit is a
+better fit of the data? How can you tell? [Hint: You will have to create
+variables for the quadratic function of the running variable].</h5>
+<ul>
+<li>Adding the age squared variable made all of the regressors not
+significant.<br />
+</li>
+<li>The coefficient on age squared is not significant, which implies
+that it does not significantly improve the model fit.<br />
+</li>
+<li>The interaction term between over 21 and age squared is not
+significant, indicating that there is not strong evidence of a
+non-linear relationship near the cutoff.<br />
+</li>
+<li>[OTHER REASONS]</li>
+</ul>
+<h5
+id="g-regression-4-alternative-bandwidth.-now-run-regression-specification-2-limiting-the-sample-to-the-age-range-20-22.-how-did-this-narrower-age-range-affect-the-coefficient-on-over21">g)
+[Regression 4]: Alternative bandwidth. Now run regression specification
+#2, limiting the sample to the age range 20-22. How did this narrower
+age range affect the coefficient on over21?</h5>
+<p>Compared to regression #2:<br />
+- Limiting the bandwidth decreased the coefficient on over21 from 83.33
+to 78.83, however it increased the p-value, making it not
+significant.<br />
+- This implies that within this bandwidth, there is not a significant
+relationship between being over 21 and the all cause mortality
+rate.<br />
+- [OTHER REASONS]</p>
+<h4 id="specific-causes-of-death">2. Specific Causes of Death</h4>
+<h5
+id="a.-now-run-regression-2-for-the-outcomes-for-motor-vehicle-deaths-homicides-and-suicides-and-make-a-separate-table-indicating-the-results-for-each-outcome.-each-column-should-represent-the-results-from-a-separate-regression.">a).
+Now run regression #2 for the outcomes for motor vehicle deaths,
+homicides, and suicides, and make a separate table indicating the
+results for each outcome. Each column should represent the results from
+a separate regression.</h5>
+<pre class='stata'>. * regressions
+. qui reg mva agecell over21 c.agecell#i.over21, r
+
+. eststo one, title(MVA)
+
+. qui reg homicide agecell over21 c.agecell#i.over21, r
+
+. eststo two, title(Homicide)
+
+. qui reg suicide agecell over21 c.agecell#i.over21, r
+
+. eststo three, title(Suicide)
+
+. * output
+. estout one two three, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels
+> ("") 
+
+────────────────────────────────────────────────────────────────────
+                              MVA        Homicide         Suicide   
+                                                                    
+────────────────────────────────────────────────────────────────────
+Age Cell                   -2.568***        0.795***        0.029   
+                           (0.38)          (0.26)          (0.18)   
+over21                     28.945**        24.160***       10.619   
+                          (12.37)          (6.98)          (9.02)   
+over21=0 # Age Cell         0.000           0.000           0.000   
+                              (.)             (.)             (.)   
+over21=1 # Age Cell        -1.162**        -1.145***       -0.420   
+                           (0.58)          (0.33)          (0.42)   
+_cons                      83.849***        0.737          11.059***
+                           (7.75)          (5.15)          (3.67)   
+────────────────────────────────────────────────────────────────────
+Adj. R-Squared              0.703           0.332           0.453   
+R-Squared                   0.722           0.375           0.488   
+Observations               48.000          48.000          48.000   
+────────────────────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+</pre>
+<h5
+id="b.-which-of-the-specific-types-of-deaths-are-most-affected-by-alcohol-consumption-do-these-results-fit-with-your-expectations">b).
+Which of the specific types of deaths are most affected by alcohol
+consumption? Do these results fit with your expectations?</h5>
+<ul>
+<li>For MVA, the coefficient on over21 is 28.95 and significant,
+indicating that being over 21 is associated with a significant increase
+in the motor vehicle mortality rate.<br />
+</li>
+<li>For Homicide, the coefficient on over21 is 0.795 and significant,
+indicating that being over 21 is associated with an increase in homicide
+rates.<br />
+</li>
+<li>The intuition of these results makes sense to me, since more over 21
+year olds will have access to situations involving both cars and
+alcohol, which could lead to more deaths. The effect on homicides makes
+sense as well, since situations involving alcohol may lead to
+misunderstandings or lowered inhibitions that could result in more
+deaths.</li>
+</ul>
+<h4
+id="placebo-test-does-alcohol-consumption-affect-mortality-due-to-internal-causes-if-alcohol-related-deaths-are-causing-the-increase-in-mortality-observed-for-those-over-the-age-of-21-we-would-expect-that-there-would-not-be-increases-in-mortality-due-to-internal-causes-such-as-heart-disease-or-diabetes.-these-conditions-typically-occur-later-in-life-and-should-not-necessarily-be-affected-by-acute-alcohol-consumption.">3.
+Placebo test: Does alcohol consumption affect mortality due to internal
+causes? If alcohol-related deaths are causing the increase in mortality
+observed for those over the age of 21, we would expect that there would
+not be increases in mortality due to internal causes, such as heart
+disease or diabetes. These conditions typically occur later in life, and
+should not necessarily be affected by acute alcohol consumption.</h4>
+<h5
+id="a.-run-the-same-set-of-regressions-in-question-1-regressions1-4-using-mortality-due-to-internal-causes-internal-as-the-outcome-variable-and-put-the-results-in-a-third-table.">a).
+Run the same set of regressions in question 1 (regressions#1-4) using
+mortality due to internal causes (internal) as the outcome variable, and
+put the results in a third table.</h5>
+<pre class='stata'>. qui reg internal agecell over21, r 
+
+. eststo one, title(Reg. 1)
+
+. qui reg internal agecell over21 c.agecell#i.over21, r
+
+. eststo two, title(Reg. 2)
+
+. qui reg internal over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+
+. eststo three, title(Reg. 3)
+
+. qui reg internal agecell over21 c.agecell#i.over21 if agecell >= 20 &amp; agecell &lt;= 22, r
+
+. eststo four, title(Reg. 4)
+
+. * output
+. estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label coll
+> abels("") 
+
+────────────────────────────────────────────────────────────────────────────────────
+                           Reg. 1          Reg. 2          Reg. 3          Reg. 4   
+                                                                                    
+────────────────────────────────────────────────────────────────────────────────────
+Age Cell                    1.600***        1.618***        4.024           0.164   
+                           (0.25)          (0.34)         (27.63)          (0.90)   
+over21                      0.392           1.155         503.192           8.992   
+                           (0.54)         (10.62)        (441.53)         (30.07)   
+over21=0 # Age Cell                         0.000           0.000           0.000   
+                                              (.)             (.)             (.)   
+over21=1 # Age Cell                        -0.036         -45.951          -0.348   
+                                           (0.50)         (41.70)          (1.42)   
+agesq                                                      -0.060                   
+                                                           (0.69)                   
+over21=0 # agesq                                            0.000                   
+                                                              (.)                   
+over21=1 # agesq                                            1.050                   
+                                                           (0.99)                   
+_cons                     -13.512***      -13.876*        -37.929          16.122   
+                           (5.00)          (6.90)        (276.96)         (18.58)   
+────────────────────────────────────────────────────────────────────────────────────
+Adj. R-Squared              0.790           0.786           0.785           0.420   
+R-Squared                   0.799           0.799           0.808           0.496   
+Observations               48.000          48.000          48.000          24.000   
+────────────────────────────────────────────────────────────────────────────────────
+* p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01
+
+. 
+</pre>
+<h5
+id="b.-in-a-few-sentences-discuss-whether-this-analysis-is-consistent-with-the-hypothesis-that-the-increase-in-mortality-among-those-over-the-age-of-21-is-driven-by-alcohol-related-incidents.">b).
+In a few sentences, discuss whether this analysis is consistent with the
+hypothesis that the increase in mortality among those over the age of 21
+is driven by alcohol-related incidents.</h5>
+<p>In models #1 and #2, the coefficient on age is positive and
+significant, implying that as you get older, rates of mortality from
+internal causes increase, which is consistent with causes being heart
+disease or diabetes, or mostly things that affect older people. The
+coefficient for over 21 in the models is not statistically significant.
+For the third model, the estimate on over 21 is large but not
+significant, and the standard errors on the estimate are large. For the
+fourth model, again none of the coefficients are significant, implying
+that being over 21 is not significantly associated with changes in the
+mortality rate due to internal causes. This provides evidence that
+increases in other kinds of mortality are driving the significant
+results of being over 21 in the other models.</p>
+<h4
+id="in-3-4-sentences-discuss-whether-you-can-conclude-a-causal-relationship-between-alcohol-consumption-and-mortality-from-this-regression-discontinuity-analysis.-why-or-why-not-structure-your-discussion-in-terms-of-internal-validity-and-external-validity.-be-sure-to-discuss-the-main-threats-to-internal-validity-for-a-regression-discontinuity-design-and-how-your-analysis-addresses-those-threats.">4.
+In 3-4 sentences, discuss whether you can conclude a causal relationship
+between alcohol consumption and mortality from this regression
+discontinuity analysis. Why or why not? Structure your discussion in
+terms of internal validity and external validity. Be sure to discuss the
+main threats to internal validity for a regression discontinuity design,
+and how your analysis addresses those threats.</h4>
+<ul>
+<li>Internal: RD Design assumes that people on either side of the
+threshold are comparable.<br />
+</li>
+<li>External: Assumes no major changes take place in policy or in the
+behavior of just-turned 21 year olds. For example a country where at 21
+you are required to serve in the military for 2 years might expect
+different results.<br />
+</li>
+<li>[OTHER REASONS]</li>
+</ul>
+<h3 id="part-ii-internal-and-external-validity">Part II: Internal and
+External Validity</h3>
+<p>Listen to one of the following podcasts from Probably Causation
+podcast, by Jennifer Doleac, Associate Professor at Texas A&amp;M
+University and (Optional) read/skim the accompanying paper (all posted
+on blackboard, under Lectures 25 and 26) and answer the questions
+below:</p>
+<ol type="1">
+<li>Thomas Dee, on dispatching health workers instead of police to some
+911 calls (Difference in Differences):
+https://www.probablecausation.com/podcasts/episode-80-thomas-dee</li>
+</ol>
+<p>Dee, T.S. and Pyne, J., 2022. A community response approach to mental
+health and substance abuse crises reduced crime. Science
+Advances, 8(23), p.eabm2106.</p>
+<ol start="2" type="1">
+<li>Gaurav Khanna on employment and crime in Colombia (Regression
+Discontinuity):
+https://www.probablecausation.com/podcasts/episode-56-gaurav-khanna</li>
+</ol>
+<p>Khanna, G., Medina, C., Nyshadham, A. and Tamayo, J.A., 2019. Formal
+employment and organized crime: Regression discontinuity evidence from
+Colombia (No. w26203). National Bureau of Economic Research.</p>
+<ol start="3" type="1">
+<li>Allison Harris, on registering returning citizens to vote
+(Randomized Controlled Trial):
+https://www.probablecausation.com/podcasts/episode-91-allison-harris</li>
+</ol>
+<p>Doleac, J.L., Eckhouse, L., Foster-Moore, E., Harris, A., Walker, H.
+and White, A., 2022. Registering returning citizens to vote. Available
+at SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4031676</p>
+<ol start="4" type="1">
+<li>Analisa Packham, on syringe exchange programs and opioid use
+(Difference in differences)
+https://www.probablecausation.com/podcasts/episode-3-analisa-packham</li>
+</ol>
+<p>Packham, Analisa. Are syringe exchange programs helpful or harmful?
+New evidence in the wake of the opioid epidemic. No. w26111. National
+Bureau of Economic Research, 2019.</p>
+<pre><code>1. What is the research question and why is this question important?
+
+
+
+2. What are some of the mechanisms through which the &quot;treatment&quot; may affect the outcomes of interest?
+
+
+
+
+3. How did the authors use an RCT/RD/DiD study to answer their research question? (An intuitive explanation is appropriate here -- no need for equations or nitty gritty details.)
+
+
+
+
+4. What were the main research findings?
+
+
+
+
+
+5. What were some of the challenges mentioned by the author, or brought up by the host (Jen Doleac) threatening the ability to claim a causal relationship between the treatment of interest and the outcomes (e.g. what are the threats to internal validity)?
+
+
+
+
+
+6. What are the threats to external validity? Could the findings be applied elsewhere? Discuss specific contexts in which the findings could be applied more broadly.
+
+
+
+
+7. Anything else you want to share about the paper or research topic.</code></pre>
+</body>
+</html>

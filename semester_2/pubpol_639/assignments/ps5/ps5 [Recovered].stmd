@@ -1,0 +1,132 @@
+---
+title: Problem Set 5
+author: Francisco Brady
+date: "`s c(current_date)`"
+---
+
+### Part I: Estimating and interpreting fixed effects 
+
+Approximately 40%-50% of driving fatalities occur in accidents in which at least one of the drivers involved has been drinking.  There are approximately 40,000 highway traffic fatalities annually in the United States, so perhaps 20,000 of these deaths are alcohol-related.  In the U.S., highway laws are under the jurisdiction of the states, and states have adopted different strategies to address the problem of drunk driving.  In this problem set, you will use data (drunkdri.dta) on traffic death rates by state for 1982-1988 to evaluate the effectiveness of some of these laws.  
+
+### Output
+
+This assignment has you run a total of six regressions. You should put the results from all of your regressions into a single table (which you can create in excel or word or another spreadsheet software, see Table 7.1 in the S&W book for suggested format). The table does not need to display the estimated coefficients for any of the state and year fixed effects, but it should note which specifications include year and/or state fixed effects and should display coefficient estimates and standard errors for all of the other covariates. Each regression output should be presented in a different column within the table. 
+
+#### 1.  *Use data for 1988 only*:
+##### a) Produce a scatterplot of the vehicle fatality rate against the beer tax.
+
+```s
+use drunkdri.dta, clear
+twoway scatter vfrall beertax if year == 1988, legend(off) 
+graph export vfr_beer.png, width(500) replace
+```
+  
+![VFR and Beer Tax](vfr_beer.png)  
+
+```s
+qui reg vfrall beertax mlda if year == 1988, robust
+eststo raw, title(Naive)
+qui reg vfrall beertax mlda dry vmiles yngdrv perinc if year == 1988, robust
+eststo stuff, title(State Controls)
+estout raw stuff, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+ 
+```
+  
+  
+##### b) [Regression 1, Raw correlation]: Regress the vehicle fatality rate against the beer tax and the minimum legal drinking age. Interpret the coefficients on the beer tax and minimum legal drinking age.  
+    
+The coefficient on beertax is positive and significant, implying that holding the legal drinking age constant, a percentage increase in the tax on beer is associated with an increase of .51 in the Vehicle Fatality Rate per 10,000. [Range is from .82 to 4.21, sd .57, so this is big-ish].  
+The coefficient on the minimum legal drinking age is negative and significant. This implies that an increasing the minimum legal drinking age by one year is associated with a .95 decrease in the Vehicle Fatality Rate per 10,000, holding beer taxes constant.  
+
+##### c) [Regression 2, control for "stuff"]: Add to the previous regression the percent of the population living in dry counties, average miles driven, the percent of drivers aged 15-24, and the per capita income in the state.  This set of variables will be referred to for the rest of the problem set as the "state control variables."   
+
+##### d) Do the coefficients on the beer tax and drinking age change substantively from (b) to (c)?  If so, explain why.  
+    
+Yes. The coefficient on beer tax and drinking age both decrease substantively.  
+The coefficient on beer taxes goes from 0.508 (significant at the 1% level) to 0.141 and loses significance at any conventional level. This suggests that the first regression suffered from omitted variable bias, and that including the state control variables helped to account for some of the differences in Vehicle Fatality Rates (VFR) that were not captured previously.  
+The coefficient on minimum legal drinking age also decreases, however it is still significant (at the 5% level). This suggests again that including the state control variables helps to account for omitted variable bias, and that the naive regression was over-attributing some of the effects to minimum legal drinking age.  
+
+
+#### 2) *Use the full dataset:*  
+
+```s
+gen y83 = (year == 1983) 
+gen y84 = (year == 1984)
+gen y85 = (year == 1985)
+gen y86 = (year == 1986)
+gen y87 = (year == 1987)
+gen y88 = (year == 1988)
+
+qui reg vfrall beertax mlda dry vmiles yngdrv perinc, robust
+eststo col1, title(Full Sample)
+qui reg vfrall beertax mlda dry vmiles yngdrv perinc y83-y88, robust
+eststo col2, title(Year FE)
+qui areg vfrall beertax mlda dry vmiles yngdrv perinc y83-y88, absorb(state) robust
+eststo col3, title(State/Year FE)
+estout col1 col2 col3, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+ 
+```
+
+##### a) [Regression 3, control for stuff]: Regress the vehicle fatality rate against the beer tax, the minimum legal drinking age and the state control variables.  
+
+##### b) [Regression 4, add year fixed effects]: Add to the previous regression a full set of year dummies. Are the year dummies statistically significantly related to the fatality rate?  
+When adding year fixed effects to the regression with state controls, none of the year dummies are statistically significant. To confirm this, we can run an F test for the year dummies.  
+
+```s
+qui reg vfrall beertax mlda dry vmiles yngdrv perinc y83-y88, robust
+test  y83 y84 y85 y86 y87 y88
+```  
+
+[ADD INTERPRETATION OF F TEST]
+
+##### c) Interpret the coefficients on the beer tax and minimum legal drinking age in the previous regression. Do the coefficients on the beer tax and minimum legal drinking age change substantively from 2(a) to 2(b)?  Why or why not?  
+        
+The coefficient on beer tax in the full sample regression is 0.095, and is not significant. This decreases to 0.083 in the year fixed effects model, and is also not significant.  
+The coefficient on minimum legal drinking age in the full sample regression is -0.008, and is not significant. This increases to -0.028 in the year fixed effects model, but is also not significant.  
+These changes are small and do not affect the significance of the coefficients. It's possible that some omitted variables that vary over time but not across states do not affect the vehicle fatality rate.  
+
+##### d) [Regression 5, add state and year fixed effects]: Now, add to the regression in 2(b) a set of state fixed effects. Do the coefficients on the beer tax and minimum legal drinking age change substantively Why or why not?  
+    
+Yes, the coefficients on beer tax and minimum legal drinking age change substantively. For beer tax, the coefficient increases in magnitude, and changes direction, from 0.083 in the year fixed effects model to -0.571 in the state-year fixed effects model. The coefficient is also significant at the 5% level, compared to not significant in the previous model. This suggests that time-invariant state-level factors were not being included in the model, resulting in an underestimate of the impact of beer taxes in the year fixed effects model.  
+For minimum legal drinking age, the coefficient increases from -0.027 to 0.004, however it is still not significant. [ADD REASON WHY]
+
+##### e) Write a paragraph in which you discuss whether you can confidently place a causal interpretation on the analysis you have undertaken. In your answer, discuss the biases that could threaten the analysis and how the control variables, year effects and state effects each attempt to deal with these biases.  
+    
+I don't think I would be confident in a causal interpretation for this analysis. I could be confident about claiming a strong association between VFR and the beer tax, but there are other things that could potentially impact the vehicle fatality rate. This is the reason for including the state control variables (% of dry counties, average miles driven, % of young drivers, and income). Leaving these out, as we saw, positively biased the coefficients on both beer tax and driving age upwards, overestimating their impacts.  
+The inclusion of year fixed effects is to account for any time trends that could affect all of the states in the analysis, like a recession or new national law related to driving.  
+Including state fixed effects attempts to control for any differences across states, and including them produced significant changes magnitude and direction of the coefficients.  
+
+
+### Part II: Difference-in-Differences 
+
+For this assignment, you will read the following article and answer the questions below. As you read the article, do not worry about understanding all the technical details. Your goal is to get a big picture understanding of the study.  
+
+Akee, R.K., Copeland, W.E., Keeler, G., Angold, A. and Costello, E.J., 2010. Parents' incomes and children's outcomes: a quasi-experiment using transfer payments from casino profits. American Economic Journal: Applied Economics, 2(1), pp.86-115.  
+
+#### 1. What is the causal question addressed in the study? (1 sentence)  
+The study tries to estimate the effectiveness of cash transfer programs on a number of outcomes for children in treated households.  
+
+#### 2. What are the comparisons the authors are using in their difference-in-differences estimator (2-3 sentences).  
+
+The pre- and post groups are the cohorts of children in households with at least one American Indian parent that received cash transfers, with the younger children acting as the treated group (pre), and the older children serving as the before treatment group (post). The comparison group is children in households with no American Indian parent in the household that were not treated with cash transfers.  
+
+#### 3. What are the main assumptions the authors are making with their difference-in-differences strategy? Give two examples of how these assumptions could be violated in this specific scenario (1 paragraph).  
+
+Parallel Trends: The authors assume that macroeconomic conditions are similar across the groups being differenced. They show that labor market conditions are not statistically different across the groups. An example of how this could be violated is if there were employment opportunities that only tribal members were eligible for, which could explain increased incomes in excess of the cash transfer payments.  
+[REASON TWO]:  
+
+#### 4. What are the main outcome variables and how are they measured?  (1-2 sentences)   
+1. Educational attainment, measured as number of years of schooling, and probability of graduating high school.  
+2. Justice involvement, measured from survey responses of drug dealing by the children in the households, as well as arrest data.  
+
+#### 5. What are the main findings?  Make sure you discuss the economic significance (magnitude) as well as the statistical significance. (1 short paragraph)  
+
+[REASONS]
+
+#### 6. The authors test a couple of different mechanisms through which the casino opening may have affected children's long-run outcomes. Which of these mechanisms do you think is most plausible, and why? (2-3 sentences)  
+
+[REASONS]  
+
+#### 7. Briefly describe what you view as the key limitations or shortcomings of the study, and why.  (1 paragraph)  
+
+[REASONS]

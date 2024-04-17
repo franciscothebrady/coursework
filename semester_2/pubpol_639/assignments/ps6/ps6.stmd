@@ -1,0 +1,188 @@
+---
+title: Problem Set 6
+author: Francisco Brady
+date: "`s c(current_date)`"
+---
+
+### Part I: Minimum legal drinking age and mortality (Regression Discontinuity)
+
+This assignment is based on a research paper by Chris Carpenter and Carlos Dobkin, who investigate the effect of alcohol consumption on mortality: https://www.aeaweb.org/articles/pdf/doi/10.1257/app.1.1.164
+
+To investigate the causal relationship between alcohol consumption and mortality, the authors exploit a discontinuity in when people are legally able to purchase alcohol in the United States, at age 21. The authors compare the mortality rates of individuals leading up to their 21st birthday, to the mortality rates of individuals just past their 21st birthday. You will use data from age21mort.dta to investigate this question, which contains information from the National Center for Health Statistics, which contains mortality data due to a variety of causes, including internal, external, homicide, suicide, and motor vehicle accidents. 
+
+The idea is that the minimum legal drinking age (which is currently set at age 21) produces a sharp difference in access to alcohol for young adults. We assume that observed and unobserved determinants of alcohol consumption and mortality are likely smooth across the age-21 threshold, so the only difference between those just above 21 and just below 21 is their legal access to alcohol.  
+
+#### 1.  How does alcohol consumption affect overall mortality?
+##### a) Produce a scatterplot of mortality due to all causes and the running variable. Do you see evidence of a discontinuity at age 21?  
+
+```s/
+use age21mort.dta, clear
+* create variables 
+gen over21 = (agecell > 21)
+gen agesq  = age^2
+twoway scatter all agecell, xline(21) 
+graph export all_age.png, width(500) replace
+```
+  
+![All Mortality and Age](all_age.png)  
+
+Yes, there is a clear discontinuity as the age variable crosses 21.  
+
+  
+##### b) Write down a regression model to estimate this regression discontinuity, using mortality due to all causes as the outcome variable, and assuming a linear function for the running variable, with constant slopes on either side of the cut-point.
+
+$$
+Mortality_i = \beta_0 + \beta_1 Age_i + \beta_2 Over21_i + \epsilon_i
+$$
+ 
+    
+```s/
+* regressions
+qui reg all agecell over21, r 
+eststo one, title(Reg. 1)
+qui reg all agecell over21 c.agecell#i.over21, r
+eststo two, title(Reg. 2)
+qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+eststo three, title(Reg. 3)
+qui reg all agecell over21 c.agecell#i.over21 if agecell >= 20 & agecell <= 22, r
+eststo four, title(Reg. 4)
+* output
+estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+```
+
+##### c) [Regression 1]: Now run the regression using Stata. Interpret the coefficient on the treatment variable. (Hint: In Stata, create a variable [call it "over21"] to indicate whether the estimate is above the cut-point, 21. This is your 'treatment' variable).  
+
+[INTERPRETATION]  
+-  The coefficient on treatment (`over21`) is 7.663.  
+-  The estimate is significant at the p>0.01 level.  
+-  This implies that being over 21 is associated with an increase of 7.663 in the all cause mortality rate per 100,000.  
+
+##### d) Now let's allow the running variable to have a different "slope" on either side of the discontinuity. Write down a regression function that assumes a linear function for the running variable, but allows for a different slope on either side of the discontinuity.  
+
+$$
+Mortality_i = \beta_0 + \beta_1 Age_1 + \beta_2 Over21_i + \beta_3 (Age_i X Over21_i) + \epsilon_i
+$$
+    
+##### e) [Regression 2]: Now run the regression specified in part d) in Stata and interpret the two slopes. Do the results suggest different slopes on age on either side of the discontinuity? Explain how you reached your conclusion.  
+
+-  The results imply different slopes on either side of the cutoff.  
+-  The over21 coefficient increased to 83.33 and it is significant, implying that crossing the over 21 threshold is associated with an increase of 83.33 in the all cause mortality rate.  
+-  The interaction coefficient is -3.60, and it is significant. This implies that there is a different slope on either side of the age threshold.  
+
+
+##### f) [Regression 3]: Now run the regression assuming a quadratic function for the running variable, with separate quadratic functions on either side of the discontinuity. Does the results suggest a quadratic fit is a better fit of the data? How can you tell? [Hint: You will have to create variables for the quadratic function of the running variable].  
+
+-  Adding the age squared variable made all of the regressors not significant.  
+-  The coefficient on age squared is not significant, which implies that it does not significantly improve the model fit.  
+-  The interaction term between over 21 and age squared is not significant, indicating that there is not strong evidence of a non-linear relationship near the cutoff.  
+
+To convince ourselves, we can run a test of joint significance on age-squared and the interaction with the over21 variable. The results suggest that they are not jointly significant:  
+
+```s/
+qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+testparm agesq  i.over21#c.agesq
+```
+
+##### g) [Regression 4]: Alternative bandwidth. Now run regression specification #2, limiting the sample to the age range 20-22. How did this narrower age range affect the coefficient on over21?  
+
+Compared to regression #2:  
+-  Limiting the bandwidth decreased the coefficient on over21 from 83.33 to 78.83, however it increased the p-value, making it not significant.  
+-  This implies that within this bandwidth, there is not a significant relationship between being over 21 and the all cause mortality rate.  
+
+#### 2. Specific Causes of Death
+
+##### a). Now run regression #2 for the outcomes for motor vehicle deaths, homicides, and suicides, and make a separate table indicating the results for each outcome. Each column should represent the results from a separate regression.  
+
+```s/
+* regressions
+qui reg mva agecell over21 c.agecell#i.over21, r
+eststo one, title(MVA)
+qui reg homicide agecell over21 c.agecell#i.over21, r
+eststo two, title(Homicide)
+qui reg suicide agecell over21 c.agecell#i.over21, r
+eststo three, title(Suicide)
+* output
+estout one two three, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+```
+
+##### b). Which of the specific types of deaths are most affected by alcohol consumption? Do these results fit with your expectations?  
+-  For MVA, the coefficient on over21 is 28.95 and significant, indicating that being over 21 is associated with a significant increase in the motor vehicle mortality rate.  
+-  For Homicide, the coefficient on over21 is 0.795 and significant, indicating that being over 21 is associated with an increase in homicide rates.  
+-  The intuition of these results makes sense to me, since more over 21 year olds will have access to situations involving both cars and alcohol, which could lead to more deaths. The effect on homicides makes sense as well, since situations involving alcohol may lead to misunderstandings or lowered inhibitions that could result in more deaths.  
+
+#### 3. Placebo test: Does alcohol consumption affect mortality due to internal causes? If alcohol-related deaths are causing the increase in mortality observed for those over the age of 21, we would expect that there would not be increases in mortality due to internal causes, such as heart disease or diabetes. These conditions typically occur later in life, and should not necessarily be affected by acute alcohol consumption.  
+
+
+
+##### a). Run the same set of regressions in question 1 (regressions#1-4) using mortality due to internal causes (internal) as the outcome variable, and put the results in a third table.  
+
+```s/
+qui reg internal agecell over21, r 
+eststo one, title(Reg. 1)
+qui reg internal agecell over21 c.agecell#i.over21, r
+eststo two, title(Reg. 2)
+qui reg internal over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+eststo three, title(Reg. 3)
+qui reg internal agecell over21 c.agecell#i.over21 if agecell >= 20 & agecell <= 22, r
+eststo four, title(Reg. 4)
+* output
+estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+
+```
+  
+##### b). In a few sentences, discuss whether this analysis is consistent with the hypothesis that the increase in mortality among those over the age of 21 is driven by alcohol-related incidents.  
+
+In models #1 and #2, the coefficient on age is positive and significant, implying that as you get older, rates of mortality from internal causes increase, which is consistent with causes being heart disease or diabetes, or mostly things that affect older people. The coefficient for over 21 in the models is not statistically significant. For the third model, the estimate on over 21 is large but not significant, and the standard errors on the estimate are large. For the fourth model, again none of the coefficients are significant, implying that being over 21 is not significantly associated with changes in the mortality rate due to internal causes. This provides evidence that increases in other kinds of mortality are driving the significant results of being over 21 in the other models.  
+
+#### 4. In 3-4 sentences, discuss whether you can conclude a causal relationship between alcohol consumption and mortality from this regression discontinuity analysis. Why or why not? Structure your discussion in terms of internal validity and external validity. Be sure to discuss the main threats to internal validity for a regression discontinuity design, and how your analysis addresses those threats.  
+
+-  Internal: RD Design assumes that people on either side of the threshold are comparable.
+-  Internal: [Hard to manipulate -- you can't change your age]  
+-  Internal: [Ruled out other causes through placebo tests (other mortality)]  
+-  External: Assumes no major changes take place in policy or in the behavior of just-turned 21 year olds. For example a country where at 21 you are required to serve in the military for 2 years might expect different results. May not translate to outside of US contexts. In the United States context, there are no other legal thresholds around 21.  
+-  Internal: One concern is that the estimates lose significance when restricting the observations to those close to the bandwidth.  
+-  However, because of the other tests, I'm more confident that we can call these results causal. I'm curious if another placebo test, such as analyzing other thresholds (over 45), could add additional support.  
+
+### Part II: Internal and External Validity  
+
+Listen to one of the following podcasts from Probably Causation podcast, by Jennifer Doleac, Associate Professor at Texas A&M University and (Optional) read/skim the accompanying paper (all posted on blackboard, under Lectures 25 and 26) and answer the questions below:  
+
+4. [Analisa Packham, on syringe exchange programs and opioid use (Difference in differences)](https://www.probablecausation.com/podcasts/episode-3-analisa-packham)  
+
+#### 1. What is the research question and why is this question important?  
+
+How does the introduction of Syringe Exchange Programs (SEPs) impact the incidence of blood-borne illnesses and other drug-related health outcomes. This is important because public health officials have promoted SEPs as cheap and effective programs that can positively affect blood-borne illnesses, however most of the evidence has been observational and not causal. This paper also looks at other outcomes which can shed light on unintended consequences of SEP programs.  
+
+#### 2. What are some of the mechanisms through which the "treatment" may affect the outcomes of interest?  
+
+SEPs provide clean needles for people who use injection drugs. This can impact blood-borne illnesses through preventing the reuse and sharing of used needles. This is the first order outcome to measure, but there may be other impacts as well. It's possible that SEP sites could help people access options for treatment, and in that way improve health outcomes, such as drug-related hospitalizations and mortality. For the crime-related outcomes, SEPs could affect drug-related arrests and thefts because many health interventions are done in partnership with local law enforcement, and so may reflect changing responses to people struggling with addiction.  
+
+#### 3. How did the authors use an RCT/RD/DiD study to answer their research question? (An intuitive explanation is appropriate here -- no need for equations or nitty gritty details.)  
+
+To estimate the effects of new SEPs, the study compares counties that open new SEPs within the last 10 years with counties that already had existing SEPs and did not open any new ones during the study period. With this specification, they are able to isolate the change in outcomes for the treated counties while accounting for any unrelated trends that affected both counties similarly over time.  
+
+#### 4. What were the main research findings?  
+
+Four main outcomes: HIV Rates, Opioid and drug-related mortality, opioid-related hospital visits, drug-related arrests.  
+- HIV Rates: The new SEPs led to significant reductions in HIV diagnoses, with around a 25% decrease in treated counties. The effect grows over time to about 30%. This translates to 6000 cases/year when extrapolated nationwide.  
+- Mortality: New SEPs led to an increase in drug-related mortality, with the effects being driven by heroin deaths. The estimates indicate a 13.5% increase in drug-related mortality. The effects are being driven by rural areas.  
+- Hospitalizations: SEPs are associated with an 8.9% increase in opioid-related emergency department visits.  
+- Arrests for opioid-posession increases 16.4% after a new syringe exchange program is opened.  
+
+#### 5. What were some of the challenges mentioned by the author, or brought up by the host (Jen Doleac) threatening the ability to claim a causal relationship between the treatment of interest and the outcomes (e.g. what are the threats to internal validity)?  
+
+-  It's possible that the effect is really just measuring some preexisting trends that are in the data.  
+-  Opening of SEPs is not randomly assigned, so those counties that decide to open might look very different that other counties.  
+-  Opioid mortality might be trending up in those counties.  
+-  Counties that decide to open SEPs might experience a new wave of drug use.  
+-  Any changes could be attributed to changes in the population (new injection drug users moving into counties)
+
+#### 6. What are the threats to external validity? Could the findings be applied elsewhere? Discuss specific contexts in which the findings could be applied more broadly.  
+
+-  These findings are US specific. Packham mentions that in some medical studies, US outcomes for SEPs are compared with other countries, which can be problematic because those countries have fundementally different health systems.  
+-  There are important rural and urban differences which may affect the generalizability of the results.  
+
+
+#### 7. Anything else you want to share about the paper or research topic.  
+
+I didn't like the part where they mentioned that as economists, they were somehow able to deal with this issue more dispassionately. It came off as rude to other disciplines. This is a problem in economics more generally, where subject matter expertise is written off as less useful than econometric rigor.  

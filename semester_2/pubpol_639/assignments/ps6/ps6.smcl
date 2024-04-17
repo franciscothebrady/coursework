@@ -1,0 +1,184 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps6/ps6.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}16 Apr 2024, 22:00:24
+{txt}
+{com}. //_1
+. display c(current_date)
+{res}16 Apr 2024
+{txt}
+{com}. //_2q
+. use age21mort.dta, clear
+{txt}
+{com}. * create variables 
+. gen over21 = (agecell > 21)
+{txt}
+{com}. gen agesq  = age^2
+{txt}
+{com}. twoway scatter all agecell, xline(21) 
+{res}{txt}
+{com}. graph export all_age.png, width(500) replace
+{txt}{p 0 4 2}
+file {bf}
+all_age.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. //_3q
+. * regressions
+. qui reg all agecell over21, r 
+{txt}
+{com}. eststo one, title(Reg. 1)
+{txt}
+{com}. qui reg all agecell over21 c.agecell#i.over21, r
+{txt}
+{com}. eststo two, title(Reg. 2)
+{txt}
+{com}. qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+{txt}
+{com}. eststo three, title(Reg. 3)
+{txt}
+{com}. qui reg all agecell over21 c.agecell#i.over21 if agecell >= 20 & agecell <= 22, r
+{txt}
+{com}. eststo four, title(Reg. 4)
+{txt}
+{com}. * output
+. estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+{res}
+{txt}{hline 84}
+{txt}                           Reg. 1          Reg. 2          Reg. 3          Reg. 4   
+{txt}                                                                                    
+{txt}{hline 84}
+{txt}Age Cell            {res}       -0.975           0.827          34.460          -1.612   {txt}
+                    {res}       (0.66)          (0.72)         (61.95)          (2.28)   {txt}
+{txt}over21              {res}        7.663***       83.333***     1416.610          78.828   {txt}
+                    {res}       (1.51)         (24.12)       (1014.10)         (79.08)   {txt}
+{txt}over21=0 # Age Cell {res}                        0.000           0.000           0.000   {txt}
+                    {res}                          (.)             (.)             (.)   {txt}
+{txt}over21=1 # Age Cell {res}                       -3.603***     -127.989          -3.289   {txt}
+                    {res}                       (1.12)         (95.51)          (3.73)   {txt}
+{txt}agesq               {res}                                       -0.840                   {txt}
+                    {res}                                       (1.54)                   {txt}
+{txt}over21=0 # agesq    {res}                                        0.000                   {txt}
+                    {res}                                          (.)                   {txt}
+{txt}over21=1 # agesq    {res}                                        2.904                   {txt}
+                    {res}                                       (2.26)                   {txt}
+{txt}_cons               {res}      112.310***       76.251***     -260.037         126.368** {txt}
+                    {res}      (13.45)         (14.68)        (622.21)         (47.14)   {txt}
+{txt}{hline 84}
+{txt}Adj. R-Squared      {res}        0.577           0.645           0.644           0.674   {txt}
+{txt}R-Squared           {res}        0.595           0.668           0.682           0.716   {txt}
+{txt}Observations        {res}       48.000          48.000          48.000          24.000   {txt}
+{txt}{hline 84}
+{txt}* p<0.10, ** p<0.05, *** p<0.01
+
+{com}. //_4q
+. qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+{txt}
+{com}. testparm agesq  i.over21#c.agesq
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}agesq = 0{p_end}
+{p 0 7}{space 1}{text:( 2)}{space 1} 1.over21#c.agesq = 0{p_end}
+
+{txt}       F(  2,    42) ={res}    0.93
+{txt}{col 13}Prob > F ={res}    0.4019
+{txt}
+{com}. //_5q
+. * regressions
+. qui reg mva agecell over21 c.agecell#i.over21, r
+{txt}
+{com}. eststo one, title(MVA)
+{txt}
+{com}. qui reg homicide agecell over21 c.agecell#i.over21, r
+{txt}
+{com}. eststo two, title(Homicide)
+{txt}
+{com}. qui reg suicide agecell over21 c.agecell#i.over21, r
+{txt}
+{com}. eststo three, title(Suicide)
+{txt}
+{com}. * output
+. estout one two three, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+{res}
+{txt}{hline 68}
+{txt}                              MVA        Homicide         Suicide   
+{txt}                                                                    
+{txt}{hline 68}
+{txt}Age Cell            {res}       -2.568***        0.795***        0.029   {txt}
+                    {res}       (0.38)          (0.26)          (0.18)   {txt}
+{txt}over21              {res}       28.945**        24.160***       10.619   {txt}
+                    {res}      (12.37)          (6.98)          (9.02)   {txt}
+{txt}over21=0 # Age Cell {res}        0.000           0.000           0.000   {txt}
+                    {res}          (.)             (.)             (.)   {txt}
+{txt}over21=1 # Age Cell {res}       -1.162**        -1.145***       -0.420   {txt}
+                    {res}       (0.58)          (0.33)          (0.42)   {txt}
+{txt}_cons               {res}       83.849***        0.737          11.059***{txt}
+                    {res}       (7.75)          (5.15)          (3.67)   {txt}
+{txt}{hline 68}
+{txt}Adj. R-Squared      {res}        0.703           0.332           0.453   {txt}
+{txt}R-Squared           {res}        0.722           0.375           0.488   {txt}
+{txt}Observations        {res}       48.000          48.000          48.000   {txt}
+{txt}{hline 68}
+{txt}* p<0.10, ** p<0.05, *** p<0.01
+
+{com}. //_6q
+. qui reg internal agecell over21, r 
+{txt}
+{com}. eststo one, title(Reg. 1)
+{txt}
+{com}. qui reg internal agecell over21 c.agecell#i.over21, r
+{txt}
+{com}. eststo two, title(Reg. 2)
+{txt}
+{com}. qui reg internal over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+{txt}
+{com}. eststo three, title(Reg. 3)
+{txt}
+{com}. qui reg internal agecell over21 c.agecell#i.over21 if agecell >= 20 & agecell <= 22, r
+{txt}
+{com}. eststo four, title(Reg. 4)
+{txt}
+{com}. * output
+. estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
+{res}
+{txt}{hline 84}
+{txt}                           Reg. 1          Reg. 2          Reg. 3          Reg. 4   
+{txt}                                                                                    
+{txt}{hline 84}
+{txt}Age Cell            {res}        1.600***        1.618***        4.024           0.164   {txt}
+                    {res}       (0.25)          (0.34)         (27.63)          (0.90)   {txt}
+{txt}over21              {res}        0.392           1.155         503.192           8.992   {txt}
+                    {res}       (0.54)         (10.62)        (441.53)         (30.07)   {txt}
+{txt}over21=0 # Age Cell {res}                        0.000           0.000           0.000   {txt}
+                    {res}                          (.)             (.)             (.)   {txt}
+{txt}over21=1 # Age Cell {res}                       -0.036         -45.951          -0.348   {txt}
+                    {res}                       (0.50)         (41.70)          (1.42)   {txt}
+{txt}agesq               {res}                                       -0.060                   {txt}
+                    {res}                                       (0.69)                   {txt}
+{txt}over21=0 # agesq    {res}                                        0.000                   {txt}
+                    {res}                                          (.)                   {txt}
+{txt}over21=1 # agesq    {res}                                        1.050                   {txt}
+                    {res}                                       (0.99)                   {txt}
+{txt}_cons               {res}      -13.512***      -13.876*        -37.929          16.122   {txt}
+                    {res}       (5.00)          (6.90)        (276.96)         (18.58)   {txt}
+{txt}{hline 84}
+{txt}Adj. R-Squared      {res}        0.790           0.786           0.785           0.420   {txt}
+{txt}R-Squared           {res}        0.799           0.799           0.808           0.496   {txt}
+{txt}Observations        {res}       48.000          48.000          48.000          24.000   {txt}
+{txt}{hline 84}
+{txt}* p<0.10, ** p<0.05, *** p<0.01
+
+{com}. 
+. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_2/pubpol_639/assignments/ps6/ps6.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}16 Apr 2024, 22:00:25
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
