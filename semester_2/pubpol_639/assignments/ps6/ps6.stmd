@@ -19,14 +19,17 @@ The idea is that the minimum legal drinking age (which is currently set at age 2
 use age21mort.dta, clear
 * create variables 
 gen over21 = (agecell > 21)
-gen agesq  = age^2
-twoway scatter all agecell, xline(21) 
+* center age
+gen age_centered = age - 21
+gen agesq  = age_centered^2
+*twoway scatter all agecell, xline(21) 
+twoway scatter all age_centered, xline(0) 
 graph export all_age.png, width(500) replace
 ```
   
 ![All Mortality and Age](all_age.png)  
 
-Yes, there is a clear discontinuity as the age variable crosses 21.  
+Yes, there is a clear discontinuity as the age variable crosses the centered age threshold (21).  
 
   
 ##### b) Write down a regression model to estimate this regression discontinuity, using mortality due to all causes as the outcome variable, and assuming a linear function for the running variable, with constant slopes on either side of the cut-point.
@@ -38,13 +41,13 @@ $$
     
 ```s/
 * regressions
-qui reg all agecell over21, r 
+qui reg all age_centered over21, r 
 eststo one, title(Reg. 1)
-qui reg all agecell over21 c.agecell#i.over21, r
+qui reg all age_centered over21 c.age_centered#i.over21, r
 eststo two, title(Reg. 2)
-qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+qui reg all over21 age_centered agesq c.age_centered#i.over21 c.agesq#i.over21, r
 eststo three, title(Reg. 3)
-qui reg all agecell over21 c.agecell#i.over21 if agecell >= 20 & agecell <= 22, r
+qui reg all age_centered over21 c.age_centered#i.over21 if agecell >= 20 & agecell <= 22, r
 eststo four, title(Reg. 4)
 * output
 estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
@@ -52,9 +55,8 @@ estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.
 
 ##### c) [Regression 1]: Now run the regression using Stata. Interpret the coefficient on the treatment variable. (Hint: In Stata, create a variable [call it "over21"] to indicate whether the estimate is above the cut-point, 21. This is your 'treatment' variable).  
 
-[INTERPRETATION]  
 -  The coefficient on treatment (`over21`) is 7.663.  
--  The estimate is significant at the p>0.01 level.  
+-  The estimate is significant at the p<0.01 level.  
 -  This implies that being over 21 is associated with an increase of 7.663 in the all cause mortality rate per 100,000.  
 
 ##### d) Now let's allow the running variable to have a different "slope" on either side of the discontinuity. Write down a regression function that assumes a linear function for the running variable, but allows for a different slope on either side of the discontinuity.  
@@ -66,28 +68,28 @@ $$
 ##### e) [Regression 2]: Now run the regression specified in part d) in Stata and interpret the two slopes. Do the results suggest different slopes on age on either side of the discontinuity? Explain how you reached your conclusion.  
 
 -  The results imply different slopes on either side of the cutoff.  
--  The over21 coefficient increased to 83.33 and it is significant, implying that crossing the over 21 threshold is associated with an increase of 83.33 in the all cause mortality rate.  
--  The interaction coefficient is -3.60, and it is significant. This implies that there is a different slope on either side of the age threshold.  
+-  The interaction coefficient is -3.603, and it is significant. This implies that there is a different slope on either side of the age threshold.  
+-  The inclusion of the interaction variable did not change the coefficient on treatment. The coefficient is significant, implying that crossing the over 21 threshold is associated with an increase of 7.663 in the all-cause mortality rate.  
 
 
 ##### f) [Regression 3]: Now run the regression assuming a quadratic function for the running variable, with separate quadratic functions on either side of the discontinuity. Does the results suggest a quadratic fit is a better fit of the data? How can you tell? [Hint: You will have to create variables for the quadratic function of the running variable].  
 
--  Adding the age squared variable made all of the regressors not significant.  
--  The coefficient on age squared is not significant, which implies that it does not significantly improve the model fit.  
--  The interaction term between over 21 and age squared is not significant, indicating that there is not strong evidence of a non-linear relationship near the cutoff.  
+-  The interaction term between over 21 and age-squared is not significant, indicating that there is not strong evidence of a non-linear relationship near the cutoff.  
+-  Adding the age-squared variable increased the standard errors for the treatment variable, but it remains significant. This implies that the addition of the age squared variable and the interaction term increased noise.  
+-  All of this suggests that the addition of the quadratic term and the interaction does not result in a better fit.  
 
 To convince ourselves, we can run a test of joint significance on age-squared and the interaction with the over21 variable. The results suggest that they are not jointly significant:  
 
 ```s/
-qui reg all over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+qui reg all over21 age_centered agesq c.age_centered#i.over21 c.agesq#i.over21, r
 testparm agesq  i.over21#c.agesq
 ```
 
 ##### g) [Regression 4]: Alternative bandwidth. Now run regression specification #2, limiting the sample to the age range 20-22. How did this narrower age range affect the coefficient on over21?  
 
 Compared to regression #2:  
--  Limiting the bandwidth decreased the coefficient on over21 from 83.33 to 78.83, however it increased the p-value, making it not significant.  
--  This implies that within this bandwidth, there is not a significant relationship between being over 21 and the all cause mortality rate.  
+-  Limiting the bandwidth decreased the coefficient on over21 from 7.663 to 9.753, the estimate is still significant.  
+-  This suggests that for individuals within this age range, turning 21 is significantly associated with a larger increase in all-cause mortality.  
 
 #### 2. Specific Causes of Death
 
@@ -95,53 +97,48 @@ Compared to regression #2:
 
 ```s/
 * regressions
-qui reg mva agecell over21 c.agecell#i.over21, r
+qui reg mva over21 age_centered c.age_centered#i.over21, r
 eststo one, title(MVA)
-qui reg homicide agecell over21 c.agecell#i.over21, r
+qui reg homicide over21 age_centered c.age_centered#i.over21, r
 eststo two, title(Homicide)
-qui reg suicide agecell over21 c.agecell#i.over21, r
+qui reg suicide over21 age_centered c.age_centered#i.over21, r
 eststo three, title(Suicide)
 * output
 estout one two three, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
 ```
 
 ##### b). Which of the specific types of deaths are most affected by alcohol consumption? Do these results fit with your expectations?  
--  For MVA, the coefficient on over21 is 28.95 and significant, indicating that being over 21 is associated with a significant increase in the motor vehicle mortality rate.  
--  For Homicide, the coefficient on over21 is 0.795 and significant, indicating that being over 21 is associated with an increase in homicide rates.  
--  The intuition of these results makes sense to me, since more over 21 year olds will have access to situations involving both cars and alcohol, which could lead to more deaths. The effect on homicides makes sense as well, since situations involving alcohol may lead to misunderstandings or lowered inhibitions that could result in more deaths.  
+
+-  The models indicate that motor vehicle accidents and suicide deaths are the most impacted by being over 21 years old. The intuition of these results makes sense to me, those over 21 will have access to situations involving both cars, which could lead to more deaths. The results on the suicide model make some sense, as suicidal ideation affects people of all ages, although those over 21 might be more likely to be successful in their attempts. The effect of the treatment is minimal for deaths by homicide.  
 
 #### 3. Placebo test: Does alcohol consumption affect mortality due to internal causes? If alcohol-related deaths are causing the increase in mortality observed for those over the age of 21, we would expect that there would not be increases in mortality due to internal causes, such as heart disease or diabetes. These conditions typically occur later in life, and should not necessarily be affected by acute alcohol consumption.  
-
-
 
 ##### a). Run the same set of regressions in question 1 (regressions#1-4) using mortality due to internal causes (internal) as the outcome variable, and put the results in a third table.  
 
 ```s/
-qui reg internal agecell over21, r 
+qui reg internal over21 age_centered, r 
 eststo one, title(Reg. 1)
-qui reg internal agecell over21 c.agecell#i.over21, r
+qui reg internal over21 age_centered c.age_centered#i.over21, r
 eststo two, title(Reg. 2)
-qui reg internal over21 agecell agesq c.agecell#i.over21 c.agesq#i.over21, r
+qui reg internal over21 age_centered agesq c.age_centered#i.over21 c.agesq#i.over21, r
 eststo three, title(Reg. 3)
-qui reg internal agecell over21 c.agecell#i.over21 if agecell >= 20 & agecell <= 22, r
+qui reg internal over21 age_centered c.age_centered#i.over21 if agecell >= 20 & agecell <= 22, r
 eststo four, title(Reg. 4)
 * output
 estout one two three four, cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) label collabels("") 
-
 ```
   
 ##### b). In a few sentences, discuss whether this analysis is consistent with the hypothesis that the increase in mortality among those over the age of 21 is driven by alcohol-related incidents.  
 
-In models #1 and #2, the coefficient on age is positive and significant, implying that as you get older, rates of mortality from internal causes increase, which is consistent with causes being heart disease or diabetes, or mostly things that affect older people. The coefficient for over 21 in the models is not statistically significant. For the third model, the estimate on over 21 is large but not significant, and the standard errors on the estimate are large. For the fourth model, again none of the coefficients are significant, implying that being over 21 is not significantly associated with changes in the mortality rate due to internal causes. This provides evidence that increases in other kinds of mortality are driving the significant results of being over 21 in the other models.  
+In models #1 and #2, the coefficient on age is positive and significant, implying that as you get older, rates of mortality from internal causes increase, which is consistent with causes being heart disease or diabetes, or mostly things that affect older people. The coefficient for over 21 in the first two models is not statistically significant.  
+In the third model, the estimate on over 21 is larger but not significant, and the standard errors have increased.  
+For the fourth model, which uses a restricted dataset around the cutoff, only the over21 coefficient is significant, implying that being over 21 is associated with changes in the mortality rate due to internal causes. This lends supports a conclusion that for those between 20 and 22 years old, at least some deaths can be attributed to internal causes, not legal access to alcohol. This undercuts the idea that the initial results in the preferred specification are driven solely by alcohol deaths.  
 
 #### 4. In 3-4 sentences, discuss whether you can conclude a causal relationship between alcohol consumption and mortality from this regression discontinuity analysis. Why or why not? Structure your discussion in terms of internal validity and external validity. Be sure to discuss the main threats to internal validity for a regression discontinuity design, and how your analysis addresses those threats.  
 
--  Internal: RD Design assumes that people on either side of the threshold are comparable.
--  Internal: [Hard to manipulate -- you can't change your age]  
--  Internal: [Ruled out other causes through placebo tests (other mortality)]  
--  External: Assumes no major changes take place in policy or in the behavior of just-turned 21 year olds. For example a country where at 21 you are required to serve in the military for 2 years might expect different results. May not translate to outside of US contexts. In the United States context, there are no other legal thresholds around 21.  
--  Internal: One concern is that the estimates lose significance when restricting the observations to those close to the bandwidth.  
--  However, because of the other tests, I'm more confident that we can call these results causal. I'm curious if another placebo test, such as analyzing other thresholds (over 45), could add additional support.  
+I think I can accept the results as causal. Because RDs assume that people on either side of the threshold are similar on observables, and in the restricted model the treatment term retained it's significance, I find the results slightly believable. Another assumption for sharp RDs is that the population has strict compliance. In reality I think compliance might not be perfect, so perhaps a fuzzy RD specification would be more appropriate (fake ids!). Another threat to internal validity is the results of the placebo test on internal death rates, especially with the restricted model, something is going on there. Another assumption of RDs is that there are no other major policy changes at the cutoff, which is true in this case, 18, 21, and 25 are the big years for youth in the United States, but there are no other policies that I can think of where the cutoff is 21.  
+As far as external validity, these results may not translate to a context outside the United States, where legal drinking ages are lower. 
+
 
 ### Part II: Internal and External Validity  
 
