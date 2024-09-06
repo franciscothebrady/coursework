@@ -1,0 +1,146 @@
+---
+title: "Lab 0"
+author: "Francisco Brady"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+
+here::i_am('lab_0.Rmd')
+```
+
+## Load Data
+
+```{r}
+setwd(here::here())
+epid <- read_csv('EPID_521_lab_data.csv', na = 'NA')
+```
+
+## View Data 
+```{r}
+#View(epid)
+glimpse(epid)
+dim(epid)
+```
+
+## Numerical Variables
+
+```{r}
+hist(epid$RIDAGEYR, main = "Histogram of Age Variable", xlab = "Age")
+```
+
+```{r}
+boxplot(epid$RIDAGEYR)
+```
+
+### Five-Number Summary
+
+```{r}
+mean(epid$RIDAGEYR, na.rm = TRUE)
+sd(epid$RIDAGEYR, na.rm = TRUE)
+summary(epid$RIDAGEYR)
+```
+
+## Categorical Variables
+### Table
+
+```{r}
+table(epid$RIAGENDR)
+```
+### Table of Proportions
+```{r}
+prop.table(table(epid$RIAGENDR))
+```
+
+### Barplot
+```{r}
+barplot(table(epid$RIAGENDR), col = c("red", "blue"))
+```
+
+### Education
+```{r}
+table(epid$DMDEDUC2)
+```
+
+### Bar plot
+```{r}
+barplot(table(epid$DMDEDUC2), cex.names = 0.9)
+```
+### Ordered 
+```{r}
+# order the levels of the education variable
+epid$DMDEDUC2 <- ordered(epid$DMDEDUC2, 
+                         levels = c("NoHighSchool", "SomeHighSchool","HighSchool", "SomeCollege", "College"))
+```
+
+### Barplot
+```{r}
+table(epid$DMDEDUC2)
+barplot(table(epid$DMDEDUC2), cex.names = 0.8)
+```
+
+## Basic Data Manipulation
+
+```{r}
+epid <- rename(epid, Age = RIDAGEYR)
+epid <- mutate(epid, Age50 = ifelse(Age >= 50, 1, 0))
+```
+
+```{r}
+table(epid$Age50)
+```
+
+## Questions 
+
+1. Each dataset contains a variable for self-reported race. Rename that variable to simply race. Is there any need to order the levels of the race variable? Why?
+
+No there is no need to order the race variable because there is no implied ordering to the variable, it does not make sense.  
+
+2. How many levels are included in the race variable? What are the proportions for each group in your dataset?  
+```{r}
+prop.table(table(epid$RIDRETH1))
+```
+
+There are 5 different levels for the race variable.
+
+3. Compute the mean, standard deviation and Five-Number Summary for the BMI variable in your dataset.
+```{r}
+mean(epid$BMXBMI, na.rm = T)
+sd(epid$BMXBMI, na.rm = T)
+summary(epid$BMXBMI)
+```
+
+4. Based on the descriptive statistics for BMI, do you have any concerns about potential outlier values?  
+There is one very high BMI value (130). The rest of the data is closer to the mean. It is possible that this is an error. 
+
+5. Based on the descriptive statistics for BMI, do you think the distribution for BMI is most likely to be left skewed, right skewed or symmetric? Why?  
+The distribution is most likely right-skewed because the mean is larger than the median. 
+
+6. Confirm your answer to the above question by creating an appropriate plot to visualize the distribution of BMI.
+```{r}
+hist(epid$BMXBMI)
+```
+7. Create a new variable called LogAge containing the natural logarithm of the Age variable. (HINT: The log function computes the natural log, logAge=log(Age) )  
+```{r}
+epid <- mutate(epid, LogAge = log(Age))
+```
+
+8. What does the distribution of your new variable logAge? (HINT: Create a histogram or boxplot of the variable you created in the previous step.) Compare this to the shape of the original Age variable? That is, how did applying the natural log function change the shape of the distribution of ages in the dataset.  
+```{r}
+# hist(epid$Age)
+hist(epid$LogAge)
+```
+Taking the log of age changed the distribution of the Age variable from being more right-slewed to being more evenly distributed. 
+
+9. Suppose that you are interested in designing a study with individuals aged 65 and above. How many such samples in your dataset? (HINT: create a new variable to identify samples 65+ and use a table to count.)
+```{r}
+epid <- mutate(epid, over65 = ifelse(Age >= 65, 1, 0))
+table(epid$over65)
+```
+
+There are 427 individuals over 65 in the dataset.
+

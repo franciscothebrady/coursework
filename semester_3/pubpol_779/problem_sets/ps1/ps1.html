@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Francisco Brady" />
+  <title>Problem Set 1</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Problem Set 1</h1>
+<p class="author">Francisco Brady</p>
+<p class="date">3 Sep 2024</p>
+</header>
+<h4
+id="the-purpose-of-this-question-is-to-help-you-build-familiarity-with-likelihood-functions.-you">1.
+The purpose of this question is to help you build familiarity with
+likelihood functions. You</h4>
+<p>may want to use a spreadsheet to help you perform some of the
+calculations, as it allows you to write an equation in which the unknown
+is a reference to another cell. Then you can easily change the value of
+that cell to get different solutions to the equation.</p>
+<p>Let’s suppose that we are using a logit to model the probability that
+a randomly selected voter supports Kamala Harris.</p>
+<p><span class="math display">\[
+Pr(H) = \frac{exp(\theta)}{1 + exp(\theta)}
+\]</span></p>
+<h5
+id="a-this-function-produces-a-value-that-falls-between-0-and-1.-now-let-the-parameter-theta">a)
+This function produces a value that falls between 0 and 1. Now let the
+parameter <span class="math inline">\(\theta\)</span></h5>
+<p>take on the following values: -3, -1, 0, 1, 3. Calculate <span
+class="math inline">\(Pr(H)\)</span> for each value of <span
+class="math inline">\(\theta\)</span>. What do you notice?</p>
+<h5
+id="b-now-suppose-that-you-randomly-select-three-voters-and-observe-h-h-and-t-where">b)
+Now suppose that you randomly select three voters and observe: H, H, and
+T, where</h5>
+<p>T means voting for someone else. The joint probability of this set
+outcomes is:</p>
+<p><span class="math display">\[
+Pr(H,H,T) = \left( \frac{exp(\theta)}{1 + exp(\theta)} \right) \left(
+\frac{exp(\theta)}{1 + exp(\theta)} \right) \left( 1 -
+\frac{exp(\theta)}{1 + exp(\theta)} \right)
+\]</span></p>
+<p>Note that the third term on the right hand side can be simplified if
+we rewrite the 1 as <span class="math inline">\(\frac{1+exp(\theta)}{1 +
+exp(\theta)}\)</span> and perform the subtraction.</p>
+<p><span class="math display">\[
+Pr(H,H,T) = \left( \frac{exp(\theta)}{1 + exp(\theta)} \right) \left(
+\frac{exp(\theta)}{1 + exp(\theta)} \right) \left( \frac{1}{1 +
+exp(\theta)} \right)
+\]</span></p>
+<p>Again, let the parameter θ take on the values of -3, -1, 0, 1, 3.
+This is where using a spreadsheet will really save some time. What are
+the associated joint probabilities?</p>
+<h5
+id="c-since-a-likelihood-function-is-proportional-to-the-probability-of-observing-y-given-theta-we-can-write-the-above-as-a-likelihood-function.">c)
+Since a likelihood function is proportional to the probability of
+observing <span class="math inline">\(y\)</span> given <span
+class="math inline">\(\theta\)</span>, we can write the above as a
+likelihood function.</h5>
+<p><span class="math display">\[
+\mathcal{L}(\theta | \y = H,H,T) = \left( \frac{exp(\theta)}{1 +
+exp(\theta)} \right) \left( \frac{exp(\theta)}{1 + exp(\theta)} \right)
+\left( \frac{1}{1 + exp(\theta)} \right)
+\]</span></p>
+<p>Try to find the value of <span class="math inline">\(\theta\)</span>
+that maximizes the expression. What is the value of <span
+class="math inline">\(Pr(H)\)</span> associated with this value of <span
+class="math inline">\(\theta\)</span>? Does this make sense?</p>
+<h5
+id="d-if-we-take-the-log-of-both-sides-of-the-above-we-get-the-following">d)
+If we take the log of both sides of the above, we get the
+following:</h5>
+<p><span class="math display">\[
+\mathcal{L}(\theta | \y = H,H,T) = \ln \left( \frac{exp(\theta)}{1 +
+exp(\theta)} \right) + \ln \left( \frac{exp(\theta)}{1 + exp(\theta)}
+\right) + \ln \left( \frac{1}{1 + exp(\theta)} \right)
+\]</span></p>
+<p>Find the value of <span class="math inline">\(\theta\)</span> that
+maximizes this new equation. Hint: do the calculations inside the
+parentheses and then take the natural log. What insights do you draw
+from your answer?</p>
+<h5
+id="e-all-of-this-assumes-that-prh-is-the-same-for-all-individuals.-its-more-likely-that">e)
+All of this assumes that <span class="math inline">\(Pr(H)\)</span> is
+the same for all individuals. It’s more likely that</h5>
+<p>different people with different characteristics will have different
+probabilities of voting H.</p>
+<p>Let’s assume we measure some characteristic <span
+class="math inline">\(x_i\)</span> for each person. We now can model the
+parameter <span class="math inline">\(\theta_i\)</span> as <span
+class="math inline">\(\beta_i\)</span>. Re-write the log likelihood
+function with this change. Note: normally, we would include an intercept
+as well, so that <span class="math inline">\(\theta_i = \beta_0 +
+\beta_1 x_i\)</span>, but let’s keep it simpler for now and ignore the
+intercept.</p>
+<h5
+id="f-suppose-that-the-value-of-x_i-in-each-case-respectively-in-order-is-6-3-4.-find-the">f)
+Suppose that the value of <span class="math inline">\(x_i\)</span> in
+each case respectively (in order) is 6, 3, 4. Find the</h5>
+<p>value of <span class="math inline">\(\beta\)</span> that produces the
+highest value of the log likelihood function.</p>
+<h5
+id="g-given-this-value-of-beta-what-is-the-probability-that-the-first-voter-with-x_i-6-will-vote-h-the-second-voter">g)
+Given this value of <span class="math inline">\(\beta\)</span>, what is
+the probability that the first voter, with <span
+class="math inline">\(x_i\)</span> = 6, will vote H? The second
+voter?</h5>
+<h4
+id="use-the-gss2014subset-dataset-for-this-question.-the-dependent-variable-is-abany-where-1-indicates-the-respondent-believes-a-pregnant-woman-should-be-able-to-obtain-a-legal-abortion-if-she-wants-for-any-reason-and-0-indicates-otherwise.">2.
+Use the <code>GSS2014subset</code> dataset for this question. The
+dependent variable is <code>abany</code>, where 1 indicates the
+respondent believes a pregnant woman should be able to obtain a legal
+abortion if she wants, for any reason, and 0 indicates otherwise.</h4>
+<p>The independent variables are: <code>age</code>, the respondent’s age
+in years; <code>childs</code>, the number of children a respondent has;
+<code>educ</code>, the respondent’s education in years;
+<code>polviews</code>, the respondent’s score on the 7-point ideology
+scale in which higher values mean a person is more conservative; and
+<code>relpersn</code>, a four-point scale in which higher values mean
+the person is less religious.</p>
+<p>Note: R users likely will want to convert the variables that are in
+the factor class to numeric class using as numeric from the sjlabelled
+library so that they start at 0 post-conversion (see help document). The
+regular as.numeric function will create variables that start at 1.</p>
+<h5
+id="a-estimate-a-probit-model-using-the-above-mentioned-variables.-report-the-results-and-describe-the-basic-substantive-findings-the-effect-of-each-independent-variable-and-its-statistical-significance-as-best-you-can-without-calculating-any-predicted-values-or-marginal-effects.">a)
+Estimate a probit model using the above-mentioned variables. Report the
+results and describe the basic substantive findings – the effect of each
+independent variable and its statistical significance – as best you can
+without calculating any predicted values or marginal effects.</h5>
+<div class="sourceCode" id="cb1"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>use GSS2014subset<span class="op">,</span> clear</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>eststo mod1 probit abany age childs educ polviews relpersn</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>esttab mod1</span></code></pre></div>
+<ul>
+<li>Education has a positive and significant association with support
+for legal abortion<br />
+</li>
+<li>A higher score on the political ideology index
+(<code>polviews</code>) is associated with lower support for
+abortion.<br />
+</li>
+<li>A higher value on the <code>relpersn</code> scale, which indicates a
+less religious person, is associated with lower support for
+abortion</li>
+<li>Age and number of children were not significantly associated with
+support for abortion</li>
+</ul>
+<h5
+id="b-by-hand-calculate-the-probability-that-a-person-supports-an-unrestricted-right-to-legal">b)
+By hand, calculate the probability that a person supports an
+unrestricted right to legal</h5>
+<p>abortion if that person is 35 years old, has two children, has 16
+years of education, is a 3 on the ideology scale (starting at 0), and is
+a 2 on <code>relpersn</code>.</p>
+<h5
+id="c-now-suppose-instead-the-person-is-65-years-old-and-is-a-5-on-the-ideology-scale.-what-is-the-change-in-the-predicted-probability-of-a-support-for-unrestricted-abortion-rights">c)
+Now suppose instead the person is 65 years old and is a 5 on the
+ideology scale. What is the change in the predicted probability of a
+support for unrestricted abortion rights?</h5>
+<h5
+id="d-using-your-software-find-the-predicted-probability-that-a-person-supports-unrestricted">d)
+Using your software, find the predicted probability that a person
+supports unrestricted</h5>
+<p>abortion rights when all independent variables are set to their
+medians in the estimation sample. In Stata, this means using the
+<code>predict</code>’ command with the (medians) all option. In R, use
+the predictions function from the marginaleffects package, which can
+also be set to use medians from the estimation sample.</p>
+<h5
+id="e-using-your-software-set-age-to-40-childs-to-4-educ-to-12-relpersn-to-3-and-let">e)
+Using your software, set age to 40, childs to 4, educ to 12, relpersn to
+3, and let</h5>
+<p>polviews vary from 0 to 6 in increments of 1. Find the predicted
+probability the person supports unrestricted abortion rights as polviews
+changes. Then make the marginsplot.</p>
+<h5
+id="f-what-is-the-average-marginal-effect-of-the-variable-relpersn">f)
+What is the average marginal effect of the variable
+<code>relpersn</code>?</h5>
+<h5
+id="g-re-estimate-the-model-as-a-logit-model.-using-your-software-find-the-predicted-probability-that-a-person-supports-an-unrestricted-right-to-legal-abortion-if-that-person-is">g)
+Re-estimate the model as a logit model. Using your software, find the
+predicted probability that a person supports an unrestricted right to
+legal abortion if that person is</h5>
+<p>35 years old, has two children, has 16 years of education, is a 3 on
+the ideology scale, and is a 2 on <code>relpersn</code>. Compare this to
+your answer in part (b).</p>
+<h5
+id="h-now-run-the-model-as-a-logistic-regression-that-produces-odds-ratios-for-coefficients.">h)
+Now run the model as a logistic regression that produces odds ratios for
+coefficients.</h5>
+<p>Compare the coefficients to the logit model that you just ran,
+explaining how they have the same substantive meaning.</p>
+</body>
+</html>
