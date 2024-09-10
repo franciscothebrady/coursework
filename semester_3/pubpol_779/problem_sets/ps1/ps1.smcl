@@ -3,18 +3,228 @@
       name:  {res}<unnamed>
        {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_3/pubpol_779/problem_sets/ps1/ps1.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 3 Sep 2024, 18:18:12
+ {txt}opened on:  {res} 9 Sep 2024, 18:00:39
 {txt}
 {com}. //_1
 . display c(current_date)
-{res} 3 Sep 2024
+{res} 9 Sep 2024
 {txt}
+{com}. //_2
+. use GSS2014subset, clear
+{txt}
+{com}. probit abany age childs educ polviews relpersn
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-1084.8368}  
+Iteration 1:{space 2}Log likelihood = {res:-909.52299}  
+Iteration 2:{space 2}Log likelihood = {res:-908.95059}  
+Iteration 3:{space 2}Log likelihood = {res:-908.95042}  
+Iteration 4:{space 2}Log likelihood = {res:-908.95042}  
+{res}
+{txt}{col 1}Probit regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:1,575}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:351.77}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-908.95042}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.1621}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       abany{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .0019953{col 26}{space 2} .0021531{col 37}{space 1}    0.93{col 46}{space 3}0.354{col 54}{space 4}-.0022246{col 67}{space 3} .0062152
+{txt}{space 6}childs {c |}{col 14}{res}{space 2}-.0465874{col 26}{space 2} .0232186{col 37}{space 1}   -2.01{col 46}{space 3}0.045{col 54}{space 4} -.092095{col 67}{space 3}-.0010798
+{txt}{space 8}educ {c |}{col 14}{res}{space 2} .0945726{col 26}{space 2} .0120598{col 37}{space 1}    7.84{col 46}{space 3}0.000{col 54}{space 4} .0709358{col 67}{space 3} .1182094
+{txt}{space 4}polviews {c |}{col 14}{res}{space 2}-.2348614{col 26}{space 2} .0251512{col 37}{space 1}   -9.34{col 46}{space 3}0.000{col 54}{space 4}-.2841568{col 67}{space 3} -.185566
+{txt}{space 4}relpersn {c |}{col 14}{res}{space 2}-.3304787{col 26}{space 2} .0368112{col 37}{space 1}   -8.98{col 46}{space 3}0.000{col 54}{space 4}-.4026273{col 67}{space 3}-.2583302
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.2199313{col 26}{space 2} .2089871{col 37}{space 1}   -1.05{col 46}{space 3}0.293{col 54}{space 4}-.6295384{col 67}{space 3} .1896758
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. //_3
+. disp normal(-0.095565)
+{res}.46193303
+{txt}
+{com}. //_4
+. disp normal(-0.505495)
+{res}.3066056
+{txt}
+{com}. //_5
+. margins, predict() at((median) _all)
+{res}
+{txt}{col 1}Adjusted predictions{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(abany), predict()}{p_end}
+{p2colreset}{...}
+{lalign 4:At: }{space 0}{lalign 8:age} = {res:{ralign 2:49}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 8:childs} = {res:{ralign 2:2}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 8:educ} = {res:{ralign 2:14}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 8:polviews} = {res:{ralign 2:3}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:2}} {txt:(median)}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}     Margin{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}_cons {c |}{col 14}{res}{space 2}  .398643{col 26}{space 2} .0150546{col 37}{space 1}   26.48{col 46}{space 3}0.000{col 54}{space 4} .3691366{col 67}{space 3} .4281494
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. //_6
+. margins, predict() at(age=40 childs=4 educ=12 relpersn=3 polviews=(0(1)6))
+{res}
+{txt}{col 1}Adjusted predictions{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(abany), predict()}{p_end}
+{p2colreset}{...}
+{lalign 7:1._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:0}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+{lalign 7:2._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:1}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+{lalign 7:3._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:2}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+{lalign 7:4._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:3}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+{lalign 7:5._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+{lalign 7:6._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:5}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+{lalign 7:7._at: }{space 0}{lalign 8:age} = {res:{ralign 2:40}}
+{lalign 7:}{space 0}{lalign 8:childs} = {res:{ralign 2:4}}
+{lalign 7:}{space 0}{lalign 8:educ} = {res:{ralign 2:12}}
+{lalign 7:}{space 0}{lalign 8:polviews} = {res:{ralign 2:6}}
+{lalign 7:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:3}}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}     Margin{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}_at {c |}
+{space 10}1  {c |}{col 14}{res}{space 2} .4273858{col 26}{space 2} .0476563{col 37}{space 1}    8.97{col 46}{space 3}0.000{col 54}{space 4} .3339812{col 67}{space 3} .5207905
+{txt}{space 10}2  {c |}{col 14}{res}{space 2}  .338012{col 26}{space 2}  .038465{col 37}{space 1}    8.79{col 46}{space 3}0.000{col 54}{space 4} .2626219{col 67}{space 3}  .413402
+{txt}{space 10}3  {c |}{col 14}{res}{space 2} .2569567{col 26}{space 2} .0299834{col 37}{space 1}    8.57{col 46}{space 3}0.000{col 54}{space 4} .1981903{col 67}{space 3} .3157231
+{txt}{space 10}4  {c |}{col 14}{res}{space 2} .1873732{col 26}{space 2} .0232907{col 37}{space 1}    8.04{col 46}{space 3}0.000{col 54}{space 4} .1417242{col 67}{space 3} .2330222
+{txt}{space 10}5  {c |}{col 14}{res}{space 2} .1308294{col 26}{space 2} .0185277{col 37}{space 1}    7.06{col 46}{space 3}0.000{col 54}{space 4} .0945157{col 67}{space 3} .1671431
+{txt}{space 10}6  {c |}{col 14}{res}{space 2} .0873365{col 26}{space 2} .0150468{col 37}{space 1}    5.80{col 46}{space 3}0.000{col 54}{space 4} .0578454{col 67}{space 3} .1168276
+{txt}{space 10}7  {c |}{col 14}{res}{space 2} .0556697{col 26}{space 2} .0121057{col 37}{space 1}    4.60{col 46}{space 3}0.000{col 54}{space 4} .0319429{col 67}{space 3} .0793964
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. marginsplot
+{res}
+{text}{p 0 0 2}Variables that uniquely identify margins: {bf:polviews}{p_end}
+{res}{txt}
+{com}. //_7
+. margins, dydx(relpersn) 
+{res}
+{txt}{col 1}Average marginal effects{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(abany), predict()}{p_end}
+{p2col:dy/dx wrt:}{res:relpersn}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}relpersn {c |}{col 14}{res}{space 2}-.1084659{col 26}{space 2} .0111446{col 37}{space 1}   -9.73{col 46}{space 3}0.000{col 54}{space 4}-.1303089{col 67}{space 3}-.0866229
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. //_8
+. logit abany age childs educ polviews relpersn
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-1084.8368}  
+Iteration 1:{space 2}Log likelihood = {res:-909.83588}  
+Iteration 2:{space 2}Log likelihood = {res:-908.38496}  
+Iteration 3:{space 2}Log likelihood = {res:-908.38171}  
+Iteration 4:{space 2}Log likelihood = {res:-908.38171}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:1,575}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:352.91}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-908.38171}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.1627}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       abany{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .0032095{col 26}{space 2} .0035707{col 37}{space 1}    0.90{col 46}{space 3}0.369{col 54}{space 4} -.003789{col 67}{space 3}  .010208
+{txt}{space 6}childs {c |}{col 14}{res}{space 2}-.0777166{col 26}{space 2} .0396353{col 37}{space 1}   -1.96{col 46}{space 3}0.050{col 54}{space 4}-.1554004{col 67}{space 3}-.0000328
+{txt}{space 8}educ {c |}{col 14}{res}{space 2} .1608781{col 26}{space 2} .0206356{col 37}{space 1}    7.80{col 46}{space 3}0.000{col 54}{space 4} .1204331{col 67}{space 3} .2013231
+{txt}{space 4}polviews {c |}{col 14}{res}{space 2}-.3923856{col 26}{space 2} .0426454{col 37}{space 1}   -9.20{col 46}{space 3}0.000{col 54}{space 4}-.4759691{col 67}{space 3}-.3088022
+{txt}{space 4}relpersn {c |}{col 14}{res}{space 2}-.5444682{col 26}{space 2} .0618463{col 37}{space 1}   -8.80{col 46}{space 3}0.000{col 54}{space 4}-.6656848{col 67}{space 3}-.4232517
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.4228543{col 26}{space 2} .3492259{col 37}{space 1}   -1.21{col 46}{space 3}0.226{col 54}{space 4}-1.107325{col 67}{space 3}  .261616
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. margins, predict() at(age=35 childs=2 educ=16 polviews=3 relpersn=2)
+{res}
+{txt}{col 1}Adjusted predictions{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(abany), predict()}{p_end}
+{p2colreset}{...}
+{lalign 4:At: }{space 0}{lalign 8:age} = {res:{ralign 2:35}}
+{lalign 4:}{space 0}{lalign 8:childs} = {res:{ralign 2:2}}
+{lalign 4:}{space 0}{lalign 8:educ} = {res:{ralign 2:16}}
+{lalign 4:}{space 0}{lalign 8:polviews} = {res:{ralign 2:3}}
+{lalign 4:}{space 0}{lalign 8:relpersn} = {res:{ralign 2:2}}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}     Margin{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}_cons {c |}{col 14}{res}{space 2} .4605824{col 26}{space 2} .0242907{col 37}{space 1}   18.96{col 46}{space 3}0.000{col 54}{space 4} .4129735{col 67}{space 3} .5081913
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. //_9
+. logit abany age childs educ polviews relpersn, or
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-1084.8368}  
+Iteration 1:{space 2}Log likelihood = {res:-909.83588}  
+Iteration 2:{space 2}Log likelihood = {res:-908.38496}  
+Iteration 3:{space 2}Log likelihood = {res:-908.38171}  
+Iteration 4:{space 2}Log likelihood = {res:-908.38171}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:1,575}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:352.91}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-908.38171}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.1627}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       abany{col 14}{c |} Odds ratio{col 26}   Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} 1.003215{col 26}{space 2} .0035822{col 37}{space 1}    0.90{col 46}{space 3}0.369{col 54}{space 4} .9962182{col 67}{space 3}  1.01026
+{txt}{space 6}childs {c |}{col 14}{res}{space 2} .9252266{col 26}{space 2} .0366716{col 37}{space 1}   -1.96{col 46}{space 3}0.050{col 54}{space 4} .8560723{col 67}{space 3} .9999672
+{txt}{space 8}educ {c |}{col 14}{res}{space 2} 1.174542{col 26}{space 2} .0242374{col 37}{space 1}    7.80{col 46}{space 3}0.000{col 54}{space 4} 1.127985{col 67}{space 3}  1.22302
+{txt}{space 4}polviews {c |}{col 14}{res}{space 2} .6754436{col 26}{space 2} .0288046{col 37}{space 1}   -9.20{col 46}{space 3}0.000{col 54}{space 4} .6212827{col 67}{space 3}  .734326
+{txt}{space 4}relpersn {c |}{col 14}{res}{space 2} .5801502{col 26}{space 2} .0358801{col 37}{space 1}   -8.80{col 46}{space 3}0.000{col 54}{space 4} .5139215{col 67}{space 3} .6549138
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .6551741{col 26}{space 2} .2288038{col 37}{space 1}   -1.21{col 46}{space 3}0.226{col 54}{space 4} .3304419{col 67}{space 3} 1.299028
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {bf:_cons} estimates baseline odds{txt}.{p_end}
+
 {com}. //_^
 . log close
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_3/pubpol_779/problem_sets/ps1/ps1.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 3 Sep 2024, 18:18:12
+ {txt}closed on:  {res} 9 Sep 2024, 18:00:40
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

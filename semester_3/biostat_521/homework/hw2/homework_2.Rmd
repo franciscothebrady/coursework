@@ -1,0 +1,68 @@
+---
+title: 'Homework #2'
+author: "Francisco Brady"
+date: "`r Sys.Date()`"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+```
+
+## Exercises
+
+### 2.10
+### 2.13
+### 2.14
+### 2.17
+### 2.18
+### 2.27
+### 2.28
+### 2.31
+
+## Computing Question
+
+```{r}
+data <- read_csv('hw1_data.csv')
+```
+
+#### Plot each variable using a histogram and a boxplot. Describe the distributions of var1 and var2.
+
+```{r}
+var1hist <- ggplot(data) + geom_histogram(aes(var1))
+var2hist <- ggplot(data) + geom_histogram(aes(var2))
+var1hist / var2hist
+```
+
+Var 1 is bimodal in distribution. The values range from about 50 to around 140.  
+Var 2 has a more unimodal distribution. The range is from -30 to a little bit over 20.  
+
+```{r}
+var1box <- ggplot(data) + geom_boxplot(aes(var1))
+var2box <- ggplot(data) + geom_boxplot(aes(var2))
+var1box / var2box
+```
+
+Var 1 has an IQR range of 120 to around 70 (50 units). The median of var 1 is a little over 95.
+Var 2 has a smaller IQR and a tighter distribution. The median of var 2 looks to be around -1.
+
+
+#### What type of plot do you think best illustrates each distribution? Why?  
+
+The histogram is more useful for showing the distribution of the data in var 1. Relying only on the boxplot would obscure this about var 1. Because var 2 has a more unitary distribution and longer tails, the boxplot is appropriate to illustrate the spread of the data.  
+
+#### Compute descriptive statistics for each variable. Use what you know about the distributions of the variables to decide which descriptive statistics are most appropriate.
+
+```{r}
+bind_rows(summary(data$var1),
+          summary(data$var2)
+) %>% knitr::kable(row.names = TRUE)
+
+```
+
+Because of the large range for both variables, it makes sense to report the median, which is less affected by large outliers, to get a sense of the central tendency of the values. It would also be useful to report the minimum and maximum of each variable to show the range of the data.  
+
