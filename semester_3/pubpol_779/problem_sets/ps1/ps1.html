@@ -215,7 +215,7 @@ table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid bl
 <header id="title-block-header">
 <h1 class="title">Problem Set 1</h1>
 <p class="author">Francisco Brady</p>
-<p class="date">9 Sep 2024</p>
+<p class="date">16 Sep 2024</p>
 </header>
 <h4
 id="the-purpose-of-this-question-is-to-help-you-build-familiarity-with-likelihood-functions.-you-may-want-to-use-a-spreadsheet-to-help-you-perform-some-of-the-calculations-as-it-allows-you-to-write-an-equation-in-which-the-unknown-is-a-reference-to-another-cell.-then-you-can-easily-change-the-value-of-that-cell-to-get-different-solutions-to-the-equation.">1.
@@ -237,6 +237,36 @@ parameter <span class="math inline">\(\theta\)</span> take on the
 following values: -3, -1, 0, 1, 3. Calculate <span
 class="math inline">\(Pr(H)\)</span> for each value of <span
 class="math inline">\(\theta\)</span>. What do you notice?</h5>
+<pre class='stata'>. clear
+
+. input theta
+
+         theta
+  1. -3
+  2. -1
+  3. 0
+  4. 1
+  5. 3
+  6. end
+
+. 
+. gen prob_h = exp(theta) / (1 + exp(theta))
+
+. 
+. list
+
+     ┌──────────────────┐
+     │ theta     prob_h │
+     ├──────────────────┤
+  1. │    -3   .0474259 │
+  2. │    -1   .2689414 │
+  3. │     0         .5 │
+  4. │     1   .7310586 │
+  5. │     3   .9525741 │
+     └──────────────────┘
+</pre>
+<p>Pr(H) is increasing as the value of <span
+class="math inline">\(\theta\)</span> increases.</p>
 <h5
 id="b-now-suppose-that-you-randomly-select-three-voters-and-observe-h-h-and-t-where-t-means-voting-for-someone-else.-the-joint-probability-of-this-set-outcomes-is">b)
 Now suppose that you randomly select three voters and observe: H, H, and
@@ -259,6 +289,21 @@ exp(\theta)} \right)
 take on the values of -3, -1, 0, 1, 3. This is where using a spreadsheet
 will really save some time. What are the associated joint
 probabilities?</p>
+<pre class='stata'>. gen prob_hht = (exp(theta) / (1 + exp(theta))) * ///
+> (exp(theta) / (1 + exp(theta))) * ( 1 / (1 + exp(theta)))
+
+. list
+
+     ┌─────────────────────────────┐
+     │ theta     prob_h   prob_hht │
+     ├─────────────────────────────┤
+  1. │    -3   .0474259   .0021425 │
+  2. │    -1   .2689414   .0528771 │
+  3. │     0         .5       .125 │
+  4. │     1   .7310586   .1437348 │
+  5. │     3   .9525741   .0430341 │
+     └─────────────────────────────┘
+</pre>
 <h5
 id="c-since-a-likelihood-function-is-proportional-to-the-probability-of-observing-y-given-theta-we-can-write-the-above-as-a-likelihood-function.">c)
 Since a likelihood function is proportional to the probability of
@@ -274,6 +319,42 @@ exp(\theta)} \right) \left( \frac{exp(\theta)}{1 + exp(\theta)} \right)
 that maximizes the expression. What is the value of <span
 class="math inline">\(Pr(H)\)</span> associated with this value of <span
 class="math inline">\(\theta\)</span>? Does this make sense?</p>
+<pre class='stata'>. * create data 
+. clear 
+
+. set obs 2001
+Number of observations (_N) was 0, now 2,001.
+
+. gen theta = .
+(2,001 missing values generated)
+
+. local i = 1
+
+. qui forvalues value = -10(0.01)10 {
+</pre>
+<pre class='stata'>. gen prob_h = exp(theta) / (1 + exp(theta))
+
+. gen prob_hht = (exp(theta) / (1 + exp(theta))) * ///
+> (exp(theta) / (1 + exp(theta))) * ( 1 / (1 + exp(theta)))
+</pre>
+<pre class='stata'>. summarize prob_hht
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+    prob_hht │      2,001    .0249852    .0433062   2.06e-09   .1481477
+
+. list theta prob_h prob_hht if prob_hht == r(max)
+
+      ┌─────────────────────────────┐
+      │ theta     prob_h   prob_hht │
+      ├─────────────────────────────┤
+1070. │   .69   .6659669   .1481477 │
+      └─────────────────────────────┘
+</pre>
+<p>The largest value of the expression is around .148, which occurs when
+<span class="math inline">\(\theta\)</span> is set to around .69. This
+value is similar in expectation to the proportion of the sample that
+voted for H, so this makes sense.</p>
 <h5
 id="d-if-we-take-the-log-of-both-sides-of-the-above-we-get-the-following">d)
 If we take the log of both sides of the above, we get the
@@ -287,32 +368,96 @@ exp(\theta)} \right) + \ln \left( \frac{exp(\theta)}{1 + exp(\theta)}
 maximizes this new equation. Hint: do the calculations inside the
 parentheses and then take the natural log. What insights do you draw
 from your answer?</p>
+<pre class='stata'>. gen log_likelihood = ln(prob_hht)
+
+. summarize log_likelihood
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+log_likeli~d │      2,001   -7.750353    4.943863  -20.00014  -1.909546
+
+. list theta prob_h prob_hht log_likelihood if log_likelihood == r(max)
+
+      ┌─────────────────────────────────────────┐
+      │ theta     prob_h   prob_hht   log_lik~d │
+      ├─────────────────────────────────────────┤
+1070. │   .69   .6659669   .1481477   -1.909546 │
+      └─────────────────────────────────────────┘
+</pre>
+<p>This is consistent with the results above. The <span
+class="math inline">\(\theta\)</span> that maximizes the log-likelihood
+function is around .69, the same as with the likelihood function.</p>
 <h5
-id="e-all-of-this-assumes-that-prh-is-the-same-for-all-individuals.-its-more-likely-that-different-people-with-different-characteristics-will-have-different-probabilities-of-voting-h.">e)
+id="e-all-of-this-assumes-that-prh-is-the-same-for-all-individuals.-its-more-likely-that-different-people-with-different-characteristics-will-have-different-probabilities-of-voting-h.-lets-assume-we-measure-some-characteristic-x_i-for-each-person.-we-now-can-model-the-parameter-theta_i-as-beta_i.-re-write-the-log-likelihood-function-with-this-change.-note-normally-we-would-include-an-intercept-as-well-so-that-theta_i-beta_0-beta_1-x_i-but-lets-keep-it-simpler-for-now-and-ignore-the-intercept.">e)
 All of this assumes that <span class="math inline">\(Pr(H)\)</span> is
 the same for all individuals. It’s more likely that different people
 with different characteristics will have different probabilities of
-voting H.</h5>
-<p>Let’s assume we measure some characteristic <span
+voting H. Let’s assume we measure some characteristic <span
 class="math inline">\(x_i\)</span> for each person. We now can model the
 parameter <span class="math inline">\(\theta_i\)</span> as <span
 class="math inline">\(\beta_i\)</span>. Re-write the log likelihood
 function with this change. Note: normally, we would include an intercept
 as well, so that <span class="math inline">\(\theta_i = \beta_0 +
 \beta_1 x_i\)</span>, but let’s keep it simpler for now and ignore the
-intercept.</p>
+intercept.</h5>
+<p>The new log-likelihood function would be:</p>
+<p><span class="math display">\[
+\mathcal{L}(\beta_i | y_i, x_i) = \ln \left( \frac{exp(\beta_i x_i)}{1 +
+exp(\beta_i x_i)} \right) + \ln \left( \frac{exp(\beta_i x_i)}{1 +
+exp(\beta_i x_i)} \right) + \ln \left( \frac{1}{1 + exp(\beta_i x_i)}
+\right)
+\]</span></p>
 <h5
 id="f-suppose-that-the-value-of-x_i-in-each-case-respectively-in-order-is-6-3-4.-find-the-value-of-beta-that-produces-the-highest-value-of-the-log-likelihood-function.">f)
 Suppose that the value of <span class="math inline">\(x_i\)</span> in
 each case respectively (in order) is 6, 3, 4. Find the value of <span
 class="math inline">\(\beta\)</span> that produces the highest value of
 the log likelihood function.</h5>
+<pre class='stata'>. gen beta_i = theta
+
+. gen betai_xi = ln(exp(beta_i * 6) / (1 + exp(beta_i * 6))) + ///
+>            ln(exp(beta_i * 3) / (1 + exp(beta_i * 3))) + ///
+>            ln( 1 / (1 + exp(beta_i * 4)))
+
+. *list
+. summarize betai_xi
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+    betai_xi │      2,001    -32.5779    23.61235        -90  -1.868102
+
+. list beta_i prob_h prob_hht log_likelihood betai_xi if betai_xi == r(max)
+
+      ┌──────────────────────────────────────────────────────┐
+      │ beta_i     prob_h   prob_hht   log_lik~d    betai_xi │
+      ├──────────────────────────────────────────────────────┤
+1018. │    .17   .5423979   .1346245   -2.005266   -1.868102 │
+      └──────────────────────────────────────────────────────┘
+</pre>
+<p>The value of <span class="math inline">\(\beta\)</span> that
+maximizes the log-likelihood function is .17.</p>
 <h5
 id="g-given-this-value-of-beta-what-is-the-probability-that-the-first-voter-with-x_i-6-will-vote-h-the-second-voter">g)
 Given this value of <span class="math inline">\(\beta\)</span>, what is
 the probability that the first voter, with <span
 class="math inline">\(x_i\)</span> = 6, will vote H? The second
 voter?</h5>
+<p>To find this, we can evaluate the log-likelihood for <span
+class="math inline">\(Pr(H|x=6)\)</span> and <span
+class="math inline">\(Pr(H|x=3)\)</span> plugging in <span
+class="math inline">\(\beta = .17\)</span>. Then we put those values
+into the standard normal distribution function to get the
+probability.</p>
+<pre class='stata'>. disp "Pr(H|x=6) = " exp(.17 * 6) / (1 + exp(.17 * 6)) 
+Pr(H|x=6) = .7349726
+
+. disp "Pr(H|x=3) = " exp(.17 * 3) / (1 + exp(.17 * 3))
+Pr(H|x=3) = .62480647
+</pre>
+<p>So the probability that a person with <span
+class="math inline">\(x=6\)</span> will vote H is .735 and the
+probability that a person with <span class="math inline">\(x=3\)</span>
+will vote for H is .625.</p>
 <h4
 id="use-the-gss2014subset-dataset-for-this-question.-the-dependent-variable-is-abany-where-1-indicates-the-respondent-believes-a-pregnant-woman-should-be-able-to-obtain-a-legal-abortion-if-she-wants-for-any-reason-and-0-indicates-otherwise.">2.
 Use the <code>GSS2014subset</code> dataset for this question. The
@@ -325,7 +470,7 @@ in years; <code>childs</code>, the number of children a respondent has;
 <code>polviews</code>, the respondent’s score on the 7-point ideology
 scale in which higher values mean a person is more conservative; and
 <code>relpersn</code>, a four-point scale in which higher values mean
-the person is less religious.</p>
+the person is <em>more</em> religious.</p>
 <p>Note: R users likely will want to convert the variables that are in
 the factor class to numeric class using as numeric from the sjlabelled
 library so that they start at 0 post-conversion (see help document). The
@@ -371,10 +516,11 @@ for legal abortion<br />
 abortion.<br />
 </li>
 <li>A higher value on the <code>relpersn</code> scale, which indicates a
-less religious person, is associated with lower support for
-abortion</li>
-<li>Age and number of children were not significantly associated with
+more religious person, is significant and associated with lower support
+for abortion</li>
+<li>Number of children is weakly significantly associated with lower
 support for abortion</li>
+<li>Age is not significantly related to support for abortion.</li>
 </ul>
 <h5
 id="b-by-hand-calculate-the-probability-that-a-person-supports-an-unrestricted-right-to-legal-abortion-if-that-person-is-35-years-old-has-two-children-has-16-years-of-education-is-a-3-on-the-ideology-scale-starting-at-0-and-is-a-2-on-relpersn.">b)
@@ -383,14 +529,7 @@ unrestricted right to legal abortion if that person is 35 years old, has
 two children, has 16 years of education, is a 3 on the ideology scale
 (starting at 0), and is a 2 on <code>relpersn</code>.</h5>
 <p>Using the coefficients from the probit regression output and the
-following values:</p>
-<ul>
-<li>age = 35</li>
-<li>childs = 2</li>
-<li>educ = 16</li>
-<li>polviews = 3</li>
-<li>relpersn = 2</li>
-</ul>
+values above:</p>
 <p><span class="math display">\[
 \begin{align}
 {x_i \beta}_1 = -0.2199 + 0.001993 (35) - 0.04658 (2) + 0.09457 (16) -
@@ -402,34 +541,23 @@ following values:</p>
 \]</span></p>
 <p>To get the predicted probability, evaluate using the standard normal
 distribution:</p>
-<pre class='stata'>. disp normal(-0.095565)
-.46193303
+<pre class='stata'>. disp normal(0.095565)
+.53806697
 </pre>
 <p>Which tells us that the predicted probability that a person with
-these characteristics voted for Harris is ~.462. [SHOULD WE DO THIS BY
-HAND USING THE EXP STUFF]</p>
+these characteristics voted for Harris is ~.462.</p>
 <h5
 id="c-now-suppose-instead-the-person-is-65-years-old-and-is-a-5-on-the-ideology-scale.-what-is-the-change-in-the-predicted-probability-of-a-support-for-unrestricted-abortion-rights">c)
 Now suppose instead the person is 65 years old and is a 5 on the
 ideology scale. What is the change in the predicted probability of a
 support for unrestricted abortion rights?</h5>
-<ul>
-<li>age = 65<br />
-</li>
-<li>childs = 2<br />
-</li>
-<li>educ = 16<br />
-</li>
-<li>polviews = 5<br />
-</li>
-<li>relpersn = 2</li>
-</ul>
 <p><span class="math display">\[
 \begin{align}
-Y_2 = -0.2199 + 0.001993 (65) - 0.04658 (2) + 0.09457 (16) - 0.23486 (5)
-- 0.3304 (2) \\
-Y_2 = -0.2199 + 0.129545 - 0.09316 + 1.51312 - 1.1743 - 0.6608 \\
-Y_2 = -0.505495 \\
+{x_i \beta}_2 = -0.2199 + 0.001993 (65) - 0.04658 (2) + 0.09457 (16) -
+0.23486 (5) - 0.3304 (2) \\
+{x_i \beta}_2 = -0.2199 + 0.129545 - 0.09316 + 1.51312 - 1.1743 - 0.6608
+\\
+{x_i \beta}_2 = -0.505495 \\
 \end{align}
 \]</span></p>
 <p>To get the predicted probability, evaluate using the standard normal
@@ -437,14 +565,14 @@ distribution:</p>
 <pre class='stata'>. disp normal(-0.505495)
 .3066056
 </pre>
-<p>Which gives .306. Taking the difference between the two:<br />
-<span class="math display">\[
+<p>Which gives .306. Taking the difference between the two:</p>
+<p><span class="math display">\[
 \begin{align}
 \phi(-0.095565) - \phi(-0.505495) = \\
 .462 - .306 = .156
 \end{align}
 \]</span></p>
-<p>Changing the characteristics of a person to being 65 and increasing
+<p>Changing the characteristics of a person to age 65 and increasing
 their score on the ideology scale (to more conservative) decreases their
 probability of voting Harris by .156.</p>
 <h5
@@ -475,6 +603,7 @@ At: age      = 49 (median)
        _cons │    .398643   .0150546    26.48   0.000     .3691366    .4281494
 ─────────────┴────────────────────────────────────────────────────────────────
 </pre>
+<p>The command outputs a predicted probability of .398.</p>
 <h5
 id="e-using-your-software-set-age-to-40-childs-to-4-educ-to-12-relpersn-to-3-and-let-polviews-vary-from-0-to-6-in-increments-of-1.-find-the-predicted-probability-the-person-supports-unrestricted-abortion-rights-as-polviews-changes.-then-make-the-marginsplot.">e)
 Using your software, set age to 40, childs to 4, educ to 12, relpersn to
@@ -537,12 +666,15 @@ Expression: Pr(abany), predict()
           7  │   .0556697   .0121057     4.60   0.000     .0319429    .0793964
 ─────────────┴────────────────────────────────────────────────────────────────
 
-. marginsplot
+. qui marginsplot, xlabel(, angle(45))
 
-Variables that uniquely identify margins: polviews
+. graph export marginsplot.png, width(500) replace
+file marginsplot.png saved as PNG format
 </pre>
-<p>[UNCLEAR IF “FIND THE PREDICTED PROB” HERE JUST MEANS USE MARGINS OR
-WE NEED TO STATE EXPLICITLY]</p>
+<figure>
+<img src="marginsplot.png" alt="Margins Plot" />
+<figcaption aria-hidden="true">Margins Plot</figcaption>
+</figure>
 <h5
 id="f-what-is-the-average-marginal-effect-of-the-variable-relpersn">f)
 What is the average marginal effect of the variable
@@ -563,7 +695,8 @@ dy/dx wrt:  relpersn
 ─────────────┴────────────────────────────────────────────────────────────────
 </pre>
 <p>On average, the marginal effect of a one-unit change in
-<code>relpersn</code> is about -.108.</p>
+<code>relpersn</code> decreases the probability of a person supporting
+abortion for any reason by about .108.</p>
 <h5
 id="g-re-estimate-the-model-as-a-logit-model.-using-your-software-find-the-predicted-probability-that-a-person-supports-an-unrestricted-right-to-legal-abortion-if-that-person-is-35-years-old-has-two-children-has-16-years-of-education-is-a-3-on-the-ideology-scale-and-is-a-2-on-relpersn.-compare-this-to-your-answer-in-part-b.">g)
 Re-estimate the model as a logit model. Using your software, find the
@@ -614,18 +747,14 @@ At: age      = 35
        _cons │   .4605824   .0242907    18.96   0.000     .4129735    .5081913
 ─────────────┴────────────────────────────────────────────────────────────────
 </pre>
+<p>The predicted probability in (b) was .462, the predicted probability
+using the logit command is .460. They are similar.</p>
 <h5
 id="h-now-run-the-model-as-a-logistic-regression-that-produces-odds-ratios-for-coefficients.-compare-the-coefficients-to-the-logit-model-that-you-just-ran-explaining-how-they-have-the-same-substantive-meaning.">h)
 Now run the model as a logistic regression that produces odds ratios for
 coefficients. Compare the coefficients to the logit model that you just
 ran, explaining how they have the same substantive meaning.</h5>
-<pre class='stata'>. logit abany age childs educ polviews relpersn, or
-
-Iteration 0:  Log likelihood = -1084.8368  
-Iteration 1:  Log likelihood = -909.83588  
-Iteration 2:  Log likelihood = -908.38496  
-Iteration 3:  Log likelihood = -908.38171  
-Iteration 4:  Log likelihood = -908.38171  
+<pre class='stata'>. logistic abany age childs educ polviews relpersn
 
 Logistic regression                                     Number of obs =  1,575
                                                         LR chi2(5)    = 352.91
@@ -644,52 +773,165 @@ Log likelihood = -908.38171                             Pseudo R2     = 0.1627
 ─────────────┴────────────────────────────────────────────────────────────────
 Note: _cons estimates baseline odds.
 </pre>
+<p>The <code>logit</code> command coefficients reflect the change in log
+odds for a one unit change in the independent variable. To generate the
+odds ratio from the odds ratio from logit output you need to
+exponentiate the coefficient. Using the coefficient on
+<code>age</code>:</p>
+<pre class='stata'>. disp exp(.0032095)
+1.0032147
+</pre>
+<p>Which is the output from the logistic regression.</p>
 <h4
 id="for-this-question-use-the-dataset-anes2020subset.-the-dependent-variable-is-diversitygood-which-provides-an-ordinal-set-of-responses-to-the-following-question-does-the-increasing-number-of-people-of-many-different-races-and-ethnic-groups-in-the-united-states-make-this-country-a-better-place-to-live-a-worse-place-to-live-or-does-it-make-no-difference-the-responses-are-recorded-as-worse-makes-no-difference-or-better.">3.
 For this question, use the dataset anes2020subset. The dependent
-variable is DiversityGood, which provides an ordinal set of responses to
-the following question: “Does the increasing number of people of many
-different races and ethnic groups in the United States make this country
-a better place to live, a worse place to live, or does it make no
-difference?” The responses are recorded as “worse,” “makes no
+variable is <code>DiversityGood</code>, which provides an ordinal set of
+responses to the following question: “Does the increasing number of
+people of many different races and ethnic groups in the United States
+make this country a better place to live, a worse place to live, or does
+it make no difference?” The responses are recorded as “worse,” “makes no
 difference,” or “better.”</h4>
-<p>The independent variables of interest are: KnowsImmigrant, a
-dichotomous variable that indicates whether the respondent knows someone
-who is an immigrant to the US (1=yes); LGBTfriends, a dichotomous
-variable that indicates whether the respondent has LGBT friends (1=yes);
-ICEtherm, a feeling thermometer score (0-100) for the U.S. Immigration
-and Customs Enforcement (ICE) agency; Ideology, the respondent’s
+<p>The independent variables of interest are:
+<code>KnowsImmigrant</code>, a dichotomous variable that indicates
+whether the respondent knows someone who is an immigrant to the US
+(1=yes); <code>LGBTfriends</code>, a dichotomous variable that indicates
+whether the respondent has LGBT friends (1=yes); <code>ICEtherm</code>,
+a feeling thermometer score (0-100) for the U.S. Immigration and Customs
+Enforcement (ICE) agency; <code>Ideology</code>, the respondent’s
 placement on a seven-point (0-6) scale in which higher values mean more
-conservative political beliefs; WhitesTherm, the respondent’s feeling
-thermometer score (0-100) for white people.</p>
+conservative political beliefs; <code>WhitesTherm</code>, the
+respondent’s feeling thermometer score (0-100) for white people.</p>
 <h5
 id="a-estimate-an-ordered-probit-model.-report-the-results-and-describe-the-basic-substantive-findings-including-statistical-significance-without-calculating-predicted-or-marginal-effects.">(a)
 Estimate an ordered probit model. Report the results and describe the
 basic substantive findings, including statistical significance, without
 calculating predicted or marginal effects.</h5>
+<pre class='stata'>. use anes2020subset, clear
+
+. oprobit DiversityGood KnowsImmigrant LGBTfriends ICEtherm Ideology WhitesTherm
+
+Iteration 0:  Log likelihood = -5069.8804  
+Iteration 1:  Log likelihood = -4455.9097  
+Iteration 2:  Log likelihood = -4452.6072  
+Iteration 3:  Log likelihood =  -4452.607  
+
+Ordered probit regression                              Number of obs =   5,855
+                                                       LR chi2(5)    = 1234.55
+                                                       Prob > chi2   =  0.0000
+Log likelihood = -4452.607                             Pseudo R2     =  0.1218
+
+───────────────┬────────────────────────────────────────────────────────────────
+ DiversityGood │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+───────────────┼────────────────────────────────────────────────────────────────
+KnowsImmigrant │   .3305089   .0351652     9.40   0.000     .2615864    .3994314
+   LGBTfriends │   .1840994    .034816     5.29   0.000     .1158612    .2523375
+      ICEtherm │  -.0073763   .0006913   -10.67   0.000    -.0087313   -.0060213
+      Ideology │  -.2275441   .0124519   -18.27   0.000    -.2519494   -.2031388
+   WhitesTherm │   .0062016   .0008351     7.43   0.000     .0045648    .0078384
+───────────────┼────────────────────────────────────────────────────────────────
+         /cut1 │  -1.991851   .0764543                     -2.141699   -1.842004
+         /cut2 │  -.5120719     .07273                     -.6546201   -.3695236
+───────────────┴────────────────────────────────────────────────────────────────
+</pre>
 <p>Note: R users should first convert Ideology to a numeric variable
 (see help document). Also, it may also be easier for later – in parts
 (e) and (f) – to deal with the dichotomous variables if they are
 converted to numeric.</p>
+<ul>
+<li>Going from not knowing an immigrant to knowing an immigrant is
+positive and significantly associated with a higher/more positive
+response to the “DiversityGood” question.<br />
+</li>
+<li>Going from having no LGBT friends to having LGBT friends is positive
+and significantly associated with a higher/more positive response to the
+“DiversityGood” question.<br />
+</li>
+<li>An increase in the positive feelings for ICE is negative and
+significantly associated with a lower/less positive response to the
+“DiversityGood” question.<br />
+</li>
+<li>An increase in ideology score is negative and significantly
+associated with a lower/less positive response to the “DiversityGood”
+question.<br />
+</li>
+<li>An increase in the Whites thermometer is positive and significantly
+associated with a higher/more positive response to the “DiversityGood”
+question.</li>
+</ul>
 <h5
-id="b-by-hand-calculate-the-value-of-xi-β-for-a-person-who-does-not-know-an-immigrant-who-does-not-have-lgbt-friends-whose-feeling-thermometer-score-for-ice-is-55-who-is-a-4-slightly-conservative-on-the-ideology-scale-and-whose-feeling-thermometer-score-for-white-people-is-75.">(b)
-By hand, calculate the value of xi β for a person who does not know an
-immigrant, who does not have LGBT friends, whose feeling thermometer
-score for ICE is 55, who is a 4 (“slightly conservative”) on the
-ideology scale, and whose feeling thermometer score for white people is
-75.</h5>
+id="b-by-hand-calculate-the-value-of-x_i-beta-for-a-person-who-does-not-know-an-immigrant-who-does-not-have-lgbt-friends-whose-feeling-thermometer-score-for-ice-is-55-who-is-a-4-slightly-conservative-on-the-ideology-scale-and-whose-feeling-thermometer-score-for-white-people-is-75.">(b)
+By hand, calculate the value of <span class="math inline">\(x_i
+\beta\)</span> for a person who does not know an immigrant, who does not
+have LGBT friends, whose feeling thermometer score for ICE is 55, who is
+a 4 (“slightly conservative”) on the ideology scale, and whose feeling
+thermometer score for white people is 75.</h5>
+<p>Using the coefficients from the model:</p>
+<p><span class="math display">\[
+\begin{align}
+x_i \beta = .3305089(KnowsImmigrant) + .1840994(LGBTfriends) -
+.0073763(ICEtherm) \\
+- .2275441(Ideology) + .0062016(WhitesTherm)
+\end{align}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align}
+x_i \beta = .3305089(0) + .1840994(0) - .0073763(55) \\
+- .2275441(4) + .0062016(75)
+= -.8507529
+\end{align}
+\]</span></p>
+<p>So <span class="math inline">\(x_i \beta\)</span> for this scenario
+is: -.8507529</p>
 <h5
-id="c-put-the-value-you-calculated-for-xi-β-at-the-center-of-a-standard-normal-z-distribution-i.e.-it-has-a-z-score-of-0-the-standard-deviation-is-already-1.-then-what-would-be-the-corresponding-z-scores-for-the-2-cut-points-what-proportion-of-the-area-is-below-cut1-what-proportion-of-area-is-above-cut2-what-proportion-is-between-cut1-and-cut2">(c)
-Put the value you calculated for xi β at the center of a standard normal
-(z) distribution (i.e. it has a z-score of 0; the standard deviation is
-already 1). Then, what would be the corresponding z scores for the 2 cut
-points? What proportion of the area is below cut1? What proportion of
-area is above cut2? What proportion is between cut1 and cut2?</h5>
+id="c-put-the-value-you-calculated-for-x_i-beta-at-the-center-of-a-standard-normal-z-distribution-i.e.-it-has-a-z-score-of-0-the-standard-deviation-is-already-1.-then-what-would-be-the-corresponding-z-scores-for-the-2-cut-points-what-proportion-of-the-area-is-below-cut1-what-proportion-of-area-is-above-cut2-what-proportion-is-between-cut1-and-cut2">(c)
+Put the value you calculated for <span class="math inline">\(x_i
+\beta\)</span> at the center of a standard normal (z) distribution
+(i.e. it has a z-score of 0; the standard deviation is already 1). Then,
+what would be the corresponding z scores for the 2 cut points? What
+proportion of the area is below cut1? What proportion of area is above
+cut2? What proportion is between cut1 and cut2?</h5>
+<p>We get the values of the two cut points from the model:<br />
+<span class="math inline">\(cut1 = -1.991851\)</span><br />
+<span class="math inline">\(cut2 = -.5120719\)</span></p>
+<p>To find the corresponding z-scores: <span class="math display">\[
+\begin{align}
+z_{cut1} = \phi(cut1 - x_i \beta) \\
+&amp;= \phi(-1.991851 + 0.8507529) \\
+&amp;= \phi(-1.1410981) \\
+&amp;=  .12691455
+\end{align}
+\]</span></p>
+<p>So the proportion of the area that is below cut1 is around .127.</p>
+<p><span class="math display">\[
+\begin{align}
+z_{cut2} = \phi(cut2 - x_i \beta) \\
+&amp;= \phi(-0.5120719 + 0.8507529) \\
+&amp;= \phi(0.338681) \\
+&amp;= .63257497
+\end{align}
+\]</span></p>
+<p>The proportion of the area that is above cut2 is <span
+class="math inline">\(1 - .63257497 = .36742503\)</span>.</p>
+<p>Using both, the proportion of the area between cut1 and cut2
+is:<br />
+$ .63257497 - 12691455 = .50566545$</p>
 <h5
 id="d-what-if-instead-the-person-does-know-an-immigrant-how-do-the-predictions-change">(d)
 What if, instead, the person does know an immigrant? How do the
 predictions change?</h5>
 <p>Note: keep all other variables at the same values.</p>
+<p>If the person knows an immigrant, the <span class="math inline">\(x_i
+\beta\)</span> calculation changes:<br />
+<span class="math display">\[
+\begin{align}
+x_i \beta = .3305089(1) + .1840994(0) - .0073763(55) \\
+- .2275441(4) + .0062016(75)
+= -.520244
+\end{align}
+\]</span></p>
+<p>If the scenario changes to where a person knows an immigrant, the
+<span class="math inline">\(x_i \beta\)</span> calculation changes to
+-.520.</p>
 <h5
 id="e-now-use-stata-or-r.-if-a-person-has-the-median-value-in-the-estimation-sample-for-all-independent-variables-with-what-predicted-probabilities-does-that-person-give-each-respective-response">(e)
 Now use Stata or R. If a person has the median value (in the estimation
@@ -698,11 +940,79 @@ does that person give each respective response?</h5>
 <p>For R users: if the dichotomous variables are left as factors, you
 will need to follow code examples from the help document for specifying
 factor variable values.</p>
+<pre class='stata'>. margins, predict() at((median) _all)
+
+Adjusted predictions                                     Number of obs = 5,855
+Model VCE: OIM
+
+1._predict: Pr(DiversityGood==0), predict(pr outcome(0))
+2._predict: Pr(DiversityGood==1), predict(pr outcome(1))
+3._predict: Pr(DiversityGood==2), predict(pr outcome(2))
+
+At: KnowsImmigrant =  1 (median)
+    LGBTfriends    =  1 (median)
+    ICEtherm       = 50 (median)
+    Ideology       =  3 (median)
+    WhitesTherm    = 70 (median)
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │            Delta-method
+             │     Margin   std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+    _predict │
+          1  │   .0294375   .0022068    13.34   0.000     .0251123    .0337628
+          2  │   .3117055   .0075575    41.24   0.000     .2968931    .3265179
+          3  │    .658857   .0084535    77.94   0.000     .6422884    .6754256
+─────────────┴────────────────────────────────────────────────────────────────
+</pre>
+<p>According to the output, at the median values for all independent
+variables, the predicted probability that a person responds:</p>
+<ul>
+<li>“worse” is .029</li>
+<li>“makes no difference” is .311</li>
+<li>“better” is .659</li>
+</ul>
 <h5
 id="f-again-use-your-software.-for-a-person-with-the-median-values-for-all-independent-variables-in-the-estimation-sample-what-is-the-predicted-effect-of-a-2-point-increase-in-ideology-on-the-probability-of-each-answer">(f)
 Again, use your software. For a person with the median values for all
 independent variables in the estimation sample, what is the predicted
 effect of a 2-point increase in Ideology on the probability of each
 answer?</h5>
+<p>Setting <code>Ideology</code> to it’s median value (3), and
+increasing it to 5, while keeping all other independent variables the
+same.</p>
+<pre class='stata'>. margins, predict() at(Ideology=(3 5) (median))
+
+Predictive margins                                       Number of obs = 5,855
+Model VCE: OIM
+
+1._predict: Pr(DiversityGood==0), predict(pr outcome(0))
+2._predict: Pr(DiversityGood==1), predict(pr outcome(1))
+3._predict: Pr(DiversityGood==2), predict(pr outcome(2))
+
+1._at: Ideology = 3
+2._at: Ideology = 5
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │            Delta-method
+             │     Margin   std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+_predict#_at │
+        1 1  │    .048569   .0027479    17.68   0.000     .0431833    .0539547
+        1 2  │   .1101682    .005661    19.46   0.000     .0990728    .1212635
+        2 1  │   .3527509   .0063461    55.59   0.000     .3403128    .3651889
+        2 2  │   .4626993   .0092142    50.22   0.000     .4446399    .4807587
+        3 1  │   .5986801   .0065563    91.31   0.000     .5858301    .6115302
+        3 2  │   .4271325   .0109962    38.84   0.000     .4055804    .4486847
+─────────────┴────────────────────────────────────────────────────────────────
+</pre>
+<ul>
+<li>The probability of answering “worse” changes from .048569 to
+.1101682, an increase of .0615992.</li>
+<li>The probability of answering “makes no difference” changes from
+.3527509 to .4626993, an increase of .1099484.</li>
+<li>The probability of answering “better” changes from .5986801 to
+.4271325, a decrease of .1715476.</li>
+</ul>
 </body>
 </html>

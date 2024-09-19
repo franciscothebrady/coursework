@@ -3,13 +3,142 @@
       name:  {res}<unnamed>
        {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_3/pubpol_779/problem_sets/ps1/ps1.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 9 Sep 2024, 18:00:39
+ {txt}opened on:  {res}16 Sep 2024, 21:56:11
 {txt}
 {com}. //_1
 . display c(current_date)
-{res} 9 Sep 2024
+{res}16 Sep 2024
 {txt}
 {com}. //_2
+. clear
+{txt}
+{com}. input theta
+
+     {txt}    theta
+  1{com}. -3
+{txt}  2{com}. -1
+{txt}  3{com}. 0
+{txt}  4{com}. 1
+{txt}  5{com}. 3
+{txt}  6{com}. end
+{txt}
+{com}. 
+. gen prob_h = exp(theta) / (1 + exp(theta))
+{txt}
+{com}. 
+. list
+{txt}
+     {c TLC}{hline 7}{c -}{hline 10}{c TRC}
+     {c |} {res}theta     prob_h {txt}{c |}
+     {c LT}{hline 7}{c -}{hline 10}{c RT}
+  1. {c |} {res}   -3   .0474259 {txt}{c |}
+  2. {c |} {res}   -1   .2689414 {txt}{c |}
+  3. {c |} {res}    0         .5 {txt}{c |}
+  4. {c |} {res}    1   .7310586 {txt}{c |}
+  5. {c |} {res}    3   .9525741 {txt}{c |}
+     {c BLC}{hline 7}{c -}{hline 10}{c BRC}
+
+{com}. //_3
+. gen prob_hht = (exp(theta) / (1 + exp(theta))) * ///
+> (exp(theta) / (1 + exp(theta))) * ( 1 / (1 + exp(theta)))
+{txt}
+{com}. list
+{txt}
+     {c TLC}{hline 7}{c -}{hline 10}{c -}{hline 10}{c TRC}
+     {c |} {res}theta     prob_h   prob_hht {txt}{c |}
+     {c LT}{hline 7}{c -}{hline 10}{c -}{hline 10}{c RT}
+  1. {c |} {res}   -3   .0474259   .0021425 {txt}{c |}
+  2. {c |} {res}   -1   .2689414   .0528771 {txt}{c |}
+  3. {c |} {res}    0         .5       .125 {txt}{c |}
+  4. {c |} {res}    1   .7310586   .1437348 {txt}{c |}
+  5. {c |} {res}    3   .9525741   .0430341 {txt}{c |}
+     {c BLC}{hline 7}{c -}{hline 10}{c -}{hline 10}{c BRC}
+
+{com}. //_4
+. * create data 
+. clear 
+{txt}
+{com}. set obs 2001
+{txt}{p}
+Number of observations ({bf:_N}) was 0,
+now 2,001.
+{p_end}
+
+{com}. gen theta = .
+{txt}(2,001 missing values generated)
+
+{com}. local i = 1
+{txt}
+{com}. qui forvalues value = -10(0.01)10 {c -(}
+{txt}
+{com}. //_5
+. gen prob_h = exp(theta) / (1 + exp(theta))
+{txt}
+{com}. gen prob_hht = (exp(theta) / (1 + exp(theta))) * ///
+> (exp(theta) / (1 + exp(theta))) * ( 1 / (1 + exp(theta)))
+{txt}
+{com}. //_6
+. summarize prob_hht
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}prob_hht {c |}{res}      2,001    .0249852    .0433062   2.06e-09   .1481477
+{txt}
+{com}. list theta prob_h prob_hht if prob_hht == r(max)
+{txt}
+      {c TLC}{hline 7}{c -}{hline 10}{c -}{hline 10}{c TRC}
+      {c |} {res}theta     prob_h   prob_hht {txt}{c |}
+      {c LT}{hline 7}{c -}{hline 10}{c -}{hline 10}{c RT}
+1070. {c |} {res}  .69   .6659669   .1481477 {txt}{c |}
+      {c BLC}{hline 7}{c -}{hline 10}{c -}{hline 10}{c BRC}
+
+{com}. //_7
+. gen log_likelihood = ln(prob_hht)
+{txt}
+{com}. summarize log_likelihood
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+log_likeli~d {c |}{res}      2,001   -7.750353    4.943863  -20.00014  -1.909546
+{txt}
+{com}. list theta prob_h prob_hht log_likelihood if log_likelihood == r(max)
+{txt}
+      {c TLC}{hline 7}{c -}{hline 10}{c -}{hline 10}{c -}{hline 11}{c TRC}
+      {c |} {res}theta     prob_h   prob_hht   log_lik~d {txt}{c |}
+      {c LT}{hline 7}{c -}{hline 10}{c -}{hline 10}{c -}{hline 11}{c RT}
+1070. {c |} {res}  .69   .6659669   .1481477   -1.909546 {txt}{c |}
+      {c BLC}{hline 7}{c -}{hline 10}{c -}{hline 10}{c -}{hline 11}{c BRC}
+
+{com}. //_8
+. gen beta_i = theta
+{txt}
+{com}. gen betai_xi = ln(exp(beta_i * 6) / (1 + exp(beta_i * 6))) + ///
+>            ln(exp(beta_i * 3) / (1 + exp(beta_i * 3))) + ///
+>            ln( 1 / (1 + exp(beta_i * 4)))
+{txt}
+{com}. *list
+. summarize betai_xi
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}betai_xi {c |}{res}      2,001    -32.5779    23.61235        -90  -1.868102
+{txt}
+{com}. list beta_i prob_h prob_hht log_likelihood betai_xi if betai_xi == r(max)
+{txt}
+      {c TLC}{hline 8}{c -}{hline 10}{c -}{hline 10}{c -}{hline 11}{c -}{hline 11}{c TRC}
+      {c |} {res}beta_i     prob_h   prob_hht   log_lik~d    betai_xi {txt}{c |}
+      {c LT}{hline 8}{c -}{hline 10}{c -}{hline 10}{c -}{hline 11}{c -}{hline 11}{c RT}
+1018. {c |} {res}   .17   .5423979   .1346245   -2.005266   -1.868102 {txt}{c |}
+      {c BLC}{hline 8}{c -}{hline 10}{c -}{hline 10}{c -}{hline 11}{c -}{hline 11}{c BRC}
+
+{com}. //_9
+. disp "Pr(H|x=6) = " exp(.17 * 6) / (1 + exp(.17 * 6)) 
+{res}Pr(H|x=6) = .7349726
+{txt}
+{com}. disp "Pr(H|x=3) = " exp(.17 * 3) / (1 + exp(.17 * 3))
+{res}Pr(H|x=3) = .62480647
+{txt}
+{com}. //_10
 . use GSS2014subset, clear
 {txt}
 {com}. probit abany age childs educ polviews relpersn
@@ -36,15 +165,15 @@ Iteration 4:{space 2}Log likelihood = {res:-908.95042}
 {txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.2199313{col 26}{space 2} .2089871{col 37}{space 1}   -1.05{col 46}{space 3}0.293{col 54}{space 4}-.6295384{col 67}{space 3} .1896758
 {txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-{com}. //_3
-. disp normal(-0.095565)
-{res}.46193303
+{com}. //_11
+. disp normal(0.095565)
+{res}.53806697
 {txt}
-{com}. //_4
+{com}. //_12
 . disp normal(-0.505495)
 {res}.3066056
 {txt}
-{com}. //_5
+{com}. //_13
 . margins, predict() at((median) _all)
 {res}
 {txt}{col 1}Adjusted predictions{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
@@ -66,7 +195,7 @@ Iteration 4:{space 2}Log likelihood = {res:-908.95042}
 {space 7}_cons {c |}{col 14}{res}{space 2}  .398643{col 26}{space 2} .0150546{col 37}{space 1}   26.48{col 46}{space 3}0.000{col 54}{space 4} .3691366{col 67}{space 3} .4281494
 {txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {res}{txt}
-{com}. //_6
+{com}. //_14
 . margins, predict() at(age=40 childs=4 educ=12 relpersn=3 polviews=(0(1)6))
 {res}
 {txt}{col 1}Adjusted predictions{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
@@ -125,11 +254,18 @@ Iteration 4:{space 2}Log likelihood = {res:-908.95042}
 {txt}{space 10}7  {c |}{col 14}{res}{space 2} .0556697{col 26}{space 2} .0121057{col 37}{space 1}    4.60{col 46}{space 3}0.000{col 54}{space 4} .0319429{col 67}{space 3} .0793964
 {txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {res}{txt}
-{com}. marginsplot
-{res}
-{text}{p 0 0 2}Variables that uniquely identify margins: {bf:polviews}{p_end}
-{res}{txt}
-{com}. //_7
+{com}. qui marginsplot, xlabel(, angle(45))
+{txt}
+{com}. graph export marginsplot.png, width(500) replace
+{txt}{p 0 4 2}
+file {bf}
+marginsplot.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. //_15
 . margins, dydx(relpersn) 
 {res}
 {txt}{col 1}Average marginal effects{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,575}
@@ -147,7 +283,7 @@ Iteration 4:{space 2}Log likelihood = {res:-908.95042}
 {space 4}relpersn {c |}{col 14}{res}{space 2}-.1084659{col 26}{space 2} .0111446{col 37}{space 1}   -9.73{col 46}{space 3}0.000{col 54}{space 4}-.1303089{col 67}{space 3}-.0866229
 {txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {res}{txt}
-{com}. //_8
+{com}. //_16
 . logit abany age childs educ polviews relpersn
 
 {res}{txt}Iteration 0:{space 2}Log likelihood = {res:-1084.8368}  
@@ -193,14 +329,8 @@ Iteration 4:{space 2}Log likelihood = {res:-908.38171}
 {space 7}_cons {c |}{col 14}{res}{space 2} .4605824{col 26}{space 2} .0242907{col 37}{space 1}   18.96{col 46}{space 3}0.000{col 54}{space 4} .4129735{col 67}{space 3} .5081913
 {txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {res}{txt}
-{com}. //_9
-. logit abany age childs educ polviews relpersn, or
-
-{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-1084.8368}  
-Iteration 1:{space 2}Log likelihood = {res:-909.83588}  
-Iteration 2:{space 2}Log likelihood = {res:-908.38496}  
-Iteration 3:{space 2}Log likelihood = {res:-908.38171}  
-Iteration 4:{space 2}Log likelihood = {res:-908.38171}  
+{com}. //_17
+. logistic abany age childs educ polviews relpersn
 {res}
 {txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:1,575}
 {txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:352.91}
@@ -219,12 +349,104 @@ Iteration 4:{space 2}Log likelihood = {res:-908.38171}
 {txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {p 0 6 2}Note: {bf:_cons} estimates baseline odds{txt}.{p_end}
 
+{com}. //_18
+. disp exp(.0032095)
+{res}1.0032147
+{txt}
+{com}. //_19
+. use anes2020subset, clear
+{txt}
+{com}. oprobit DiversityGood KnowsImmigrant LGBTfriends ICEtherm Ideology WhitesTherm
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-5069.8804}  
+Iteration 1:{space 2}Log likelihood = {res:-4455.9097}  
+Iteration 2:{space 2}Log likelihood = {res:-4452.6072}  
+Iteration 3:{space 2}Log likelihood = {res: -4452.607}  
+{res}
+{txt}{col 1}Ordered probit regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:5,855}
+{txt}{col 56}{lalign 13:LR chi2({res:5})}{col 69} = {res}{ralign 7:1234.55}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 9:-4452.607}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.1218}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} DiversityGood{col 16}{c |} Coefficient{col 28}  Std. err.{col 40}      z{col 48}   P>|z|{col 56}     [95% con{col 69}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+KnowsImmigrant {c |}{col 16}{res}{space 2} .3305089{col 28}{space 2} .0351652{col 39}{space 1}    9.40{col 48}{space 3}0.000{col 56}{space 4} .2615864{col 69}{space 3} .3994314
+{txt}{space 3}LGBTfriends {c |}{col 16}{res}{space 2} .1840994{col 28}{space 2}  .034816{col 39}{space 1}    5.29{col 48}{space 3}0.000{col 56}{space 4} .1158612{col 69}{space 3} .2523375
+{txt}{space 6}ICEtherm {c |}{col 16}{res}{space 2}-.0073763{col 28}{space 2} .0006913{col 39}{space 1}  -10.67{col 48}{space 3}0.000{col 56}{space 4}-.0087313{col 69}{space 3}-.0060213
+{txt}{space 6}Ideology {c |}{col 16}{res}{space 2}-.2275441{col 28}{space 2} .0124519{col 39}{space 1}  -18.27{col 48}{space 3}0.000{col 56}{space 4}-.2519494{col 69}{space 3}-.2031388
+{txt}{space 3}WhitesTherm {c |}{col 16}{res}{space 2} .0062016{col 28}{space 2} .0008351{col 39}{space 1}    7.43{col 48}{space 3}0.000{col 56}{space 4} .0045648{col 69}{space 3} .0078384
+{txt}{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}/cut1 {c |}{col 16}{res}{space 2}-1.991851{col 28}{space 2} .0764543{col 56}{space 4}-2.141699{col 69}{space 3}-1.842004
+{txt}{space 9}/cut2 {c |}{col 16}{res}{space 2}-.5120719{col 28}{space 2}   .07273{col 56}{space 4}-.6546201{col 69}{space 3}-.3695236
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. //_20
+. margins, predict() at((median) _all)
+{res}
+{txt}{col 1}Adjusted predictions{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:5,855}
+{txt}{col 1}Model VCE: {res:OIM}
+{txt}{p2colset 1 3 3 2}{...}
+{p2colreset}{...}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:{txt:1._predict:}}{res:Pr(DiversityGood==0), predict(pr outcome(0))}{p_end}
+{p2col:{txt:2._predict:}}{res:Pr(DiversityGood==1), predict(pr outcome(1))}{p_end}
+{p2col:{txt:3._predict:}}{res:Pr(DiversityGood==2), predict(pr outcome(2))}{p_end}
+{p2colreset}{...}
+
+{lalign 4:At: }{space 0}{lalign 14:KnowsImmigrant} = {res:{ralign 2:1}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 14:LGBTfriends} = {res:{ralign 2:1}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 14:ICEtherm} = {res:{ralign 2:50}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 14:Ideology} = {res:{ralign 2:3}} {txt:(median)}
+{lalign 4:}{space 0}{lalign 14:WhitesTherm} = {res:{ralign 2:70}} {txt:(median)}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}     Margin{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}_predict {c |}
+{space 10}1  {c |}{col 14}{res}{space 2} .0294375{col 26}{space 2} .0022068{col 37}{space 1}   13.34{col 46}{space 3}0.000{col 54}{space 4} .0251123{col 67}{space 3} .0337628
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .3117055{col 26}{space 2} .0075575{col 37}{space 1}   41.24{col 46}{space 3}0.000{col 54}{space 4} .2968931{col 67}{space 3} .3265179
+{txt}{space 10}3  {c |}{col 14}{res}{space 2}  .658857{col 26}{space 2} .0084535{col 37}{space 1}   77.94{col 46}{space 3}0.000{col 54}{space 4} .6422884{col 67}{space 3} .6754256
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. //_21
+. margins, predict() at(Ideology=(3 5) (median))
+{res}
+{txt}{col 1}Predictive margins{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:5,855}
+{txt}{col 1}Model VCE: {res:OIM}
+{txt}{p2colset 1 3 3 2}{...}
+{p2colreset}{...}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:{txt:1._predict:}}{res:Pr(DiversityGood==0), predict(pr outcome(0))}{p_end}
+{p2col:{txt:2._predict:}}{res:Pr(DiversityGood==1), predict(pr outcome(1))}{p_end}
+{p2col:{txt:3._predict:}}{res:Pr(DiversityGood==2), predict(pr outcome(2))}{p_end}
+{p2colreset}{...}
+
+{lalign 7:1._at: }{space 0}{lalign 8:Ideology} = {res:{ralign 1:3}}
+{lalign 7:2._at: }{space 0}{lalign 8:Ideology} = {res:{ralign 1:5}}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}     Margin{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+_predict#_at {c |}
+{space 8}1 1  {c |}{col 14}{res}{space 2}  .048569{col 26}{space 2} .0027479{col 37}{space 1}   17.68{col 46}{space 3}0.000{col 54}{space 4} .0431833{col 67}{space 3} .0539547
+{txt}{space 8}1 2  {c |}{col 14}{res}{space 2} .1101682{col 26}{space 2}  .005661{col 37}{space 1}   19.46{col 46}{space 3}0.000{col 54}{space 4} .0990728{col 67}{space 3} .1212635
+{txt}{space 8}2 1  {c |}{col 14}{res}{space 2} .3527509{col 26}{space 2} .0063461{col 37}{space 1}   55.59{col 46}{space 3}0.000{col 54}{space 4} .3403128{col 67}{space 3} .3651889
+{txt}{space 8}2 2  {c |}{col 14}{res}{space 2} .4626993{col 26}{space 2} .0092142{col 37}{space 1}   50.22{col 46}{space 3}0.000{col 54}{space 4} .4446399{col 67}{space 3} .4807587
+{txt}{space 8}3 1  {c |}{col 14}{res}{space 2} .5986801{col 26}{space 2} .0065563{col 37}{space 1}   91.31{col 46}{space 3}0.000{col 54}{space 4} .5858301{col 67}{space 3} .6115302
+{txt}{space 8}3 2  {c |}{col 14}{res}{space 2} .4271325{col 26}{space 2} .0109962{col 37}{space 1}   38.84{col 46}{space 3}0.000{col 54}{space 4} .4055804{col 67}{space 3} .4486847
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
 {com}. //_^
 . log close
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_3/pubpol_779/problem_sets/ps1/ps1.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 9 Sep 2024, 18:00:40
+ {txt}closed on:  {res}16 Sep 2024, 21:56:13
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

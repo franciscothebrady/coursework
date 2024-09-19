@@ -14,7 +14,24 @@ Pr(H) = \frac{exp(\theta)}{1 + exp(\theta)}
 $$
 
   
-##### a) This function produces a value that falls between 0 and 1. Now let the parameter $\theta$ take on the following values: -3, -1, 0, 1, 3. Calculate $Pr(H)$ for each value of $\theta$. What do you notice?
+##### a) This function produces a value that falls between 0 and 1. Now let the parameter $\theta$ take on the following values: -3, -1, 0, 1, 3. Calculate $Pr(H)$ for each value of $\theta$. What do you notice?  
+
+```{s}
+clear
+input theta
+-3
+-1
+0
+1
+3
+end
+
+gen prob_h = exp(theta) / (1 + exp(theta))
+
+list
+```  
+
+Pr(H) is increasing as the value of $\theta$ increases.  
 
 
 ##### b) Now suppose that you randomly select three voters and observe: H, H, and T, where T means voting for someone else. The joint probability of this set outcomes is:  
@@ -31,6 +48,12 @@ $$
 
 Again, let the parameter $\theta$ take on the values of -3, -1, 0, 1, 3. This is where using a spreadsheet will really save some time. What are the associated joint probabilities?  
 
+```{s}
+gen prob_hht = (exp(theta) / (1 + exp(theta))) * ///
+(exp(theta) / (1 + exp(theta))) * ( 1 / (1 + exp(theta)))
+list
+```
+
 
 ##### c) Since a likelihood function is proportional to the probability of observing $y$ given $\theta$, we can write the above as a likelihood function.  
 
@@ -40,6 +63,31 @@ $$
 
 Try to find the value of $\theta$ that maximizes the expression. What is the value of $Pr(H)$ associated with this value of $\theta$? Does this make sense?  
 
+```{s}
+* create data 
+clear 
+set obs 2001
+gen theta = .
+local i = 1
+qui forvalues value = -10(0.01)10 {
+    replace theta = `value' in `i'
+    local i = `i' + 1
+}
+```
+
+```{s}
+gen prob_h = exp(theta) / (1 + exp(theta))
+gen prob_hht = (exp(theta) / (1 + exp(theta))) * ///
+(exp(theta) / (1 + exp(theta))) * ( 1 / (1 + exp(theta)))
+```
+
+```{s}
+summarize prob_hht
+list theta prob_h prob_hht if prob_hht == r(max)
+```
+
+The largest value of the expression is around .148, which occurs when $\theta$ is set to around .69. This value is similar in expectation to the proportion of the sample that voted for H, so this makes sense.  
+
 ##### d) If we take the log of both sides of the above, we get the following:  
 
 $$
@@ -48,17 +96,50 @@ $$
 
 Find the value of $\theta$ that maximizes this new equation. Hint: do the calculations inside the parentheses and then take the natural log. What insights do you draw from your answer?  
 
-##### e) All of this assumes that $Pr(H)$ is the same for all individuals. It's more likely that different people with different characteristics will have different probabilities of voting H.  
+```{s}
+gen log_likelihood = ln(prob_hht)
+summarize log_likelihood
+list theta prob_h prob_hht log_likelihood if log_likelihood == r(max)
+```
 
-Let's assume we measure some characteristic $x_i$ for each person. We now can model the parameter $\theta_i$ as $\beta_i$. Re-write the log likelihood function with this change. Note: normally, we would include an intercept as well, so that $\theta_i = \beta_0 + \beta_1 x_i$, but let's keep it simpler for now and ignore the intercept.  
+This is consistent with the results above. The $\theta$ that maximizes the log-likelihood function is around .69, the same as with the likelihood function.  
+
+
+##### e) All of this assumes that $Pr(H)$ is the same for all individuals. It's more likely that different people with different characteristics will have different probabilities of voting H. Let's assume we measure some characteristic $x_i$ for each person. We now can model the parameter $\theta_i$ as $\beta_i$. Re-write the log likelihood function with this change. Note: normally, we would include an intercept as well, so that $\theta_i = \beta_0 + \beta_1 x_i$, but let's keep it simpler for now and ignore the intercept.  
+
+The new log-likelihood function would be: 
+
+$$
+\mathcal{L}(\beta_i | y_i, x_i) = \ln \left( \frac{exp(\beta_i x_i)}{1 + exp(\beta_i x_i)} \right) + \ln \left( \frac{exp(\beta_i x_i)}{1 + exp(\beta_i x_i)} \right) + \ln \left( \frac{1}{1 + exp(\beta_i x_i)} \right)
+$$
 
 ##### f) Suppose that the value of $x_i$ in each case respectively (in order) is 6, 3, 4. Find the value of $\beta$ that produces the highest value of the log likelihood function.  
 
+```{s}
+gen beta_i = theta
+gen betai_xi = ln(exp(beta_i * 6) / (1 + exp(beta_i * 6))) + ///
+               ln(exp(beta_i * 3) / (1 + exp(beta_i * 3))) + ///
+               ln( 1 / (1 + exp(beta_i * 4)))
+*list
+summarize betai_xi
+list beta_i prob_h prob_hht log_likelihood betai_xi if betai_xi == r(max)
+```
+The value of $\beta$ that maximizes the log-likelihood function is .17.  
+
 ##### g) Given this value of $\beta$, what is the probability that the first voter, with $x_i$ = 6, will vote H? The second voter?  
+
+To find this, we can evaluate the log-likelihood for $Pr(H|x=6)$ and $Pr(H|x=3)$ plugging in $\beta = .17$. Then we put those values into the standard normal distribution function to get the probability. 
+
+```{s}
+disp "Pr(H|x=6) = " exp(.17 * 6) / (1 + exp(.17 * 6)) 
+disp "Pr(H|x=3) = " exp(.17 * 3) / (1 + exp(.17 * 3))
+```
+
+So the probability that a person with $x=6$ will vote H is .735 and the probability that a person with $x=3$ will vote for H is .625.  
 
 #### 2. Use the `GSS2014subset` dataset for this question. The dependent variable is `abany`, where 1 indicates the respondent believes a pregnant woman should be able to obtain a legal abortion if she wants, for any reason, and 0 indicates otherwise.  
 
-The independent variables are: `age`, the respondent's age in years; `childs`, the number of children a respondent has; `educ`, the respondent's education in years; `polviews`, the respondent's score on the 7-point ideology scale in which higher values mean a person is more conservative; and `relpersn`, a four-point scale in which higher values mean the person is less religious.  
+The independent variables are: `age`, the respondent's age in years; `childs`, the number of children a respondent has; `educ`, the respondent's education in years; `polviews`, the respondent's score on the 7-point ideology scale in which higher values mean a person is more conservative; and `relpersn`, a four-point scale in which higher values mean the person is *more* religious.  
 
 Note: R users likely will want to convert the variables that are in the factor class to numeric class using as numeric from the sjlabelled library so that they start at 0 post-conversion (see help document). The regular as.numeric function will create variables that start at 1.  
 
@@ -71,19 +152,14 @@ probit abany age childs educ polviews relpersn
 
 - Education has a positive and significant association with support for legal abortion  
 - A higher score on the political ideology index (`polviews`) is associated with lower support for abortion.  
-- A higher value on the `relpersn` scale, which indicates a less religious person, is associated with lower support for abortion
-- Age and number of children were not significantly associated with support for abortion
+- A higher value on the `relpersn` scale, which indicates a more religious person, is significant and associated with lower support for abortion
+- Number of children is weakly significantly associated with lower support for abortion
+- Age is not significantly related to support for abortion.  
 
 
 ##### b) By hand, calculate the probability that a person supports an unrestricted right to legal abortion if that person is 35 years old, has two children, has 16 years of education, is a 3 on the ideology scale (starting at 0), and is a 2 on `relpersn`.  
 
-Using the coefficients from the probit regression output and the following values:  
-
-- age = 35
-- childs = 2 
-- educ = 16
-- polviews = 3
-- relpersn = 2  
+Using the coefficients from the probit regression output and the values above:  
 
 $$
 \begin{align}
@@ -96,25 +172,17 @@ $$
 To get the predicted probability, evaluate using the standard normal distribution:  
 
 ```{s}
-disp normal(-0.095565)
+disp normal(0.095565)
 ```
-Which tells us that the predicted probability that a person with these characteristics voted for Harris is ~.462. [SHOULD WE DO THIS BY HAND USING THE EXP STUFF]
-
-
+Which tells us that the predicted probability that a person with these characteristics voted for Harris is ~.462.
 
 ##### c) Now suppose instead the person is 65 years old and is a 5 on the ideology scale. What is the change in the predicted probability of a support for unrestricted abortion rights?  
 
-- age = 65  
-- childs = 2  
-- educ = 16  
-- polviews = 5  
-- relpersn = 2  
-
 $$
 \begin{align}
-Y_2 = -0.2199 + 0.001993 (65) - 0.04658 (2) + 0.09457 (16) - 0.23486 (5) - 0.3304 (2) \\
-Y_2 = -0.2199 + 0.129545 - 0.09316 + 1.51312 - 1.1743 - 0.6608 \\
-Y_2 = -0.505495 \\
+{x_i \beta}_2 = -0.2199 + 0.001993 (65) - 0.04658 (2) + 0.09457 (16) - 0.23486 (5) - 0.3304 (2) \\
+{x_i \beta}_2 = -0.2199 + 0.129545 - 0.09316 + 1.51312 - 1.1743 - 0.6608 \\
+{x_i \beta}_2 = -0.505495 \\
 \end{align}
 $$
 
@@ -124,6 +192,7 @@ To get the predicted probability, evaluate using the standard normal distributio
 disp normal(-0.505495)
 ```
 Which gives .306. Taking the difference between the two:  
+
 $$
 \begin{align}
 \phi(-0.095565) - \phi(-0.505495) = \\
@@ -131,7 +200,7 @@ $$
 \end{align}
 $$  
 
-Changing the characteristics of a person to being 65 and increasing their score on the ideology scale (to more conservative) decreases their probability of voting Harris by .156.   
+Changing the characteristics of a person to age 65 and increasing their score on the ideology scale (to more conservative) decreases their probability of voting Harris by .156.   
 
 
 ##### d) Using your software, find the predicted probability that a person supports unrestricted abortion rights when all independent variables are set to their medians in the estimation sample. In Stata, this means using the `predict`' command with the (medians) all option. In R, use the predictions function from the `marginaleffects` package, which can also be set to use medians from the estimation sample.  
@@ -139,13 +208,18 @@ Changing the characteristics of a person to being 65 and increasing their score 
 ```{s}
 margins, predict() at((median) _all)
 ```
+
+The command outputs a predicted probability of .398.
+
+
 ##### e) Using your software, set age to 40, childs to 4, educ to 12, relpersn to 3, and let polviews vary from 0 to 6 in increments of 1. Find the predicted probability the person supports unrestricted abortion rights as polviews changes. Then make the marginsplot.  
 
 ```{s}
 margins, predict() at(age=40 childs=4 educ=12 relpersn=3 polviews=(0(1)6))
-marginsplot
+qui marginsplot, xlabel(, angle(45))
+graph export marginsplot.png, width(500) replace
 ```  
-[UNCLEAR IF "FIND THE PREDICTED PROB" HERE JUST MEANS USE MARGINS OR WE NEED TO STATE EXPLICITLY]
+![Margins Plot](marginsplot.png)
 
 ##### f) What is the average marginal effect of the variable `relpersn`?  
 
@@ -153,8 +227,7 @@ marginsplot
 margins, dydx(relpersn) 
 ```
 
-On average, the marginal effect of a one-unit change in `relpersn` is about -.108.  
-
+On average, the marginal effect of a one-unit change in `relpersn` decreases the probability of a person supporting abortion for any reason by about .108.  
 
 ##### g) Re-estimate the model as a logit model. Using your software, find the predicted probability that a person supports an unrestricted right to legal abortion if that person is 35 years old, has two children, has 16 years of education, is a 3 on the ideology scale, and is a 2 on `relpersn`. Compare this to your answer in part (b).   
 
@@ -163,13 +236,22 @@ logit abany age childs educ polviews relpersn
 margins, predict() at(age=35 childs=2 educ=16 polviews=3 relpersn=2)
 ```
 
+The predicted probability in (b) was .462, the predicted probability using the logit command is .460. They are similar.  
+
 ##### h) Now run the model as a logistic regression that produces odds ratios for coefficients. Compare the coefficients to the logit model that you just ran, explaining how they have the same substantive meaning.  
 
 ```{s}
-logit abany age childs educ polviews relpersn, or
+logistic abany age childs educ polviews relpersn
 ```  
 
-Logit reports the log-odds. Odds-ratios are the [ADD MORE EXPLANATION HERE]. The odds-ratios are converted into $\frac{odds}{1-odds}$  
+The `logit` command coefficients reflect the change in log odds for a one unit change in the independent variable. To generate the odds ratio from the odds ratio from logit output you need to exponentiate the coefficient. 
+Using the coefficient on `age`:  
+
+```{s}
+disp exp(.0032095)
+```
+
+Which is the output from the logistic regression.  
 
 
 #### 3. For this question, use the dataset anes2020subset. The dependent variable is `DiversityGood`, which provides an ordinal set of responses to the following question: "Does the increasing number of people of many different races and ethnic groups in the United States make this country a better place to live, a worse place to live, or does it make no difference?" The responses are recorded as "worse," "makes no difference," or "better."  
@@ -179,21 +261,111 @@ The independent variables of interest are: `KnowsImmigrant`, a dichotomous varia
 ##### (a) Estimate an ordered probit model. Report the results and describe the basic substantive findings, including statistical significance, without calculating predicted or marginal effects.  
 
 ```{s}
-
+use anes2020subset, clear
+oprobit DiversityGood KnowsImmigrant LGBTfriends ICEtherm Ideology WhitesTherm
 ```
 
 Note: R users should first convert Ideology to a numeric variable (see help document). Also, it may also be easier for later – in parts (e) and (f) – to deal with the dichotomous variables if they are converted to numeric.  
 
-##### (b) By hand, calculate the value of xi β for a person who does not know an immigrant, who does not have LGBT friends, whose feeling thermometer score for ICE is 55, who is a 4 ("slightly conservative") on the ideology scale, and whose feeling thermometer score for white people is 75.  
+- Going from not knowing an immigrant to knowing an immigrant is positive and significantly associated with a higher/more positive response to the "DiversityGood" question.  
+- Going from having no LGBT friends to having LGBT friends is positive and significantly associated with a higher/more positive response to the "DiversityGood" question.  
+- An increase in the positive feelings for ICE is negative and significantly associated with a lower/less positive response to the "DiversityGood" question.  
+- An increase in ideology score is negative and significantly associated with a lower/less positive response to the "DiversityGood" question.  
+- An increase in the Whites thermometer is positive and significantly associated with a higher/more positive response to the "DiversityGood" question.  
 
-##### (c) Put the value you calculated for xi β at the center of a standard normal (z) distribution (i.e. it has a z-score of 0; the standard deviation is already 1). Then, what would be the corresponding z scores for the 2 cut points? What proportion of the area is below cut1? What proportion of area is above cut2? What proportion is between cut1 and cut2?  
+##### (b) By hand, calculate the value of $x_i \beta$ for a person who does not know an immigrant, who does not have LGBT friends, whose feeling thermometer score for ICE is 55, who is a 4 ("slightly conservative") on the ideology scale, and whose feeling thermometer score for white people is 75.  
+
+Using the coefficients from the model:  
+
+
+$$
+\begin{align}
+x_i \beta = .3305089(KnowsImmigrant) + .1840994(LGBTfriends) - .0073763(ICEtherm) \\
+- .2275441(Ideology) + .0062016(WhitesTherm)
+\end{align}
+$$
+
+$$
+\begin{align}
+x_i \beta = .3305089(0) + .1840994(0) - .0073763(55) \\
+- .2275441(4) + .0062016(75)
+ = -.8507529
+\end{align}
+$$  
+
+So $x_i \beta$ for this scenario is: -.8507529  
+
+##### (c) Put the value you calculated for $x_i \beta$ at the center of a standard normal (z) distribution (i.e. it has a z-score of 0; the standard deviation is already 1). Then, what would be the corresponding z scores for the 2 cut points? What proportion of the area is below cut1? What proportion of area is above cut2? What proportion is between cut1 and cut2?  
+
+We get the values of the two cut points from the model:  
+$cut1 = -1.991851$  
+$cut2 = -.5120719$  
+
+To find the corresponding z-scores: 
+$$
+\begin{align}
+z_{cut1} = \phi(cut1 - x_i \beta) \\
+&= \phi(-1.991851 + 0.8507529) \\ 
+&= \phi(-1.1410981) \\ 
+&=  .12691455
+\end{align}
+$$
+
+So the proportion of the area that is below cut1 is around .127.  
+
+$$
+\begin{align}
+z_{cut2} = \phi(cut2 - x_i \beta) \\
+&= \phi(-0.5120719 + 0.8507529) \\
+&= \phi(0.338681) \\
+&= .63257497
+\end{align}
+$$
+
+The proportion of the area that is above cut2 is $1 - .63257497 = .36742503$.  
+
+Using both, the proportion of the area between cut1 and cut2 is:  
+$ .63257497 - 12691455 = .50566545$  
+ 
 
 ##### (d) What if, instead, the person does know an immigrant? How do the predictions change?  
 Note: keep all other variables at the same values.  
 
+If the person knows an immigrant, the $x_i \beta$ calculation changes:  
+$$
+\begin{align}
+x_i \beta = .3305089(1) + .1840994(0) - .0073763(55) \\
+- .2275441(4) + .0062016(75)
+ = -.520244
+\end{align}
+$$
+
+If the scenario changes to where a person knows an immigrant, the $x_i \beta$ calculation changes to -.520. 
+
+
 ##### (e) Now use Stata or R. If a person has the median value (in the estimation sample) for all independent variables, with what predicted probabilities does that person give each respective response?  
 For R users: if the dichotomous variables are left as factors, you will need to follow code examples from the help document for specifying factor variable values.  
 
+```{s}
+margins, predict() at((median) _all)
+```
+According to the output, at the median values for all independent variables, the predicted probability that a person responds:  
+
+- "worse" is .029
+- "makes no difference" is .311
+- "better" is .659
+
 ##### (f) Again, use your software. For a person with the median values for all independent variables in the estimation sample, what is the predicted effect of a 2-point increase in Ideology on the probability of each answer?  
+
+Setting `Ideology` to it's median value (3), and increasing it to 5, while keeping all other independent variables the same.
+
+```{s}
+margins, predict() at(Ideology=(3 5) (median))
+```
+
+- The probability of answering "worse" changes from .048569 to .1101682, an increase of .0615992. 
+- The probability of answering "makes no difference" changes from .3527509 to .4626993, an increase of .1099484.
+- The probability of answering "better" changes from .5986801 to .4271325, a decrease of .1715476.  
+
 
 
