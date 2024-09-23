@@ -1,0 +1,286 @@
+---
+title: 'Problem Set #2'
+author: "Francisco Brady"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr) # for pipe
+library(haven) # to read dta
+library(janitor) # for tabyl
+library(nnet) # for multinum
+library(forcats) # to relevel
+library(marginaleffects) # for predict function
+library(MASS) # for glm.nb function
+library(pscl) # for zeroinfl function
+```
+
+### 1.  
+For this question, use the dataset `anes2016subet`. The dependent variable, `HomeOwnership`, consists of four categories: "pay rent", "pay mortgage", "own home with no payments", and "some other arrangement". The independent variables are: `Age` in years; `BAplus`, which is a dummy variable in which 1 indicates the person has a degree from a four-year college; and `Ideology`, which is the person’s self-reported ideology on a seven-point scale in which higher values indicate more conservative beliefs.  
+
+```{r}
+# haven package function to read in dta
+# use as_factor to convert labelled values to R factors
+anes <- read_dta('anes2016subset.dta') %>%
+  mutate(HomeOwnership = as_factor(HomeOwnership)) %>%
+  mutate(Health = as_factor(Health))
+# check out variables 
+# glimpse(anes %>% select(HomeOwnership, Age, BAplus, Ideology) %>% head)
+```
+
+#### (a)  
+Estimate a multinomial logit model with "pay mortgage" as the base category. Report the results and describe the basic substantive findings without calculating predicted or marginal effects. R users should convert the Ideology variable to a numeric variable starting at 0 and may want to do the same with BAplus.  
+
+```{r}
+# relevel to make Pay Mortgage the first level
+anes <- anes %>% mutate(HomeOwnership = forcats::fct_relevel(HomeOwnership, 'Pay mortgage'))
+
+model <- multinom(HomeOwnership ~ Age + BAplus + Ideology, data = anes)
+#model
+summary(model)
+# model %>%
+#   tidy()
+```
+
+#### (b)  
+Show how the $\chi^2$ statistic from the Likelihood Ratio test is calculated. What is the substantive interpretation of this test?  
+
+```{r}
+
+```
+
+#### (c)  
+Find the following by hand using the formulas. Suppose a person is 55, has a college degree, and is a moderate (3) on the ideology scale. With what predicted probabilities is the person in each home ownership category?  
+
+Find $exp(x_i \beta_j)$ for non-base categories:  
+
+$$
+\begin{aligned}
+\text{Pay rent}:\\ 
+x_i \beta_2 = exp(2.153 - 0.035(55) - 0.699(1) - 0.22(3)) \\
+x_i \beta_2 = exp(-1.131) \\
+x_i \beta_2 = 0.322 \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\text{Own home with no payments due}: \\ 
+x_i \beta_3 = exp(-4.033 + 0.06(55) - 0.247(1) - 0.004(3)) \\
+x_i \beta_3 = exp(-0.992) \\
+x_i \beta_3 = 0.37 \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\text{Some other arrangement}: \\ 
+x_i \beta_4 = exp(0.79 -0.041(55) - 1.134(1) - 0.095(3)) \\
+x_i \beta_4 = exp(-2.884) \\
+x_i \beta_4 = 0.06 \\
+\end{aligned}
+$$
+
+Then use $exp(x_i \beta_j)$'s to evaluate the probability for each category:  
+
+$$
+\begin{aligned}
+\text{Pay rent}:\\ 
+Pr(y_i = 2|x_i) = \frac{\exp(x_i \beta_2)}{1 + \sum_{j=2}^{J} \exp(x_i \beta_j)} \\
+Pr(y_i = 2|x_i) = \frac{.322}{1 + .322 + .37 + .06} \\
+Pr(y_i = 2|x_i) = 0.18379 \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\text{Own home with no payments due}: \\ 
+Pr(y_i = 3|x_i) = \frac{\exp(x_i \beta_2)}{1 + \sum_{j=2}^{J} \exp(x_i \beta_j)} \\
+Pr(y_i = 3|x_i) = \frac{.37}{1 + .322 + .37 + .06} \\
+Pr(y_i = 3|x_i) = 0.2111872 \\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\text{Some other arrangement}: \\ 
+Pr(y_i = 4|x_i) = \frac{\exp(x_i \beta_2)}{1 + \sum_{j=2}^{J} \exp(x_i \beta_j)} \\
+Pr(y_i = 4|x_i) = \frac{.06}{1 + .322 + .37 + .06} \\
+Pr(y_i = 4|x_i) = 0.03424658 \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\text{Owns Home}: \\ 
+Pr(y_i = 1|x_i) = \frac{\exp(x_i \beta_2)}{1 + \sum_{j=2}^{J} \exp(x_i \beta_j)} \\
+Pr(y_i = 1|x_i) = \frac{1}{1 + .322 + .37 + .06} \\
+Pr(y_i = 1|x_i) = [FILL IN] \\
+\end{aligned}
+$$
+<!-- [I THINK THIS MEANS PR(1) = 1 - PR(2) + PR(3) + PR(4)] -->
+
+#### (d)  
+Using your software, find the predicted probabilities for each category for a person with median values of all the independent variables (medians from the estimation sample, which is what the built-in functions use, not the full dataset medians).  
+
+```{r}
+# set up data frame of medians 
+# keep only records with non-missing values
+estimation_sample <- anes %>% 
+  select(HomeOwnership, Age, BAplus, Ideology) %>%
+  filter(complete.cases(.))
+median_values <- data.frame(Age = median(estimation_sample$Age),
+                            BAplus = median(estimation_sample$BAplus),
+                            Ideology = median(estimation_sample$Ideology))
+predictions(model, type = 'probs', newdata = median_values)
+```
+
+#### (e)  
+Now suppose that Age is one standard deviation higher, while all other variables remain at their medians. What is the predicted change in probabilities for each category?  
+
+```{r}
+age_sd <- sd(estimation_sample$Age)
+age_median <- median(estimation_sample$Age)
+new_age <- age_median + age_sd
+new_values <- data.frame(Age = new_age,
+                            BAplus = median(estimation_sample$BAplus),
+                            Ideology = median(estimation_sample$Ideology))
+predictions(model, type = 'probs', newdata = new_values)
+```
+
+#### (f)  
+Using your software, what is the average marginal effect of the variable BAplus?  
+
+```{r}
+ame_mlogit <- avg_slopes(model,
+                         variables = 'BAplus',
+                         type = 'probs',
+                         slope = 'dydx')
+ame_mlogit
+```
+
+#### (g)  
+Change the base category to "own home with no payments" and re-run the model. Examine the coefficients and compare them to the earlier estimation. How do you interpret the differences?   
+
+```{r}
+# relevel to make Pay Mortgage the first level
+anes <- anes %>% mutate(HomeOwnership = forcats::fct_relevel(HomeOwnership, 'Own home with no payments due'))
+model_2 <- multinom(HomeOwnership ~ Age + BAplus + Ideology, data = anes)
+summary(model_2)
+```
+
+### 2.  
+This question will use the dataset `anes2016subset`. The dependent variable is `Memberships`.  
+
+#### (a)  
+Produce a histogram of the dependent variable. Explain why OLS might be not be the best estimation method for these data.  
+
+```{r}
+hist(anes$Memberships, main = 'Histogram of Memberships', 
+     xlab = 'Memberships'
+     )
+```
+
+#### (b)  
+Estimate a Poisson model using the following independent variables: `Age`, `BAplus`, `Ideology`, and `NewsDays`. Report the results and describe the basic substantive findings without calculating predicted or marginal effects. Note: R users should make Ideology a numeric variable starting at 0.  
+
+```{r}
+poisson_model <- glm(
+  Memberships ~ Age + BAplus + Ideology + NewsDays, 
+  family = "poisson",
+  data = anes)
+poisson_sum <- summary(poisson_model)
+poisson_sum
+```
+
+#### (c)  
+Using Stata or R, calculate the predicted number of memberships for a person who is 35 years-old, has a college degree, is liberal (1) on the ideology scale, and who watches/reads the news 5 days a week.  
+
+```{r}
+value_list <- data.frame(Age = 35,
+                          BAplus = 1,
+                          Ideology = 1,
+                          NewsDays = 5)
+prediction_1 <- predictions(poisson_model,
+                             newdata = value_list,
+                             type = 'response')
+prediction_1
+```
+
+According to the estimates, a person with these characteristics is predicted to have 1.53
+memberships. This is slightly higher than the overall average number of memberships for the sample.  
+
+#### (d)  
+By hand, calculate the probability that this person belongs to 2 groups.  
+
+```{r}
+# using r to double check
+dpois(2, prediction_1$estimate)
+```
+
+#### (e)  
+Run the same model using a negative binomial regression. Using Stata or R, calculate the predicted number of memberships for a person with the same characteristics as those described in part (c). Compare this result to the previous prediction.  
+
+```{r}
+mod_nbreg <-
+  glm.nb(Memberships ~ Age + BAplus + Ideology + NewsDays, 
+         data = anes)
+summary(mod_nbreg)
+```
+
+#### (f)  
+Now estimate the same model using a zero-inflated Poisson regression. In this model, use the variables `Voted2016` and `Health` as variables that predict whether a person is in the "always zero" category. Interpret the substantive meaning and statistical significance of the coefficients on these two variables. Note: R users should treat Health as a numeric variable starting at 0.  
+
+```{r}
+zip_model <- zeroinfl(Memberships ~ Age + BAplus + Ideology + NewsDays | Voted2016 + Health,
+                      data = anes)
+summary(zip_model)
+```
+
+The negative coeﬀicient on `Voted2016` and `Health` indicates that people who voted in 2016 and that are in better health are less likely to be in the "always zero" category. Both coefficients are statistically significant.  
+
+#### (g)  
+Using Stata or R, calculate the predicted number of memberships for a person with the same characteristics as those described in part (c). Assume also that the person voted in 2016 and is in very good health (3).  
+
+```{r}
+value_list <- data.frame(Age = 35,
+                         BAplus = 1,
+                         Ideology = 1,
+                         NewsDays = 5,
+                         Voted2016 = 1,
+                         Health = factor('Very good', 
+                                         levels = c('Poor', 'Fair', 'Good', 
+                                                    'Very good', 'Excellent')))
+prediction_2 <- predictions(zip_model,
+                            newdata = value_list,
+                            type = 'response')
+prediction_2 # %>% t %>% knitr::kable()
+```
+
+Using the zero-inflated model yields a prediction of 1.71, which is slightly higher than the poisson model.  
+
+#### (h)  
+Now estimate a Hurdle model in which the first stage is a logit and the second stage is a truncated Poisson. In Stata, this will require suest.  
+
+```{r}
+# define model
+hurdle_mod <- hurdle(Memberships ~ Age + BAplus + Ideology + NewsDays | 
+                       Voted2016 + Health,
+                      data = anes)
+summary(hurdle_mod)
+```
+
+#### (i)  
+Calculate the predicted number of memberships for a person with the same characteristics as described in part (g).  
+
+```{r}
+# use same value list as above
+hurdle_pred <- predict(hurdle_mod, 
+                       newdata = value_list,
+                       type = 'response', se.fit = TRUE)
+hurdle_pred
+```
+
+A person with these characteristics is expected to have 1.6 memberships. 
+
+#### (j)  
+When trying to decide which of these models is most appropriate/best for this scenario, what factors do you consider?  
+
