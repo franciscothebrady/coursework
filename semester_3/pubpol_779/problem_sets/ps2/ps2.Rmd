@@ -7,6 +7,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = TRUE)
 library(dplyr) # for pipe
 library(haven) # to read dta
 library(janitor) # for tabyl
@@ -35,21 +36,43 @@ Estimate a multinomial logit model with "pay mortgage" as the base category. Rep
 
 ```{r}
 # relevel to make Pay Mortgage the first level
-anes <- anes %>% mutate(HomeOwnership = forcats::fct_relevel(HomeOwnership, 'Pay mortgage'))
+anes <- anes %>% mutate(HomeOwnership = forcats::fct_relevel(HomeOwnership, 'Pay mortgage')) 
 
 model <- multinom(HomeOwnership ~ Age + BAplus + Ideology, data = anes)
 #model
 summary(model)
 # model %>%
-#   tidy()
+#   z-scores
+round(summary(model)$coefficients / summary(model)$standard.errors, 3)
 ```
 
+- Age:  
+  - Pay Rent: As people get older, the probability that they are paying rent decreases relative to paying a mortgage. This estimate is statistically significant. 
+  - Own home with no payments due: As people age they are more likely to own their home without payments relative to paying a mortgage. This estimate is significant.  
+  - Some other arrangement: As people get older, the probability that a person has some sort of other arrangement for their home decreases, relative to paying a mortgage. This estimate is significant.  
+  
+- BAPlus:  
+  - Pay rent/Own home without payments/Some other arrangement: All of the coefficients for this variable are negative, indicating that a person with a BA or more is more likely to be paying a mortgage, relative to all of the other living situations.  Paying rent and some other arrangement are both highly significant, while owning a home with no payments is significant, but only at the p<.05 level.
+  
+- Ideology:  
+  - Pay rent: People who identify as more conservative are less likely to be paying rent as opposed to paying a mortgage. This estimate is highly significant.  
+  - Paid off home: The coefficient implies that relative to paying a mortgage, ideology has a very small negative effect, however it is not significant.  
+  - Some other arrangement: This estimate implies that people who are more conservative on the ideology scale are less likely to be in some other living arrangement, relative to paying a mortgage. The estimate is significant at the 10% level.  
+  
 #### (b)  
-Show how the $\chi^2$ statistic from the Likelihood Ratio test is calculated. What is the substantive interpretation of this test?  
+Show how the $\chi^2$ statistic from the Likelihood Ratio test is calculated. What is the substantive interpretation of this test?    
 
-```{r}
+The likelihood ratio test is calculated by taking the log likelihood of the restricted model (0 explanatory variable), and comparing that to the final converged model (with all desired coefficients). Based on the model output, the restricted model log likelihood is $4096.499837$, and the unrestricted log likelihood is $3199.842631$:  
 
-```
+$$
+\begin{aligned}
+LR = -2 ln \frac{L_r}{L_ur} = -2 (ln L_r- ln L_ur) \\
+LR = -2(-4096.499837 - 3199.842631)  \\
+LR = 1793.314
+\end{aligned}
+$$
+The log likelihood ratio measures the explanatory power of an intercept-only model as compared to the unrestricted model which includes explanatory variables. The difference between the intercept only model and the model with our explanatory variables is significantly large that we can reject the null hypothesis that the intercept-only model has more explanatory power.   
+
 
 #### (c)  
 Find the following by hand using the formulas. Suppose a person is 55, has a college degree, and is a moderate (3) on the ideology scale. With what predicted probabilities is the person in each home ownership category?  
@@ -81,6 +104,14 @@ x_i \beta_4 = 0.06 \\
 \end{aligned}
 $$
 
+$$
+\begin{aligned}
+\text{Pay mortgage}: \\ 
+x_i \beta_1 = 1
+\end{aligned}
+$$
+
+
 Then use $exp(x_i \beta_j)$'s to evaluate the probability for each category:  
 
 $$
@@ -108,15 +139,15 @@ Pr(y_i = 4|x_i) = \frac{.06}{1 + .322 + .37 + .06} \\
 Pr(y_i = 4|x_i) = 0.03424658 \\
 \end{aligned}
 $$
+
 $$
 \begin{aligned}
-\text{Owns Home}: \\ 
-Pr(y_i = 1|x_i) = \frac{\exp(x_i \beta_2)}{1 + \sum_{j=2}^{J} \exp(x_i \beta_j)} \\
+\text{Pays Mortgage}: \\ 
 Pr(y_i = 1|x_i) = \frac{1}{1 + .322 + .37 + .06} \\
-Pr(y_i = 1|x_i) = [FILL IN] \\
+Pr(y_i = 1|x_i) = 0.5707763 \\
 \end{aligned}
 $$
-<!-- [I THINK THIS MEANS PR(1) = 1 - PR(2) + PR(3) + PR(4)] -->
+
 
 #### (d)  
 Using your software, find the predicted probabilities for each category for a person with median values of all the independent variables (medians from the estimation sample, which is what the built-in functions use, not the full dataset medians).  
@@ -125,8 +156,8 @@ Using your software, find the predicted probabilities for each category for a pe
 # set up data frame of medians 
 # keep only records with non-missing values
 estimation_sample <- anes %>% 
-  select(HomeOwnership, Age, BAplus, Ideology) %>%
-  filter(complete.cases(.))
+  dplyr::select(HomeOwnership, Age, BAplus, Ideology) %>%
+  dplyr::filter(complete.cases(.))
 median_values <- data.frame(Age = median(estimation_sample$Age),
                             BAplus = median(estimation_sample$BAplus),
                             Ideology = median(estimation_sample$Ideology))
@@ -140,11 +171,25 @@ Now suppose that Age is one standard deviation higher, while all other variables
 age_sd <- sd(estimation_sample$Age)
 age_median <- median(estimation_sample$Age)
 new_age <- age_median + age_sd
+cat('Age Median:', 
+    age_median, 
+    '\nAge SD:', 
+    age_sd, 
+    '\nNew age:',
+    new_age
+    )
+
 new_values <- data.frame(Age = new_age,
                             BAplus = median(estimation_sample$BAplus),
                             Ideology = median(estimation_sample$Ideology))
 predictions(model, type = 'probs', newdata = new_values)
 ```
+Change in predicted probabilities (Initial - New Age)  
+
+- Pays Mortgage: $0.5707763 - 0.3849 = 0.1858763$  
+- Pays Rent: $0.18379 - 0.1572 = 0.02659$  
+- Own home with no payments due: $0.2111872 - 0.4196 = -0.2084128$  
+- Some other arrangement: $0.03424658 - 0.0383 = -0.00405342$
 
 #### (f)  
 Using your software, what is the average marginal effect of the variable BAplus?  
@@ -157,15 +202,25 @@ ame_mlogit <- avg_slopes(model,
 ame_mlogit
 ```
 
+According to the output:  
+-  Pay mortgage: Having a BA+ is on average associated with a marginal effect of .136. The p-value for this estimate is significant.  
+-  Pay rent: Having a BA+ is on average associated with a marginal effect of -.08. The p-value for this estimate is significant.  
+-  Own home with no payments due: Having a BA+ is on average associated with a marginal effect of 0.0000205. The p-value for this estimate is not significant.  
+-  Some other arrangement: Having a BA+ is associated with an average marginal effect of -0.0487. The p-value for this estimate is significant.  
+
 #### (g)  
-Change the base category to "own home with no payments" and re-run the model. Examine the coefficients and compare them to the earlier estimation. How do you interpret the differences?   
+Change the base category to "own home with no payments" and re-run the model. Examine the coefficients and compare them to the earlier estimation. How do you interpret the differences?  [Everything is also the same statistical significance.]  
+
 
 ```{r}
 # relevel to make Pay Mortgage the first level
-anes <- anes %>% mutate(HomeOwnership = forcats::fct_relevel(HomeOwnership, 'Own home with no payments due'))
+anes <- anes %>% mutate(HomeOwnership = forcats::fct_relevel(HomeOwnership, 
+                                                             'Own home with no payments due'))
 model_2 <- multinom(HomeOwnership ~ Age + BAplus + Ideology, data = anes)
 summary(model_2)
 ```
+
+When you change the base category for a model, none of the predicted probabilities or marginal effects change. The only thing that changes is the coefficients, because they are in reference to a different base category. 
 
 ### 2.  
 This question will use the dataset `anes2016subset`. The dependent variable is `Memberships`.  
@@ -175,9 +230,11 @@ Produce a histogram of the dependent variable. Explain why OLS might be not be t
 
 ```{r}
 hist(anes$Memberships, main = 'Histogram of Memberships', 
-     xlab = 'Memberships'
+     xlab = 'Memberships', col = 'dodgerblue'
      )
 ```
+
+The histogram shows that the count of memberships is heavily concentrated around values less than 10, with a large proportion of observations at 0. The data are not evenly distributed, and using OLS can result in biased standard errors and incorrect significance tests.
 
 #### (b)  
 Estimate a Poisson model using the following independent variables: `Age`, `BAplus`, `Ideology`, and `NewsDays`. Report the results and describe the basic substantive findings without calculating predicted or marginal effects. Note: R users should make Ideology a numeric variable starting at 0.  
@@ -190,6 +247,13 @@ poisson_model <- glm(
 poisson_sum <- summary(poisson_model)
 poisson_sum
 ```
+
+-   Age: As a person ages, they are more likely to have a higher count of memberships. This estimate is significant at the .05 level.
+-  BAPlus: Having a BA or more is associated with a higher count of memberships. This estimate is highly significant.  
+-  Ideology: An increased score on the ideology scale (more conservative) is associated with a lower count of memberships. This estimate is significant.  
+-  A higher number of days reported spent watching the news is associated with a higher count of memberships. This estimate is highly significant.  
+
+
 
 #### (c)  
 Using Stata or R, calculate the predicted number of memberships for a person who is 35 years-old, has a college degree, is liberal (1) on the ideology scale, and who watches/reads the news 5 days a week.  
@@ -205,16 +269,20 @@ prediction_1 <- predictions(poisson_model,
 prediction_1
 ```
 
-According to the estimates, a person with these characteristics is predicted to have 1.53
-memberships. This is slightly higher than the overall average number of memberships for the sample.  
+According to the estimates, a person with these characteristics is predicted to have 1.53 memberships. This is slightly higher than the overall average number of memberships for the sample.  
 
 #### (d)  
 By hand, calculate the probability that this person belongs to 2 groups.  
 
-```{r}
-# using r to double check
-dpois(2, prediction_1$estimate)
-```
+$$
+\begin{aligned}
+Pr(y_i = 2) = \frac{e^{-\lambda} \lambda^{y_i}}{y_i!} \\
+Pr(y_i = 2) = \frac{e^{-1.53} 1.53^{2}}{2!} \\
+\end{aligned}
+$$
+
+The probability that the person above belongs to 2 groups is: `r round((exp(-1.53)*(1.53)^2)/factorial(2), 3)`. 
+
 
 #### (e)  
 Run the same model using a negative binomial regression. Using Stata or R, calculate the predicted number of memberships for a person with the same characteristics as those described in part (c). Compare this result to the previous prediction.  
@@ -224,18 +292,25 @@ mod_nbreg <-
   glm.nb(Memberships ~ Age + BAplus + Ideology + NewsDays, 
          data = anes)
 summary(mod_nbreg)
+
+predictions(mod_nbreg, value_list)
 ```
+
+The negative binomial did not change the predicted estimate by very much. The predicted value for the characteristics from the previous question is 1.54.
 
 #### (f)  
 Now estimate the same model using a zero-inflated Poisson regression. In this model, use the variables `Voted2016` and `Health` as variables that predict whether a person is in the "always zero" category. Interpret the substantive meaning and statistical significance of the coefficients on these two variables. Note: R users should treat Health as a numeric variable starting at 0.  
 
 ```{r}
+anes <- anes %>% mutate(Health = as.numeric(Health))
+anes <- anes %>% mutate(Voted2016 = as.numeric(Voted2016))
+
 zip_model <- zeroinfl(Memberships ~ Age + BAplus + Ideology + NewsDays | Voted2016 + Health,
-                      data = anes)
+                      data = anes, dist = 'negbin')
 summary(zip_model)
 ```
 
-The negative coeﬀicient on `Voted2016` and `Health` indicates that people who voted in 2016 and that are in better health are less likely to be in the "always zero" category. Both coefficients are statistically significant.  
+The negative coeﬀicients on `Voted2016` and `Health` indicates that people who voted in 2016 and that are in better health are less likely to be in the "always zero" category (0 memberships). Both coefficients are statistically significant.  
 
 #### (g)  
 Using Stata or R, calculate the predicted number of memberships for a person with the same characteristics as those described in part (c). Assume also that the person voted in 2016 and is in very good health (3).  
@@ -246,16 +321,14 @@ value_list <- data.frame(Age = 35,
                          Ideology = 1,
                          NewsDays = 5,
                          Voted2016 = 1,
-                         Health = factor('Very good', 
-                                         levels = c('Poor', 'Fair', 'Good', 
-                                                    'Very good', 'Excellent')))
+                         Health = 3)
 prediction_2 <- predictions(zip_model,
                             newdata = value_list,
                             type = 'response')
 prediction_2 # %>% t %>% knitr::kable()
 ```
 
-Using the zero-inflated model yields a prediction of 1.71, which is slightly higher than the poisson model.  
+Using the zero-inflated model yields a prediction of 1.59, which is slightly higher than the poisson model.  
 
 #### (h)  
 Now estimate a Hurdle model in which the first stage is a logit and the second stage is a truncated Poisson. In Stata, this will require suest.  
@@ -263,7 +336,7 @@ Now estimate a Hurdle model in which the first stage is a logit and the second s
 ```{r}
 # define model
 hurdle_mod <- hurdle(Memberships ~ Age + BAplus + Ideology + NewsDays | 
-                       Voted2016 + Health,
+                       Voted2016 + Health, dist = 'poisson',
                       data = anes)
 summary(hurdle_mod)
 ```
@@ -279,8 +352,11 @@ hurdle_pred <- predict(hurdle_mod,
 hurdle_pred
 ```
 
-A person with these characteristics is expected to have 1.6 memberships. 
+A person with these characteristics is expected to have 1.42 memberships. 
 
 #### (j)  
 When trying to decide which of these models is most appropriate/best for this scenario, what factors do you consider?  
 
+-  Consider the distribution of the data. If the outcome variable is concentrated in the 0 range, you may not be able to reliably use OLS.  
+-  Consider whether the data represents a situation where there are two classes of outcomes: "always-zero" and cases in which 0 happened.  
+-  Consider whether there is over- or under-dispersion in the number of events The generalized poisson model assumes an equal mean and variance of the distribution. If there is over- or under-dispersion present, one solution is to use a negative binomial distribution model.  
