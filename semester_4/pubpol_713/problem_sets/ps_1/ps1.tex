@@ -1,0 +1,169 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{stata}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Problem Set 1},
+  pdfauthor={Francisco Brady},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Problem Set 1}
+\author{Francisco Brady}
+\date{25 Jan 2025}
+
+\begin{document}
+\maketitle
+
+\begin{stlog}
+. *set graphics off
+. use solis_dataset.dta
+{\smallskip}
+. 
+\end{stlog}
+
+\subsubsection{1. Generate three variables for time period
+1:}\label{generate-three-variables-for-time-period-1}
+
+\paragraph{a. An indicator that flags students scoring above the cutoff
+of
+475}\label{a.-an-indicator-that-flags-students-scoring-above-the-cutoff-of-475}
+
+\begin{stlog}
+. 
+\end{stlog}
+
+\paragraph{b. An indicator for ``pre-selected'' status. Pre-selected
+students are those for whom income quintile is less than
+5}\label{b.-an-indicator-for-pre-selected-status.-pre-selected-students-are-those-for-whom-income-quintile-is-less-than-5}
+
+\paragraph{c.~A running or forcing variable centered at the cutoff score
+of
+475}\label{c.-a-running-or-forcing-variable-centered-at-the-cutoff-score-of-475}
+
+\subsubsection{2. Calculate some descriptive statistics and describe
+what you
+find:}\label{calculate-some-descriptive-statistics-and-describe-what-you-find}
+
+\paragraph{a. For time period 1, how many individuals are
+``pre-selected?'' What proportion of PSU takers are pre-selected? What
+proportion of those scoring below/above the cutoff are
+pre-selected?}\label{a.-for-time-period-1-how-many-individuals-are-pre-selected-what-proportion-of-psu-takers-are-pre-selected-what-proportion-of-those-scoring-belowabove-the-cutoff-are-pre-selected}
+
+\paragraph{b. Summarize and plot the distribution of the forcing
+variable (or of the PSU score) for time period 1. Briefly describe what
+you find. Do you see any evidence of bunching or manipulation around the
+475-point
+threshold?}\label{b.-summarize-and-plot-the-distribution-of-the-forcing-variable-or-of-the-psu-score-for-time-period-1.-briefly-describe-what-you-find.-do-you-see-any-evidence-of-bunching-or-manipulation-around-the-475-point-threshold}
+
+\paragraph{c.~Based on time period 1, calculate the rates of immediate
+enrollment (enrolt1) and ever enrollment (everenroll1) for 3 groups:
+non-pre-selected students and, among pre-selected students, those above
+and below the 475-point PSU cutoff. Do this only for observations that
+have a non-missing value for PSU in time period
+1.}\label{c.-based-on-time-period-1-calculate-the-rates-of-immediate-enrollment-enrolt1-and-ever-enrollment-everenroll1-for-3-groups-non-pre-selected-students-and-among-pre-selected-students-those-above-and-below-the-475-point-psu-cutoff.-do-this-only-for-observations-that-have-a-non-missing-value-for-psu-in-time-period-1.}
+
+\paragraph{d.~Calculate the rate of immediate and ever enrollment for
+all students by family income quintile (again, among those with a value
+for PSU in time period
+1).}\label{d.-calculate-the-rate-of-immediate-and-ever-enrollment-for-all-students-by-family-income-quintile-again-among-those-with-a-value-for-psu-in-time-period-1.}
+
+\subsubsection{3. There are two key assumptions to a regression
+discontinuity analysis: (1) the likelihood of being assigned to the
+treatment varies discontinuously through the cutoff; and (2)
+characteristics that are associated with the outcome of interest change
+smoothly through the cutoff. Present evidence (figures and/or tables) of
+assumption (2) by analyzing the distribution of scores across family
+income quintiles. Briefly discuss your findings. See the bottom panel of
+Figure A1 in the paper for an example. Also discuss any remaining
+sources of bias that your RD analysis cannot rule
+out.}\label{there-are-two-key-assumptions-to-a-regression-discontinuity-analysis-1-the-likelihood-of-being-assigned-to-the-treatment-varies-discontinuously-through-the-cutoff-and-2-characteristics-that-are-associated-with-the-outcome-of-interest-change-smoothly-through-the-cutoff.-present-evidence-figures-andor-tables-of-assumption-2-by-analyzing-the-distribution-of-scores-across-family-income-quintiles.-briefly-discuss-your-findings.-see-the-bottom-panel-of-figure-a1-in-the-paper-for-an-example.-also-discuss-any-remaining-sources-of-bias-that-your-rd-analysis-cannot-rule-out.}
+
+\subsubsection{4. Replicate columns 1 and 2 of Table 3, where the
+outcome is immediate college enrollment. Put these findings in a nice,
+clear table with all necessary information including bandwidth used.
+Briefly explain the relevant coefficient(s) in each
+column.}\label{replicate-columns-1-and-2-of-table-3-where-the-outcome-is-immediate-college-enrollment.-put-these-findings-in-a-nice-clear-table-with-all-necessary-information-including-bandwidth-used.-briefly-explain-the-relevant-coefficients-in-each-column.}
+
+\subsubsection{\texorpdfstring{5. The loan eligibility rule lends itself
+to a ``sharp'' RD specification in the short term. However, the fact
+that individuals may retake the test and become eligible in later years
+introduces some ``fuzziness'' to the treatment assignment. Use a 2SLS RD
+setup where exceeding the threshold in year 1 is an instrument for
+\texttt{everelig1} to replicate Table 4 columns 1 and 2. Report
+first-stage results as well. What do you infer from column 1-2 results?
+Is this consistent with your estimates from question
+4?}{5. The loan eligibility rule lends itself to a ``sharp'' RD specification in the short term. However, the fact that individuals may retake the test and become eligible in later years introduces some ``fuzziness'' to the treatment assignment. Use a 2SLS RD setup where exceeding the threshold in year 1 is an instrument for everelig1 to replicate Table 4 columns 1 and 2. Report first-stage results as well. What do you infer from column 1-2 results? Is this consistent with your estimates from question 4?}}\label{the-loan-eligibility-rule-lends-itself-to-a-sharp-rd-specification-in-the-short-term.-however-the-fact-that-individuals-may-retake-the-test-and-become-eligible-in-later-years-introduces-some-fuzziness-to-the-treatment-assignment.-use-a-2sls-rd-setup-where-exceeding-the-threshold-in-year-1-is-an-instrument-for-everelig1-to-replicate-table-4-columns-1-and-2.-report-first-stage-results-as-well.-what-do-you-infer-from-column-1-2-results-is-this-consistent-with-your-estimates-from-question-4}
+
+\subsubsection{6. One of the nice features of this paper is that the RDD
+findings so clearly show the main result. Create your own version of
+Figure 1. {[}Just to warn you, you almost certainly will NEVER get an RD
+graph that looks this
+clean!{]}}\label{one-of-the-nice-features-of-this-paper-is-that-the-rdd-findings-so-clearly-show-the-main-result.-create-your-own-version-of-figure-1.-just-to-warn-you-you-almost-certainly-will-never-get-an-rd-graph-that-looks-this-clean}
+
+\subsubsection{7. This final question asks you to estimate a series of
+placebo effects to gauge the size of the enrollment discontinuity at a
+score of 475 relative to other discontinuities at irrelevant
+scores.}\label{this-final-question-asks-you-to-estimate-a-series-of-placebo-effects-to-gauge-the-size-of-the-enrollment-discontinuity-at-a-score-of-475-relative-to-other-discontinuities-at-irrelevant-scores.}
+
+\paragraph{\texorpdfstring{a. First, estimate the Table 3 column 1
+specification for every value of \(\tau\) between 431 and 519. That is,
+substitute placebo values of \(\tau\) in the equation (1) term
+\(1(T_i \geq \tau)\). Use a 44-unit bandwidth as in the main results,
+but note that this bandwidth will cover different PSU values in each
+placebo estimate. Store coefficients for the \(1(T_i \geq \tau)\)
+indicator (\(\beta_1\)), and plot the distribution of placebo
+coefficients. Mark where the true effect of \(\tau = 475\) lies in the
+distribution of placebo effects. What share of placebo effects are
+smaller in absolute value than the true
+\(\beta_1\)?}{a. First, estimate the Table 3 column 1 specification for every value of \textbackslash tau between 431 and 519. That is, substitute placebo values of \textbackslash tau in the equation (1) term 1(T\_i \textbackslash geq \textbackslash tau). Use a 44-unit bandwidth as in the main results, but note that this bandwidth will cover different PSU values in each placebo estimate. Store coefficients for the 1(T\_i \textbackslash geq \textbackslash tau) indicator (\textbackslash beta\_1), and plot the distribution of placebo coefficients. Mark where the true effect of \textbackslash tau = 475 lies in the distribution of placebo effects. What share of placebo effects are smaller in absolute value than the true \textbackslash beta\_1?}}\label{a.-first-estimate-the-table-3-column-1-specification-for-every-value-of-tau-between-431-and-519.-that-is-substitute-placebo-values-of-tau-in-the-equation-1-term-1t_i-geq-tau.-use-a-44-unit-bandwidth-as-in-the-main-results-but-note-that-this-bandwidth-will-cover-different-psu-values-in-each-placebo-estimate.-store-coefficients-for-the-1t_i-geq-tau-indicator-beta_1-and-plot-the-distribution-of-placebo-coefficients.-mark-where-the-true-effect-of-tau-475-lies-in-the-distribution-of-placebo-effects.-what-share-of-placebo-effects-are-smaller-in-absolute-value-than-the-true-beta_1}
+
+\paragraph{b. Repeat part 7a, but for the Table 3 column 2
+specification.}\label{b.-repeat-part-7a-but-for-the-table-3-column-2-specification.}
+
+\begin{stlog}
+. 
+\end{stlog}
+
+\end{document}

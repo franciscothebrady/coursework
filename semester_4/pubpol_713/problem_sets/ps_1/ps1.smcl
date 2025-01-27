@@ -1,0 +1,29 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_4/pubpol_713/problem_sets/ps_1/ps1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}25 Jan 2025, 20:07:35
+{txt}
+{com}. //_1
+. display c(current_date)
+{res}25 Jan 2025
+{txt}
+{com}. //_2
+. *set graphics off
+. use solis_dataset.dta
+{txt}
+{com}. 
+. //_3
+. 
+. //_4
+. 
+. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_4/pubpol_713/problem_sets/ps_1/ps1.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}25 Jan 2025, 20:07:35
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Francisco Brady" />
+  <title>Problem Set 1</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Problem Set 1</h1>
+<p class="author">Francisco Brady</p>
+<p class="date">25 Jan 2025</p>
+</header>
+<pre class='stata'>. *set graphics off
+. use solis_dataset.dta
+
+. 
+</pre>
+<h3 id="generate-three-variables-for-time-period-1">1. Generate three
+variables for time period 1:</h3>
+<h4
+id="a.-an-indicator-that-flags-students-scoring-above-the-cutoff-of-475">a.
+An indicator that flags students scoring above the cutoff of 475</h4>
+<pre class='stata'>. 
+</pre>
+<h4
+id="b.-an-indicator-for-pre-selected-status.-pre-selected-students-are-those-for-whom-income-quintile-is-less-than-5">b.
+An indicator for “pre-selected” status. Pre-selected students are those
+for whom income quintile is less than 5</h4>
+<h4
+id="c.-a-running-or-forcing-variable-centered-at-the-cutoff-score-of-475">c. A
+running or forcing variable centered at the cutoff score of 475</h4>
+<h3
+id="calculate-some-descriptive-statistics-and-describe-what-you-find">2.
+Calculate some descriptive statistics and describe what you find:</h3>
+<h4
+id="a.-for-time-period-1-how-many-individuals-are-pre-selected-what-proportion-of-psu-takers-are-pre-selected-what-proportion-of-those-scoring-belowabove-the-cutoff-are-pre-selected">a.
+For time period 1, how many individuals are “pre-selected?” What
+proportion of PSU takers are pre-selected? What proportion of those
+scoring below/above the cutoff are pre-selected?</h4>
+<h4
+id="b.-summarize-and-plot-the-distribution-of-the-forcing-variable-or-of-the-psu-score-for-time-period-1.-briefly-describe-what-you-find.-do-you-see-any-evidence-of-bunching-or-manipulation-around-the-475-point-threshold">b.
+Summarize and plot the distribution of the forcing variable (or of the
+PSU score) for time period 1. Briefly describe what you find. Do you see
+any evidence of bunching or manipulation around the 475-point
+threshold?</h4>
+<h4
+id="c.-based-on-time-period-1-calculate-the-rates-of-immediate-enrollment-enrolt1-and-ever-enrollment-everenroll1-for-3-groups-non-pre-selected-students-and-among-pre-selected-students-those-above-and-below-the-475-point-psu-cutoff.-do-this-only-for-observations-that-have-a-non-missing-value-for-psu-in-time-period-1.">c. Based
+on time period 1, calculate the rates of immediate enrollment (enrolt1)
+and ever enrollment (everenroll1) for 3 groups: non-pre-selected
+students and, among pre-selected students, those above and below the
+475-point PSU cutoff. Do this only for observations that have a
+non-missing value for PSU in time period 1.</h4>
+<h4
+id="d.-calculate-the-rate-of-immediate-and-ever-enrollment-for-all-students-by-family-income-quintile-again-among-those-with-a-value-for-psu-in-time-period-1.">d. Calculate
+the rate of immediate and ever enrollment for all students by family
+income quintile (again, among those with a value for PSU in time period
+1).</h4>
+<h3
+id="there-are-two-key-assumptions-to-a-regression-discontinuity-analysis-1-the-likelihood-of-being-assigned-to-the-treatment-varies-discontinuously-through-the-cutoff-and-2-characteristics-that-are-associated-with-the-outcome-of-interest-change-smoothly-through-the-cutoff.-present-evidence-figures-andor-tables-of-assumption-2-by-analyzing-the-distribution-of-scores-across-family-income-quintiles.-briefly-discuss-your-findings.-see-the-bottom-panel-of-figure-a1-in-the-paper-for-an-example.-also-discuss-any-remaining-sources-of-bias-that-your-rd-analysis-cannot-rule-out.">3.
+There are two key assumptions to a regression discontinuity analysis:
+(1) the likelihood of being assigned to the treatment varies
+discontinuously through the cutoff; and (2) characteristics that are
+associated with the outcome of interest change smoothly through the
+cutoff. Present evidence (figures and/or tables) of assumption (2) by
+analyzing the distribution of scores across family income quintiles.
+Briefly discuss your findings. See the bottom panel of Figure A1 in the
+paper for an example. Also discuss any remaining sources of bias that
+your RD analysis cannot rule out.</h3>
+<h3
+id="replicate-columns-1-and-2-of-table-3-where-the-outcome-is-immediate-college-enrollment.-put-these-findings-in-a-nice-clear-table-with-all-necessary-information-including-bandwidth-used.-briefly-explain-the-relevant-coefficients-in-each-column.">4.
+Replicate columns 1 and 2 of Table 3, where the outcome is immediate
+college enrollment. Put these findings in a nice, clear table with all
+necessary information including bandwidth used. Briefly explain the
+relevant coefficient(s) in each column.</h3>
+<h3
+id="the-loan-eligibility-rule-lends-itself-to-a-sharp-rd-specification-in-the-short-term.-however-the-fact-that-individuals-may-retake-the-test-and-become-eligible-in-later-years-introduces-some-fuzziness-to-the-treatment-assignment.-use-a-2sls-rd-setup-where-exceeding-the-threshold-in-year-1-is-an-instrument-for-everelig1-to-replicate-table-4-columns-1-and-2.-report-first-stage-results-as-well.-what-do-you-infer-from-column-1-2-results-is-this-consistent-with-your-estimates-from-question-4">5.
+The loan eligibility rule lends itself to a “sharp” RD specification in
+the short term. However, the fact that individuals may retake the test
+and become eligible in later years introduces some “fuzziness” to the
+treatment assignment. Use a 2SLS RD setup where exceeding the threshold
+in year 1 is an instrument for <code>everelig1</code> to replicate Table
+4 columns 1 and 2. Report first-stage results as well. What do you infer
+from column 1-2 results? Is this consistent with your estimates from
+question 4?</h3>
+<h3
+id="one-of-the-nice-features-of-this-paper-is-that-the-rdd-findings-so-clearly-show-the-main-result.-create-your-own-version-of-figure-1.-just-to-warn-you-you-almost-certainly-will-never-get-an-rd-graph-that-looks-this-clean">6.
+One of the nice features of this paper is that the RDD findings so
+clearly show the main result. Create your own version of Figure 1. [Just
+to warn you, you almost certainly will NEVER get an RD graph that looks
+this clean!]</h3>
+<h3
+id="this-final-question-asks-you-to-estimate-a-series-of-placebo-effects-to-gauge-the-size-of-the-enrollment-discontinuity-at-a-score-of-475-relative-to-other-discontinuities-at-irrelevant-scores.">7.
+This final question asks you to estimate a series of placebo effects to
+gauge the size of the enrollment discontinuity at a score of 475
+relative to other discontinuities at irrelevant scores.</h3>
+<h4
+id="a.-first-estimate-the-table-3-column-1-specification-for-every-value-of-tau-between-431-and-519.-that-is-substitute-placebo-values-of-tau-in-the-equation-1-term-1t_i-geq-tau.-use-a-44-unit-bandwidth-as-in-the-main-results-but-note-that-this-bandwidth-will-cover-different-psu-values-in-each-placebo-estimate.-store-coefficients-for-the-1t_i-geq-tau-indicator-beta_1-and-plot-the-distribution-of-placebo-coefficients.-mark-where-the-true-effect-of-tau-475-lies-in-the-distribution-of-placebo-effects.-what-share-of-placebo-effects-are-smaller-in-absolute-value-than-the-true-beta_1">a.
+First, estimate the Table 3 column 1 specification for every value of
+<span class="math inline"><em>τ</em></span> between 431 and 519. That
+is, substitute placebo values of <span
+class="math inline"><em>τ</em></span> in the equation (1) term <span
+class="math inline">1(<em>T</em><sub><em>i</em></sub> ≥ <em>τ</em>)</span>.
+Use a 44-unit bandwidth as in the main results, but note that this
+bandwidth will cover different PSU values in each placebo estimate.
+Store coefficients for the <span
+class="math inline">1(<em>T</em><sub><em>i</em></sub> ≥ <em>τ</em>)</span>
+indicator (<span class="math inline"><em>β</em><sub>1</sub></span>), and
+plot the distribution of placebo coefficients. Mark where the true
+effect of <span class="math inline"><em>τ</em> = 475</span> lies in the
+distribution of placebo effects. What share of placebo effects are
+smaller in absolute value than the true <span
+class="math inline"><em>β</em><sub>1</sub></span>?</h4>
+<h4
+id="b.-repeat-part-7a-but-for-the-table-3-column-2-specification.">b.
+Repeat part 7a, but for the Table 3 column 2 specification.</h4>
+<pre class='stata'>. 
+</pre>
+</body>
+</html>

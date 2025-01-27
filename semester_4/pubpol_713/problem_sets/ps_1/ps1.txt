@@ -1,0 +1,21 @@
+---------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /home/francisco/Documents/umich/coursework/semester_4/pu
+> bpol_713/problem_sets/ps_1/ps1.txt
+  log type:  text
+ opened on:  25 Jan 2025, 20:05:30
+
+. *set graphics off
+. use solis_dataset.dta
+
+. 
+. //_3
+. 
+. //_4
+. log close
+      name:  <unnamed>
+       log:  /home/francisco/Documents/umich/coursework/semester_4/pu
+> bpol_713/problem_sets/ps_1/ps1.txt
+  log type:  text
+ closed on:  25 Jan 2025, 20:05:30
+---------------------------------------------------------------------
