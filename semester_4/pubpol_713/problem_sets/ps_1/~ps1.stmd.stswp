@@ -24,7 +24,7 @@ gen pre_selected = (qqt1 < 5) & qqt1 != .
 *replace pre_selected = 0 if qqt1 == .
 *sum psut1
 gen score_centered = psut1 - 475
-*hist score_centered
+hist score_
 ```
 
 
