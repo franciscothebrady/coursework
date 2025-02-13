@@ -1,16 +1,11 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_4/pubpol_713/problem_sets/ps_1/ps1.smcl
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_4/pubpol_713/problem_sets/ps_1/ps_1.txt
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 4 Feb 2025, 00:45:02
+ {txt}opened on:  {res} 4 Feb 2025, 00:31:20
 {txt}
-{com}. //_1
-. display c(current_date)
-{res} 4 Feb 2025
-{txt}
-{com}. //_2
-. clear all
+{com}. clear all
 {res}{txt}
 {com}. set graphics off
 {txt}
@@ -224,20 +219,20 @@ Group variable: qqt1 (Income quintile for year 1)
 {txt}{hline 9}{c BT}{hline 20}
 
 {com}. //_8
-. ttest pre_sel1, by(m475t1)
+. ttest m475presel1, by(m475t1)
 
 {txt}Two-sample t test with equal variances
 {hline 9}{c TT}{hline 68}
    Group{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. err.{col 47}Std. dev.{col 59}[95% conf. interval]
 {hline 9}{c +}{hline 68}
-       0 {c |}{res}{col 12}221,143{col 22} .4294235{col 34} .0010526{col 46}  .494995{col 58} .4273604{col 70} .4314866
-       {txt}1 {c |}{res}{col 12}254,022{col 22} .6489044{col 34}  .000947{col 46} .4773137{col 58} .6470483{col 70} .6507606
+       0 {c |}{res}{col 12}221,143{col 22}        0{col 34}        0{col 46}        0{col 58}        0{col 70}        0
+       {txt}1 {c |}{res}{col 12}254,022{col 22} .5605892{col 34} .0009847{col 46} .4963163{col 58} .5586592{col 70} .5625193
 {txt}{hline 9}{c +}{hline 68}
-Combined {c |}{res}{col 12}475,165{col 22} .5467574{col 34} .0007222{col 46} .4978095{col 58}  .545342{col 70} .5481729
+Combined {c |}{res}{col 12}475,165{col 22} .2996896{col 34} .0006646{col 46} .4581224{col 58}  .298387{col 70} .3009922
 {txt}{hline 9}{c +}{hline 68}
-    diff {c |}{res}{col 22}-.2194809{col 34} .0014124{col 58}-.2222491{col 70}-.2167127
+    diff {c |}{res}{col 22}-.5605892{col 34} .0010554{col 58}-.5626578{col 70}-.5585207
 {txt}{hline 9}{c BT}{hline 68}
-    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}-1.6e+02
+    diff = mean({res}0{txt}) - mean({res}1{txt})                                      t = {res}-5.3e+02
 {txt}H0: diff = 0                                     Degrees of freedom = {res}  475163
 
     {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
@@ -256,12 +251,42 @@ Combined {c |}{res}{col 12}475,165{col 22} .5467574{col 34} .0007222{col 46} .49
 {com}. *graph export psu_income.png
 . //_10
 . * col 1 
-. qui reg enrolt1 m475t1 centered if pre_sel1 == 1 & abs(centered) < 44, r
-{txt}
+. reg enrolt1 m475t1 centered if pre_sel1 == 1 & abs(centered) < 44, r
+
+{txt}Linear regression                               Number of obs     = {res}    84,196
+                                                {txt}F(2, 84193)       =  {res}  4743.62
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0962
+                                                {txt}Root MSE          =    {res} .43816
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     enrolt1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}m475t1 {c |}{col 14}{res}{space 2} .1599404{col 26}{space 2} .0060208{col 37}{space 1}   26.56{col 46}{space 3}0.000{col 54}{space 4} .1481397{col 67}{space 3} .1717411
+{txt}{space 4}centered {c |}{col 14}{res}{space 2}  .002734{col 26}{space 2} .0001195{col 37}{space 1}   22.88{col 46}{space 3}0.000{col 54}{space 4} .0024997{col 67}{space 3} .0029682
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2140795{col 26}{space 2} .0032397{col 37}{space 1}   66.08{col 46}{space 3}0.000{col 54}{space 4} .2077296{col 67}{space 3} .2204294
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
 {com}. eststo presel_linear
 {txt}
-{com}. qui reg enrolt1 m475t1 centered if pre_sel1 == 0 & abs(centered) < 44, r
-{txt}
+{com}. reg enrolt1 m475t1 centered if pre_sel1 == 0 & abs(centered) < 44, r
+
+{txt}Linear regression                               Number of obs     = {res}    61,994
+                                                {txt}F(2, 61991)       =  {res}   515.04
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0173
+                                                {txt}Root MSE          =    {res} .35108
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     enrolt1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}m475t1 {c |}{col 14}{res}{space 2} .0004024{col 26}{space 2} .0056312{col 37}{space 1}    0.07{col 46}{space 3}0.943{col 54}{space 4}-.0106348{col 67}{space 3} .0114395
+{txt}{space 4}centered {c |}{col 14}{res}{space 2} .0018654{col 26}{space 2} .0001128{col 37}{space 1}   16.54{col 46}{space 3}0.000{col 54}{space 4} .0016443{col 67}{space 3} .0020865
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}   .15373{col 26}{space 2} .0032032{col 37}{space 1}   47.99{col 46}{space 3}0.000{col 54}{space 4} .1474517{col 67}{space 3} .1600082
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
 {com}. eststo nonpresel_linear
 {txt}
 {com}. 
@@ -286,12 +311,12 @@ Combined {c |}{res}{col 12}475,165{col 22} .5467574{col 34} .0007222{col 46} .49
 {txt}* p<0.05, ** p<0.01, *** p<0.001
 
 {com}. 
-. //_^
+. //_11
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_4/pubpol_713/problem_sets/ps_1/ps1.smcl
+       {txt}log:  {res}/home/francisco/Documents/umich/coursework/semester_4/pubpol_713/problem_sets/ps_1/ps_1.txt
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 4 Feb 2025, 00:45:34
+ {txt}closed on:  {res} 4 Feb 2025, 00:31:53
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

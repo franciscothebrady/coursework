@@ -212,53 +212,230 @@ table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid bl
 <header id="title-block-header">
 <h1 class="title">Problem Set 1</h1>
 <p class="author">Francisco Brady</p>
-<p class="date">25 Jan 2025</p>
+<p class="date">4 Feb 2025</p>
 </header>
-<pre class='stata'>. *set graphics off
-. use solis_dataset.dta
-
-. 
-</pre>
 <h3 id="generate-three-variables-for-time-period-1">1. Generate three
 variables for time period 1:</h3>
-<h4
-id="a.-an-indicator-that-flags-students-scoring-above-the-cutoff-of-475">a.
-An indicator that flags students scoring above the cutoff of 475</h4>
-<pre class='stata'>. 
+<ol type="a">
+<li>An indicator that flags students scoring above the cutoff of
+475<br />
+</li>
+<li>An indicator for “pre-selected” status. Pre-selected students are
+those for whom income quintile is less than 5<br />
+</li>
+<li>A running or forcing variable centered at the cutoff score of
+475</li>
+</ol>
+<pre class='stata'>. clear all
+
+. set graphics off
+
+. * load data
+. use solis_dataset.dta, clear
+
+. * create threshold crossing variable -- 
+. * based on getting a score greater than 475 on PSE test
+. gen m475t1 = (psut1 >= 475)
+
+. label variable m475t1 "Indicator for scored above cutoff in year 1"
+
+. *tab m475t1
+. * pre-selected -- in 1-4 income quintiles
+. gen pre_sel1 = (qqt1 &lt;= 5 &amp; qqt1 ~= .)
+
+. label variable pre_sel1 "Pre-selected indicator for year 1"
+
+. *tab qqt1 pre_selt1, missing
+. * create centered psu in t1 score 
+. gen centered = psut1 - 475
+
+. *hist centered
+. gen psu_taker1 = ~missing(psut1)
+
+. * tab psu_taker1, missing
 </pre>
-<h4
-id="b.-an-indicator-for-pre-selected-status.-pre-selected-students-are-those-for-whom-income-quintile-is-less-than-5">b.
-An indicator for “pre-selected” status. Pre-selected students are those
-for whom income quintile is less than 5</h4>
-<h4
-id="c.-a-running-or-forcing-variable-centered-at-the-cutoff-score-of-475">c. A
-running or forcing variable centered at the cutoff score of 475</h4>
 <h3
 id="calculate-some-descriptive-statistics-and-describe-what-you-find">2.
 Calculate some descriptive statistics and describe what you find:</h3>
+<pre class='stata'>. tabstat psut1 centered enrolt1 everretakepsu2, statistics(mean sd) columns(statistics) 
+
+    Variable │      Mean        SD
+─────────────┼────────────────────
+       psut1 │  489.5556  105.0928
+    centered │   14.5556  105.0928
+     enrolt1 │  .3432197  .4747846
+everretake~2 │  .2527354  .4345809
+─────────────┴────────────────────
+
+. tab qqt1, missing
+
+     Income │
+   quintile │
+ for year 1 │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          1 │    108,442       22.82       22.82
+          2 │     49,779       10.48       33.30
+          3 │     36,982        7.78       41.08
+          4 │     35,450        7.46       48.54
+          5 │     29,147        6.13       54.68
+          . │    215,365       45.32      100.00
+────────────┼───────────────────────────────────
+      Total │    475,165      100.00
+</pre>
+<p>For the entire sample, the mean PSU score is 489.55. By income
+quintile, over 50% of the sample are in the first and second quintiles,
+with over 45% missing a quintile assignment in year 1. In the overall
+sample, 34% enrolled in college in time period 1.</p>
 <h4
 id="a.-for-time-period-1-how-many-individuals-are-pre-selected-what-proportion-of-psu-takers-are-pre-selected-what-proportion-of-those-scoring-belowabove-the-cutoff-are-pre-selected">a.
 For time period 1, how many individuals are “pre-selected?” What
 proportion of PSU takers are pre-selected? What proportion of those
 scoring below/above the cutoff are pre-selected?</h4>
+<pre class='stata'>. tab pre_sel1 m475t1 
+
+Pre-select │ Indicator for scored
+        ed │ above cutoff in year
+ indicator │           1
+for year 1 │         0          1 │     Total
+───────────┼──────────────────────┼──────────
+         0 │   126,179     89,186 │   215,365 
+         1 │    94,964    164,836 │   259,800 
+───────────┼──────────────────────┼──────────
+     Total │   221,143    254,022 │   475,165 
+</pre>
+<p>259,800 students are pre-selected. 164,836 are preselected and over
+the cutoff.</p>
 <h4
 id="b.-summarize-and-plot-the-distribution-of-the-forcing-variable-or-of-the-psu-score-for-time-period-1.-briefly-describe-what-you-find.-do-you-see-any-evidence-of-bunching-or-manipulation-around-the-475-point-threshold">b.
 Summarize and plot the distribution of the forcing variable (or of the
 PSU score) for time period 1. Briefly describe what you find. Do you see
 any evidence of bunching or manipulation around the 475-point
 threshold?</h4>
+<pre class='stata'>. sum centered
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+    centered │    475,165     14.5556    105.0928     -314.5        375
+
+. hist centered, xline(0) 
+(bin=56, start=-314.5, width=12.3125)
+
+. graph export psu_hist.png, width(500) replace
+file psu_hist.png saved as PNG format
+</pre>
+<p><img src="psu_hist.png" /></p>
+<p>The distribution of scores looks fairly normal.</p>
 <h4
 id="c.-based-on-time-period-1-calculate-the-rates-of-immediate-enrollment-enrolt1-and-ever-enrollment-everenroll1-for-3-groups-non-pre-selected-students-and-among-pre-selected-students-those-above-and-below-the-475-point-psu-cutoff.-do-this-only-for-observations-that-have-a-non-missing-value-for-psu-in-time-period-1.">c. Based
-on time period 1, calculate the rates of immediate enrollment (enrolt1)
-and ever enrollment (everenroll1) for 3 groups: non-pre-selected
-students and, among pre-selected students, those above and below the
-475-point PSU cutoff. Do this only for observations that have a
-non-missing value for PSU in time period 1.</h4>
+on time period 1, calculate the rates of immediate enrollment
+(<code>enrolt1</code>) and ever enrollment (<code>everenroll1</code>)
+for 3 groups: non-pre-selected students and, among pre-selected
+students, those above and below the 475-point PSU cutoff. Do this only
+for observations that have a non-missing value for PSU in time period
+1.</h4>
+<pre class='stata'>. tab enrolt1 if pre_sel1 == 0
+
+Enrolled in │
+ college in │
+        t=1 │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │    167,038       77.56       77.56
+          1 │     48,327       22.44      100.00
+────────────┼───────────────────────────────────
+      Total │    215,365      100.00
+
+. tab everenroll1 if pre_sel1 == 0
+
+       Ever │
+   enrolled │
+       flag │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          0 │    143,016       66.41       66.41
+          1 │     72,349       33.59      100.00
+────────────┼───────────────────────────────────
+      Total │    215,365      100.00
+
+. tab enrolt1 m475t1 if pre_sel1 == 1 &amp; enrolt1 == 1, row
+
+┌────────────────┐
+│ Key            │
+├────────────────┤
+│   frequency    │
+│ row percentage │
+└────────────────┘
+
+           │ Indicator for scored
+  Enrolled │ above cutoff in year
+in college │           1
+    in t=1 │         0          1 │     Total
+───────────┼──────────────────────┼──────────
+         1 │    11,031    103,728 │   114,759 
+           │      9.61      90.39 │    100.00 
+───────────┼──────────────────────┼──────────
+     Total │    11,031    103,728 │   114,759 
+           │      9.61      90.39 │    100.00 
+
+. tab everenroll1 m475t1 if pre_sel1 == 1, row
+
+┌────────────────┐
+│ Key            │
+├────────────────┤
+│   frequency    │
+│ row percentage │
+└────────────────┘
+
+           │ Indicator for scored
+      Ever │ above cutoff in year
+  enrolled │           1
+      flag │         0          1 │     Total
+───────────┼──────────────────────┼──────────
+         0 │    75,283     40,874 │   116,157 
+           │     64.81      35.19 │    100.00 
+───────────┼──────────────────────┼──────────
+         1 │    19,681    123,962 │   143,643 
+           │     13.70      86.30 │    100.00 
+───────────┼──────────────────────┼──────────
+     Total │    94,964    164,836 │   259,800 
+           │     36.55      63.45 │    100.00 
+</pre>
+<p>Non-preselected enrolled in T1: 48,327 (22.4%)<br />
+Non-preselected ever enrolled in T1: 72,349 (33.59%)<br />
+Pre-selected enrolled in T1, below threshold score: 11,031 (9.61%)<br />
+Pre-selected enrolled in T1, above threshold score: 103,728
+(90.39%)<br />
+Pre-selected ever enrolled, below threshold score: 19,681 (13.70%)<br />
+Pre-selected ever enrolled, above threshold score: 123,962 (86.30%)</p>
 <h4
 id="d.-calculate-the-rate-of-immediate-and-ever-enrollment-for-all-students-by-family-income-quintile-again-among-those-with-a-value-for-psu-in-time-period-1.">d. Calculate
 the rate of immediate and ever enrollment for all students by family
 income quintile (again, among those with a value for PSU in time period
 1).</h4>
+<pre class='stata'>. tabstat enrolt1 everenroll1, by(qqt1) statistics(mean sd) columns(variables) 
+
+Summary statistics: Mean, SD
+Group variable: qqt1 (Income quintile for year 1)
+
+    qqt1 │   enrolt1  everen~1
+─────────┼────────────────────
+       1 │  .3525663  .4363715
+         │  .4777713  .4959372
+─────────┼────────────────────
+       2 │  .4570401  .5564997
+         │   .498156  .4968025
+─────────┼────────────────────
+       3 │  .5227138  .6405008
+         │  .4994906  .4798601
+─────────┼────────────────────
+       4 │  .5700987  .7029055
+         │  .4950688   .456985
+─────────┼────────────────────
+       5 │  .4883521  .6866916
+         │  .4998729  .4638466
+─────────┼────────────────────
+   Total │  .4417206  .5528984
+         │  .4965928  .4971948
+─────────┴────────────────────
+</pre>
 <h3
 id="there-are-two-key-assumptions-to-a-regression-discontinuity-analysis-1-the-likelihood-of-being-assigned-to-the-treatment-varies-discontinuously-through-the-cutoff-and-2-characteristics-that-are-associated-with-the-outcome-of-interest-change-smoothly-through-the-cutoff.-present-evidence-figures-andor-tables-of-assumption-2-by-analyzing-the-distribution-of-scores-across-family-income-quintiles.-briefly-discuss-your-findings.-see-the-bottom-panel-of-figure-a1-in-the-paper-for-an-example.-also-discuss-any-remaining-sources-of-bias-that-your-rd-analysis-cannot-rule-out.">3.
 There are two key assumptions to a regression discontinuity analysis:
@@ -270,12 +447,84 @@ analyzing the distribution of scores across family income quintiles.
 Briefly discuss your findings. See the bottom panel of Figure A1 in the
 paper for an example. Also discuss any remaining sources of bias that
 your RD analysis cannot rule out.</h3>
+<p>To show support for the assumption that treatment assigment varies
+through the cutoff, run a t-test across the two groups, above and below
+the score threshold, and whether the student is pre-selected.</p>
+<pre class='stata'>. ttest pre_sel1, by(m475t1)
+
+Two-sample t test with equal variances
+─────────┬────────────────────────────────────────────────────────────────────
+   Group │     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+─────────┼────────────────────────────────────────────────────────────────────
+       0 │ 221,143    .4294235    .0010526     .494995    .4273604    .4314866
+       1 │ 254,022    .6489044     .000947    .4773137    .6470483    .6507606
+─────────┼────────────────────────────────────────────────────────────────────
+Combined │ 475,165    .5467574    .0007222    .4978095     .545342    .5481729
+─────────┼────────────────────────────────────────────────────────────────────
+    diff │           -.2194809    .0014124               -.2222491   -.2167127
+─────────┴────────────────────────────────────────────────────────────────────
+    diff = mean(0) - mean(1)                                      t = -1.6e+02
+H0: diff = 0                                     Degrees of freedom =   475163
+
+    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T &lt; t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
+</pre>
+<pre class='stata'>. twoway  kdensity centered if qqt1==1 || ///
+> kdensity centered if qqt1==2 || ///
+> kdensity centered if qqt1==3 || ///
+> kdensity centered if qqt1==4 || ///
+> kdensity centered if qqt1==5 ||, ///
+> legend(order(1 "q1" 2 "q2" 3 "q3" 4 "q4" 5 "q5")) ///
+> xtitle("PSU Score") xline(0) ///
+> title("Density Plots of PSU Score by Income Quintile") 
+
+. *graph export psu_income.png
+</pre>
+<p><img src="psu_income.png" /></p>
+<p>To address assumption 2, the figure above shows PSU scores by family
+income quintile. Across the eligibility threshold (475, the density is
+smooth for all income quintiles. The continuity across the threshold
+gives us confidence that there is no bunching just above the cutoff by
+different income quintiles, which would be an indication of manipulation
+of the scores.</p>
 <h3
 id="replicate-columns-1-and-2-of-table-3-where-the-outcome-is-immediate-college-enrollment.-put-these-findings-in-a-nice-clear-table-with-all-necessary-information-including-bandwidth-used.-briefly-explain-the-relevant-coefficients-in-each-column.">4.
 Replicate columns 1 and 2 of Table 3, where the outcome is immediate
 college enrollment. Put these findings in a nice, clear table with all
 necessary information including bandwidth used. Briefly explain the
 relevant coefficient(s) in each column.</h3>
+<pre class='stata'>. * col 1 
+. qui reg enrolt1 m475t1 centered if pre_sel1 == 1 &amp; abs(centered) &lt; 44, r
+
+. eststo presel_linear
+
+. qui reg enrolt1 m475t1 centered if pre_sel1 == 0 &amp; abs(centered) &lt; 44, r
+
+. eststo nonpresel_linear
+
+. 
+. esttab
+
+────────────────────────────────────────────
+                      (1)             (2)   
+                  enrolt1         enrolt1   
+────────────────────────────────────────────
+m475t1              0.160***     0.000402   
+                  (26.56)          (0.07)   
+
+centered          0.00273***      0.00187***
+                  (22.88)         (16.54)   
+
+_cons               0.214***        0.154***
+                  (66.08)         (47.99)   
+────────────────────────────────────────────
+N                   84196           61994   
+────────────────────────────────────────────
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+
+. 
+</pre>
 <h3
 id="the-loan-eligibility-rule-lends-itself-to-a-sharp-rd-specification-in-the-short-term.-however-the-fact-that-individuals-may-retake-the-test-and-become-eligible-in-later-years-introduces-some-fuzziness-to-the-treatment-assignment.-use-a-2sls-rd-setup-where-exceeding-the-threshold-in-year-1-is-an-instrument-for-everelig1-to-replicate-table-4-columns-1-and-2.-report-first-stage-results-as-well.-what-do-you-infer-from-column-1-2-results-is-this-consistent-with-your-estimates-from-question-4">5.
 The loan eligibility rule lends itself to a “sharp” RD specification in
@@ -317,7 +566,5 @@ class="math inline"><em>β</em><sub>1</sub></span>?</h4>
 <h4
 id="b.-repeat-part-7a-but-for-the-table-3-column-2-specification.">b.
 Repeat part 7a, but for the Table 3 column 2 specification.</h4>
-<pre class='stata'>. 
-</pre>
 </body>
 </html>

@@ -4,11 +4,6 @@ author: Francisco Brady
 date: "`s c(current_date)`"
 ---
 
-```s
-*set graphics off
-use solis_dataset.dta, clear
-```
-
 ### 1. Generate three variables for time period 1:  
 
 a. An indicator that flags students scoring above the cutoff of 475  
@@ -16,45 +11,293 @@ b. An indicator for "pre-selected" status. Pre-selected students are those for w
 c. A running or forcing variable centered at the cutoff score of 475  
 
 ```s
-gen above_cutoff = (psut1 >= 475)
-* tab above_cutoff
-gen pre_selected = (qqt1 < 5) & qqt1 != .
-*tab pre_selected, missing
-*tab qqt1, missing
-*replace pre_selected = 0 if qqt1 == .
-*sum psut1
-gen score_centered = psut1 - 475
-*hist score_centered
+clear all
+*set graphics off
+* load data
+use solis_dataset.dta, clear
+* create threshold crossing variable -- 
+* based on getting a score greater than 475 on PSE test
+gen m475t1 = (psut1 >= 475)
+label variable m475t1 "Indicator for scored above cutoff in year 1"
+*tab m475t1
+* pre-selected -- in 1-4 income quintiles
+gen pre_sel1 = (qqt1 < 5 & qqt1 ~= .)
+label variable pre_sel1 "Pre-selected indicator for year 1"
+*tab qqt1 pre_selt1, missing
+* create centered psu in t1 score 
+gen centered = psut1 - 475
+*hist centered
+gen psu_taker1 = ~missing(psut1)
+* tab psu_taker1, missing
 ```
 
 
 ### 2. Calculate some descriptive statistics and describe what you find:  
 
+```s
+tabstat psut1 centered enrolt1 everretakepsu2, statistics(mean sd) columns(statistics) 
+tab qqt1, missing
+```
+
+For the entire sample, the mean PSU score is 489.55. By income quintile, over 50% of the sample are in the first and second quintiles, with over 45% missing a quintile assignment in year 1. In the overall sample, 34% enrolled in college in time period 1. 
+
 #### a. For time period 1, how many individuals are "pre-selected?" What proportion of PSU takers are pre-selected? What proportion of those scoring below/above the cutoff are pre-selected?  
+
+```s
+tab pre_sel1 m475t1 
+```
+
+259,800 students are pre-selected. 164,836 are preselected and over the cutoff.  
 
 #### b. Summarize and plot the distribution of the forcing variable (or of the PSU score) for time period 1. Briefly describe what you find. Do you see any evidence of bunching or manipulation around the 475-point threshold?  
 
-#### c. Based on time period 1, calculate the rates of immediate enrollment (enrolt1) and ever enrollment (everenroll1) for 3 groups: non-pre-selected students and, among pre-selected students, those above and below the 475-point PSU cutoff. Do this only for observations that have a non-missing value for PSU in time period 1.  
+```s
+sum centered
+hist centered, xline(0) 
+graph export psu_hist.png, width(500) replace
+```
 
+![](psu_hist.png)  
+
+The distribution of scores looks fairly normal. 
+
+#### c. Based on time period 1, calculate the rates of immediate enrollment (`enrolt1`) and ever enrollment (`everenroll1`) for 3 groups: non-pre-selected students and, among pre-selected students, those above and below the 475-point PSU cutoff. Do this only for observations that have a non-missing value for PSU in time period 1.  
+
+```s
+tab enrolt1 if pre_sel1 == 0
+tab everenroll1 if pre_sel1 == 0
+tab enrolt1 m475t1 if pre_sel1 == 1 & enrolt1 == 1, row
+tab everenroll1 m475t1 if pre_sel1 == 1, row
+```
+
+Non-preselected enrolled in T1: 48,327 (22.4%)  
+Non-preselected ever enrolled in T1:  72,349 (33.59%)  
+Pre-selected enrolled in T1, below threshold score: 11,031 (9.61%)  
+Pre-selected enrolled in T1, above threshold score: 103,728 (90.39%)  
+Pre-selected ever enrolled, below threshold score:  19,681 (13.70%)  
+Pre-selected ever enrolled, above threshold score: 123,962 (86.30%)  
+ 
 #### d. Calculate the rate of immediate and ever enrollment for all students by family income quintile (again, among those with a value for PSU in time period 1).  
 
+```s
+tabstat enrolt1 everenroll1, by(qqt1) statistics(mean sd) columns(variables) 
+```
+
 ### 3. There are two key assumptions to a regression discontinuity analysis: (1) the likelihood of being assigned to the treatment varies discontinuously through the cutoff; and (2) characteristics that are associated with the outcome of interest change smoothly through the cutoff. Present evidence (figures and/or tables) of assumption (2) by analyzing the distribution of scores across family income quintiles. Briefly discuss your findings. See the bottom panel of Figure A1 in the paper for an example. Also discuss any remaining sources of bias that your RD analysis cannot rule out.  
+
+To show support for the assumption that treatment assigment varies through the cutoff, run a t-test across the two groups, above and below the score threshold, and whether the student is pre-selected.
+
+```s
+ttest pre_sel1, by(m475t1)
+```
+
+```s
+twoway  kdensity centered if qqt1==1 || ///
+	kdensity centered if qqt1==2 || ///
+	kdensity centered if qqt1==3 || ///
+	kdensity centered if qqt1==4 || ///
+	kdensity centered if qqt1==5 ||, ///
+	legend(order(1 "q1" 2 "q2" 3 "q3" 4 "q4" 5 "q5")) ///
+	xtitle("PSU Score") xline(0) ///
+	title("Density Plots of PSU Score by Income Quintile") 
+graph export psu_income.png, width(500) replace
+```
+
+![](psu_income.png)  
+
+To address assumption 2, the figure above shows PSU scores by family income quintile. Across the eligibility threshold (475, the density is smooth for all income quintiles. The continuity across the threshold gives us confidence that there is no bunching just above the cutoff by different income quintiles, which would be an indication of manipulation of the scores. 
 
 
 ### 4. Replicate columns 1 and 2 of Table 3, where the outcome is immediate college enrollment. Put these findings in a nice, clear table with all necessary information including bandwidth used. Briefly explain the relevant coefficient(s) in each column.  
 
+```s
+* terms 1:dummy for above 475, 2:distance from threshold (score), 3: dummy*distance interaction
+* col 1:preselected
+qui reg enrolt1 m475t1 centered m475psut1 if pre_sel1 == 1 & abs(centered) <= 44, r
+eststo presel_linear
+* col 2:non-selected
+qui reg enrolt1 m475t1 centered m475psut1 if pre_sel1 == 0 & abs(centered) <= 44, r
+eststo nonsel_linear
+* output table
+esttab, label mtitles("preselected" "nonselected") cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) 
+```
+
 ### 5. The loan eligibility rule lends itself to a "sharp" RD specification in the short term. However, the fact that individuals may retake the test and become eligible in later years introduces some "fuzziness" to the treatment assignment. Use a 2SLS RD setup where exceeding the threshold in year 1 is an instrument for `everelig1` to replicate Table 4 columns 1 and 2. Report first-stage results as well. What do you infer from column 1-2 results? Is this consistent with your estimates from question 4?  
 
+```s
+*reg everelig1 m475t1 if pre_sel1 == 1 & abs(centered) <= 44, rob
+*eststo first_stage 
+reg everelig1 m475t1 m475psut1 centered if abs(centered) <= 44 & pre_sel1 == 1
+eststo first_stage 
+ivregress 2sls everenroll1 (everelig1=m475t1) m475psut1 centered if abs(centered) <= 44 & pre_sel1 == 1, robust first
+eststo iv_pre
+ivregress 2sls everenroll1 (everelig1=m475t1) m475psut1 centered if abs(centered) <= 44 & pre_sel1 == 0, robust first
+eststo iv_non
+esttab first_stage iv_pre iv_non, label mtitles("first stage" "preselected IV" "nonselected IV") cells(b (star fmt(3)) se(par fmt(2))) starlevels(* 0.10 ** 0.05 *** 0.01) legend stats(r2_a r2 N, labels("Adj. R-Squared" "R-Squared" "Observations")) 
+```
+
 ### 6. One of the nice features of this paper is that the RDD findings so clearly show the main result. Create your own version of Figure 1. [Just to warn you, you almost certainly will NEVER get an RD graph that looks this clean!]  
+
+```s
+* preserve data so that you can load it back in easily after the collapse
+preserve 
+* generate bin -- according to fig. 1, PSU for each 2pt bin.
+egen psu_bin = cut(psut1), group(350)
+* generate mean immediate enroll by each bin
+collapse (mean) psu_score = psut1 enroll = enrolt1, by(psu_bin pre_sel1)
+* binned scatter plot -- preselected
+graph twoway (scatter enroll psu_score if pre_sel1 == 1, msymbol(oh)) ///
+	, ylabel( , angle(horizontal)) xline(475 550) ///
+	 xtitle("College Enrollment") ///
+	 ytitle("Enrollment") ///
+         title("College Enrollment for Pre-Selected in t=1")
+	 * export and save
+graph export presel_enroll.png, width(500) replace
+* binned scatter plot -- nonselected
+graph twoway (scatter enroll psu_score if pre_sel1 == 0, msymbol(oh)) ///
+	, ylabel( , angle(horizontal)) xline(475 550) ///
+	 xtitle("College Enrollment") ///
+	 ytitle("Enrollment") ///
+         title("College Enrollment for Non-Selected in t=1")
+* export and save
+graph export nonsel_enroll.png, width(500) replace
+* restore full data 
+restore
+*brows
+```
+
+![](presel_enroll.png)
+
+![](nonsel_enroll.png)
 
 ### 7. This final question asks you to estimate a series of placebo effects to gauge the size of the enrollment discontinuity at a score of 475 relative to other discontinuities at irrelevant scores.  
 
 #### a. First, estimate the Table 3 column 1 specification for every value of $\tau$ between 431 and 519. That is, substitute placebo values of $\tau$ in the equation (1) term $1(T_i \geq \tau)$. Use a 44-unit bandwidth as in the main results, but note that this bandwidth will cover different PSU values in each placebo estimate. Store coefficients for the $1(T_i \geq \tau)$ indicator ($\beta_1$), and plot the distribution of placebo coefficients. Mark where the true effect of $\tau = 475$ lies in the distribution of placebo effects. What share of placebo effects are smaller in absolute value than the true $\beta_1$?  
 
-#### b. Repeat part 7a, but for the Table 3 column 2 specification.  
-
-
-
 ```s
+* note -- umgpt helped with this one a little bit
+* Initialize variables to store results
+capture drop tau
+capture drop coef
+capture drop se
+capture drop lower_bound
+capture drop upper_bound
+gen tau = .
+gen coef = .
+gen se = .
+gen upper_bound = coef + se
+gen lower_bound = coef - se 
+
+* loop through values 
+qui forvalues i = 431/519 {
+    * create threshold
+    gen placebo = (psut1 >= `i')    
+    replace centered = (psut1 - `i')
+    * run for preselected
+    qui reg enrolt1 placebo centered m475psut1 if pre_sel1 == 1 & abs(centered) <= 44, r
+    * Calculate the row index (offset by 430 to start at 1 for tau=431)
+    local row = `i' - 430
+    * store 
+    replace tau = `i' in `row'
+    replace coef = _b[placebo] in `row'
+    replace se = _se[placebo] in `row'
+    replace upper_bound = coef + se
+    replace lower_bound = coef - se
+    drop placebo
+}
+
+* true effect
+*gen m475t1 = (psut1 >= 475)
+replace centered = (psut1 - 475)
+qui reg enrolt1 m475t1 centered m475psut1 if pre_sel1 == 1 & abs(centered) <= 44, r
+scalar true_effect = _b[m475t1]
+
+* Plot distribution of placebo coefficients and highlight the true effect
+twoway (scatter coef tau, mcolor(gray) msymbol(circle)) ///
+       (scatter coef tau if tau == 475, mcolor(red) msymbol(diamond) msize(large)) ///
+       (rcap lower_bound upper_bound tau, lpattern(dash) lcolor(gray)) ///
+       , xline(475, lpattern(dash) lcolor(black)) ///
+       ylabel(, angle(horizontal)) ///
+       xtitle("Placebo tau Values") ///
+       ytitle("Estimated Effect (beta1)") ///
+       legend(order(1 "Placebo Estimates" 2 "True Effect" 3 "Standard Error Bounds")) ///
+       title("Distribution of Placebo Treatment Effects")
+
+graph export placebo_preselected.png, width(500) replace
+* share
+count if abs(coef) < abs(true_effect)
+local smaller_placebos = r(N)
+local total_placebos = 519 - 431 + 1
+
+display "Proportion of placebo effects smaller in absolute value than true effect: " ///
+        (`smaller_placebos' / `total_placebos')
 
 ```
+
+![](placebo_preselected.png)
+
+
+
+#### b. Repeat part 7a, but for the Table 3 column 2 specification.
+
+```s
+* note -- umgpt helped with this one a little bit
+* Initialize variables to store results
+capture drop tau
+capture drop coef
+capture drop se
+capture drop lower_bound
+capture drop upper_bound
+gen tau = .
+gen coef = .
+gen se = .
+gen upper_bound = coef + se
+gen lower_bound = coef - se 
+
+* loop through values 
+qui forvalues i = 431/519 {
+    * create threshold
+    gen placebo = (psut1 >= `i')    
+    replace centered = (psut1 - `i')
+    * run for preselected
+    qui reg enrolt1 placebo centered m475psut1 if pre_sel1 == 0 & abs(centered) <= 44, r
+    * Calculate the row index (offset by 430 to start at 1 for tau=431)
+    local row = `i' - 430
+    * store 
+    replace tau = `i' in `row'
+    replace coef = _b[placebo] in `row'
+    replace se = _se[placebo] in `row'
+    replace upper_bound = coef + se
+    replace lower_bound = coef - se
+    drop placebo
+}
+
+* true effect
+*gen m475t1 = (psut1 >= 475)
+replace centered = (psut1 - 475)
+qui reg enrolt1 m475t1 centered m475psut1 if pre_sel1 == 0 & abs(centered) <= 44, r
+scalar true_effect = _b[m475t1]
+
+* Plot distribution of placebo coefficients and highlight the true effect
+twoway (scatter coef tau, mcolor(gray) msymbol(circle)) ///
+       (scatter coef tau if tau == 475, mcolor(red) msymbol(diamond) msize(large)) ///
+       (rcap lower_bound upper_bound tau, lpattern(dash) lcolor(gray)) ///
+       , xline(475, lpattern(dash) lcolor(black)) ///
+       ylabel(, angle(horizontal)) ///
+       xtitle("Placebo tau Values") ///
+       ytitle("Estimated Effect (beta1)") ///
+       legend(order(1 "Placebo Estimates" 2 "True Effect" 3 "Standard Error Bounds")) ///
+       title("Distribution of Placebo Treatment Effects")
+
+graph export placebo_nonselected.png, width(500) replace
+* share
+count if abs(coef) < abs(true_effect)
+local smaller_placebos = r(N)
+local total_placebos = 519 - 431 + 1
+
+display "Proportion of placebo effects smaller in absolute value than true effect: " ///
+        (`smaller_placebos' / `total_placebos')
+
+```
+
+![](placebo_nonselected.png)
